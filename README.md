@@ -1,0 +1,741 @@
+1. [Instalar bspwm](#Instalar-bspwm)
+2. [Instalar sxhkd](#Instalar%20sxhkd)
+3. [Instalar kitty](#Instalar%20kitty)
+4. [Instalar zsh](#Instalar%20zsh)
+5. [Instalar powerlevel10k](#Instalar%20powerlevel10k)
+6. [Instalar fuentes](#Instalar%20fuentes)
+7. [Instalar powerlevel10k](#Instalar%20powerlevel10k)
+8. [Instalar picom](#Instalar%20picom)
+9. [Instalar batcat y lsd](#Instalar%20batcat%20y%20lsd)
+10. [Instalar feh](#Instalar-feh)
+11. [Instalar polybar](#Instalar%20polybar)
+12. [Instalar imagemagick](#Instalar%20imagemagick)
+13. [Instalar nvim y nvchad](#Instalar%20nvim%20y%20nvchad)
+14. [Instalar fzf](#Instalar%20fzf )
+15. [Instalar i3lock](#Instalar%20i3lock)
+16. [Instalar locate](#Instalar%20locate)
+17. [Instalar rofi](#Instalar%20rofi)
+18. [Burpsuite launcher](#Burpsuite%20launcher)
+
+## Instalar bspwm
+[bspwm](https://github.com/baskerville/bspwm)
+
+```shell
+sudo apt install libxcb-xinerama0-dev libxcb-icccm4-dev libxcb-randr0-dev libxcb-util0-dev libxcb-ewmh-dev libxcb-keysyms1-dev libxcb-shape0-dev -y
+```
+
+En la carpeta `Downloads` clonar los repositorios de **bspwm** y **sxhkd**
+
+```shell
+cd ~/Downloads
+git clone https://github.com/baskerville/bspwm.git
+git clone https://github.com/baskerville/sxhkd.git
+cd ~/Downloads/bspwm
+make
+sudo make install
+which bspwm
+```
+## Instalar sxhkd
+[sxhkd](https://github.com/baskerville/sxhkd)
+
+```shell
+cd ~/Downloads/sxhkd
+make
+sudo make install
+which sxhkd
+```
+
+Crear archivos de configuración de `bspwm` y `sxhkd`
+
+```shell
+mkdir ~/.config/{bspwm,sxhkd}
+cp ~/Downloads/bspwm/examples/bspwmrc ~/.config/bspwm/
+chmod u+x ~/.config/bspwm/bspwmrc
+sudo apt install bspwm -y
+cp ~/Downloads/bspwm/examples/sxhkdrc ~/.config/sxhkd/
+```
+
+Modificar las siguientes líneas del archivo `~/.config/sxhkd/sxhkdrc`
+
+```shell
+vi ~/.config/sxhkd/sxhkdrc
+```
+
+```shell
+# focus the node in the given direction
+super + {_,shift + }{Left,Down,Up,Right}
+    bspc node -{f,s} {west,south,north,east}
+
+# preselect the direction
+super + ctrl + alt + {Left,Down,Up,Right}
+    bspc node -p {west,south,north,east}
+
+# move a floating window
+super + alt + shift + {Left,Down,Up,Right}
+    bspc node -v {-20 0,0 20,0 -20,20 0}
+
+# custom resize
+super + alt + {Left,Down,Up,Right}
+    /home/biff/.config/bspwm/scripts/bspwm_resize {west,south,north,east}
+```
+
+Eliminar las siguientes líneas del archivo `~/.config/sxhkd/sxhkdrc`
+
+```shell
+# expand a window by moving one of its side outward
+super + alt + {h,j,k,l}
+    bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
+
+# contract a window by moving one of its side inward
+super + alt + shift + {h,j,k,l}
+    bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
+```
+
+Crear el script `~/.config/bspwm/scripts/bspwm_resize`
+
+```shell
+mkdir ~/.config/bspwm/scripts
+touch ~/.config/bspwm/scripts/bspwm_resize
+chmod +x ~/.config/bspwm/scripts/bspwm_resize
+```
+
+Agregarle el siguiente contenido al archivo `~/.config/bspwm/scripts/bspwm_resize`
+
+```shell
+vi ~/.config/bspwm/scripts/bspwm_resize
+```
+
+```shell
+#!/usr/bin/env dash
+
+if bspc query -N -n focused.floating > /dev/null; then
+	step=20
+else
+	step=100
+fi
+
+case "$1" in
+	west) dir=right; falldir=left; x="-$step"; y=0;;
+	east) dir=right; falldir=left; x="$step"; y=0;;
+	north) dir=top; falldir=bottom; x=0; y="-$step";;
+	south) dir=top; falldir=bottom; x=0; y="$step";;
+esac
+
+bspc node -z "$dir" "$x" "$y" || bspc node -z "$falldir" "$x" "$y"
+```
+
+Para poder copiar de manera bidireccional entre la máquina host y la máquina virtual, agregar la siguiente línea al archivo `~/.config/bspwm/bspwmrc`
+
+```shell
+vi ~/.config/bspwm/bspwmrc
+```
+
+```shell
+vmware-user-suid-wrapper &
+```
+
+Agregar el siguiente bind para abrir `firefox` al archivo `~/.config/sxhkd/sxhkdrc`
+
+```shell
+vi ~/.config/sxhkd/sxhkdrc
+```
+
+```shell
+# open firefox
+super + shift + f
+    /usr/bin/firefox
+```
+
+Para que Firefox resuelva los dominios de `htb`
+
+```
+about:config
+browser.fixup.domainsuffixwhitelist.htb
+```
+## Instalar kitty
+[kitty](https://github.com/kovidgoyal/kitty)
+
+```shell
+sudo mkdir /opt/kitty
+sudo wget -P ~/Downloads https://github.com/kovidgoyal/kitty/releases/download/v0.34.1/kitty-0.34.1-x86_64.txz
+mkdir ~/Downloads/kitty
+sudo tar -xf ~/Downloads/kitty-0.34.1-x86_64.txz -C ~/Downloads/kitty
+sudo rm -rf ~/Downloads/kitty-0.34.1-x86_64.txz
+sudo mv ~/Downloads/kitty/ /opt/
+```
+
+Modificar las siguientes líneas al archivo `~/.config/sxhkd/sxhkdrc`
+
+```shell
+vi ~/.config/sxhkd/sxhkdrc
+```
+
+```shell
+# terminal emulator
+super + Return
+	/opt/kitty/bin/kitty
+```
+
+Crear el archivo `~/.config/kitty/kitty.conf` y agregarle el siguiente contenido
+
+```shell
+mkdir ~/.config/kitty
+touch ~/.config/kitty/kitty.conf
+vi ~/.config/kitty/kitty.conf
+```
+
+```shell
+font_family HackNerdFont
+cursor_shape beam
+
+map ctrl+left neighboring_window left
+map ctrl+right neighboring_window right
+map ctrl+up neighboring_window up
+map ctrl+down neighboring_window down
+
+map ctrl+shift+enter new_window_with_cwd
+map ctrl+shift+t new_tab_with_cwd
+
+map f1 copy_to_buffer a
+map f2 paste_from_buffer a
+map f3 copy_to_buffer b
+map f4 paste_from_buffer b
+
+map ctrl+shift+z toggle_layout stack
+tab_bar_style powerline
+
+inactive_tab_background #e06c75
+active_tab_background #98c379
+inactive_tab_foreground #000000
+tab_bar_margin_color black
+
+background_opacity 0.95
+```
+
+```shell
+sudo mkdir -p /root/.config/kitty
+sudo cp ~/.config/kitty/* /root/.config/kitty
+kitten themes
+```
+## Instalar zsh
+```shell
+sudo apt install zsh -y
+sudo apt install zsh-autocomplete zsh-autosuggestions zsh-syntax-highlighting
+ls -l /usr/share/ | grep zsh
+sudo usermod --shell /usr/bin/zsh biff
+sudo usermod --shell /usr/bin/zsh root
+cat /etc/passwd | grep -E "^root|^biff"
+```
+
+Agregar la siguiente línea al archivo `~/.config/kitty/kitty.conf`
+
+```shell
+vi ~/.config/kitty/kitty.conf
+```
+
+```shell
+shell zsh
+```
+## Instalar fuentes
+[Nerd Fonts](https://www.nerdfonts.com/font-downloads)
+
+```shell
+sudo wget -P /usr/local/share/fonts https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/Hack.zip
+sudo 7z x /usr/local/share/fonts/Hack.zip -o/usr/local/share/fonts
+sudo rm -rf /usr/local/share/fonts/Hack.zip /usr/local/share/fonts/README.md /usr/local/share/fonts/LICENSE.md
+
+cd ~/Downloads
+git clone https://github.com/VaughnValle/blue-sky.git
+sudo cp blue-sky/polybar/fonts/* /usr/share/fonts/truetype
+sudo fc-cache -v
+rm -rf ~/Downloads/blue-sky
+```
+## Instalar powerlevel10k
+[powerlevel10k](https://github.com/romkatv/powerlevel10k)
+
+```shell
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
+echo 'source /home/biff/powerlevel10k/powerlevel10k.zsh-theme' >> ~/.zshrc
+```
+
+Configurar la `zsh` tanto para el usuario no privilegiado como para `root`
+
+```shell
+zsh
+```
+
+| Configuración              | Opción |
+| -------------------------- | ------ |
+| Prompt Style               | 2      |
+| Character Set              | 1      |
+| Prompt Color               | 2      |
+| Show current time?         | n      |
+| Prompt Separators          | 1      |
+| Prompt Heads               | 3      |
+| Prompt Tails               | 4      |
+| Prompt Height              | 1      |
+| Prompt Spacing             | 2      |
+| Icons                      | 2      |
+| Prompt Flow                | 2      |
+| Enable Transient Prompt?   | y      |
+| Instant Prompt Mode        | 1      |
+| Apply changes to ~/.zshrc? | y      |
+
+```shell
+sudo ln -s -f ~/.zshrc /root/.zshrc
+sudo compaudit
+chown root:root /usr/local/share/zsh/site-functions/_bspc
+```
+
+Modificar el archivo `~/.zshrc` y agregar las siguientes líneas
+
+```shell
+vi ~/.zshrc
+```
+
+```shell
+# Fix Java issue  
+export _JAVA_AWT_WM_NONREPARENTING=1
+
+# ZSH AutoSuggestions Plugin
+if [ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
+    source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+fi
+
+# ZSH Syntax Highlighting Plugin
+if [ -f /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
+    source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
+
+# ZSH AutoComplete Plugin
+if [ -f /usr/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh ]; then
+    source /usr/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+fi
+
+# History
+HISTFILE=$HOME/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+setopt histignorealldups sharehistory
+
+# Custom Aliases
+# bat
+alias cat='bat'
+alias catn='bat --style=plain'
+alias catnp='bat --style=plain --paging=never'
+
+# ls
+alias ll='lsd -lh --group-dirs=first'
+alias la='lsd -a --group-dirs=first'
+alias l='lsd --group-dirs=first'
+alias lla='lsd -lha --group-dirs=first'
+alias ls='lsd --group-dirs=first'
+
+# burpsuite
+alias bs='/usr/bin/burpsuite 2>/dev/null & disown'
+alias bsp='/usr/local/bin/BurpSuitePro 2>/dev/null & disown'
+
+xset r rate 250 25
+```
+
+Modificar el archivo `~/.p10k.zsh` tanto para el usuario no privilegiado como para root comentando los plugins de la derecha de la zsh que no se quiere que aparezcan y agregar al lado izquierdo los que si se quiere que aparezcan
+
+```shell
+vi ~/.p10k.zsh
+```
+
+```shell
+context
+command_execution_time
+status
+
+typeset -g POWERLEVEL9K_CONTEXT_ROOT_TEMPLATE='<fire-icon>'
+typeset -g POWERLEVEL9K_CONTEXT_PREFIX=''
+
+typeset -g POWERLEVEL9K_DIR_ANCHOR_BOLD=false
+typeset -g POWERLEVEL9K_OS_ICON_CONTENT_EXPANSION=''
+```
+## Instalar picom
+[picom](https://github.com/yshui/picom)
+
+```shell
+sudo apt install libconfig-dev libdbus-1-dev libegl-dev libev-dev libgl-dev libepoxy-dev libpcre2-dev libpixman-1-dev libx11-xcb-dev libxcb1-dev libxcb-composite0-dev libxcb-damage0-dev libxcb-dpms0-dev libxcb-glx0-dev libxcb-image0-dev libxcb-present-dev libxcb-randr0-dev libxcb-render0-dev libxcb-render-util0-dev libxcb-shape0-dev libxcb-util-dev libxcb-xfixes0-dev libxext-dev meson ninja-build uthash-dev -y
+cd ~/Downloads
+git clone https://github.com/yshui/picom
+cd picom
+meson setup --buildtype=release build
+ninja -C build
+sudo ninja -C build install
+rm -rf picom
+which picom
+mkdir ~/.config/picom
+touch ~/.config/picom/picom.conf
+```
+
+Copiar el contenido del archivo [picom.sample.conf](https://raw.githubusercontent.com/yshui/picom/next/picom.sample.conf) al archivo `~/.config/picom/picom.conf`
+
+```shell
+vi ~/.config/picom/picom.conf
+```
+
+Agregar al archivo `~/.config/bspwm/bspwmrc` la línea `picom &`
+
+```shell
+vi ~/.config/bspwm/bspwmrc
+```
+
+```shell
+picom &
+```
+## Instalar batcat y lsd
+[batcat](https://github.com/sharkdp/bat)
+[lsd](https://github.com/lsd-rs/lsd)
+
+```shell
+wget -P ~/Downloads https://github.com/sharkdp/bat/releases/download/v0.24.0/bat_0.24.0_amd64.deb
+wget -P ~/Downloads https://github.com/lsd-rs/lsd/releases/download/v1.1.2/lsd_1.1.2_amd64.deb
+sudo dpkg -i ~/Downloads/bat_0.24.0_amd64.deb
+sudo dpkg -i ~/Downloads/lsd_1.1.2_amd64.deb
+rm ~/Downloads/bat_0.24.0_amd64.deb ~/Downloads/lsd_1.1.2_amd64.deb
+```
+## Instalar feh
+[feh](https://github.com/derf/feh)
+
+```shell
+sudo apt install feh -y
+```
+
+Editar el archivo `~/.config/bspwm/bspwmrc`
+
+```shell
+vi ~/.config/bspwm/bspwmrc
+```
+
+```shell
+/usr/bin/feh --bg-center $HOME/Pictures/<wallpaper-name>.<extension>
+```
+## Instalar polybar
+[polybar](https://github.com/polybar/polybar)
+
+```shell
+sudo apt install polybar -y
+echo '$HOME/.config/polybar/./launch.sh &' >> ~/.config/bspwm/bspwmrc
+```
+
+En el archivo `~/.config/polybar/launch.sh` agregar las siguientes líneas
+
+```shell
+vi ~/.config/polybar/launch.sh
+```
+
+```shell
+#!/bin/bash
+
+killall -q polybar
+
+polybar main -c ~/.config/polybar/config.ini
+```
+
+```shell
+touch ~/.config/bspwm/scripts/{ethernet_status.sh,vpn_status.sh,target_to_hack.sh}
+chmod +x ~/.config/bspwm/scripts/{ethernet_status.sh,vpn_status.sh,target_to_hack.sh}
+```
+
+Agregar al archivo `~/.config/bspwm/scripts/ethernet_status.sh` el siguiente contenido
+
+```shell
+vi ~/.config/bspwm/scripts/ethernet_status.sh
+```
+
+```shell
+#!/bin/sh
+
+echo " %{F#fff}$(/usr/sbin/ifconfig ens33 | grep "inet " | awk '{print $2}')"
+```
+
+Agregar al archivo `~/.config/bspwm/scripts/vpn_status.sh` el siguiente contenido
+
+```shell
+vi ~/.config/bspwm/scripts/vpn_status.sh
+```
+
+```shell
+#!/bin/sh
+
+IFACE=$(/usr/sbin/ifconfig | grep tun0 | awk '{print $1}' | tr -d ':')
+
+if [ "$IFACE" = "tun0" ]; then
+    echo " %{F#fff}$(/usr/sbin/ifconfig tun0 | grep "inet " | awk '{print $2}')"
+else
+  echo " %{F#fff}Disconnected"
+fi
+```
+
+Agregar al archivo `~/.config/bspwm/scripts/target_to_hack.sh` el siguiente contenido
+
+```shell
+vi ~/.config/bspwm/scripts/target_to_hack.sh
+```
+
+```shell
+#!/bin/bash
+
+ip_address=$(/bin/cat /home/biff/.config/bin/target | awk '{print $1}')
+machine_name=$(/bin/cat /home/biff/.config/bin/target | awk '{print $2}')
+
+if [ $ip_address ] && [ $machine_name ]; then
+    echo "%{F#fff}$ip_address%{u-} - $machine_name"
+else
+    echo "%{u-}%{F#fff} No target"
+fi
+```
+
+Crear el archivo `~/.config/bin/target`
+
+```shell
+mkdir ~/.config/bin
+touch ~/.config/bin/target
+```
+
+Agregar al archivo `~/.config/polybar/current.ini` las siguientes líneas
+
+```shell
+vi ~/.config/polybar/config.ini
+```
+
+```shell
+[bar/main]
+width = 98%
+height = 40
+offset-x = 1%
+offset-y = 1%
+margin-bottom = 0
+background = #00000000
+module-margin = 5pt
+modules-left = ethernet_status vpn_status
+modules-center = workspaces
+modules-right = target_to_hack
+padding = 20px
+font-0 = "Hack Nerd Font Mono:style=regular:size=10;1"
+font-1 = "Hack Nerd Font Mono:style=regular:size=16;2"
+font-2 = "Hack Nerd Font Mono:style=regular:size=18;2"
+font-3 = "Hack Nerd Font Mono:style=regular:size=20;4"
+
+[module/ethernet_status]
+type = custom/script
+exec = /home/biff/.config/bspwm/scripts/ethernet_status.sh
+interval = 2
+format-prefix = "󰈀"
+format-prefix-foreground = #2494e7
+format-prefix-font = 2
+
+[module/vpn_status]
+type = custom/script
+exec = /home/biff/.config/bspwm/scripts/vpn_status.sh
+interval = 2
+format-prefix = "󰆧"
+format-prefix-foreground = #1bbf3e
+format-prefix-font = 2
+
+[module/workspaces]
+type = internal/xworkspaces
+icon-default = 
+format = <label-state>
+format-font = 3
+label-active = 󱓇
+label-active-foreground = #1bbf3e
+label-active-padding = 5px
+label-active-font = 4
+label-occupied = %icon%
+label-occupied-foreground = #ffff00
+label-occupied-padding = 5px
+label-occupied-font = 2
+label-urgent = %icon%
+label-urgent-foreground = #e51d0b
+label-urgent-padding = 5px
+label-empty = %icon%
+label-empty-foreground = #a1a1a1
+label-empty-padding = 5px
+label-empty-font = 2
+
+[module/target_to_hack]
+type = custom/script
+exec = /home/biff/.config/bspwm/scripts/target_to_hack.sh
+interval = 2
+format-prefix = "󰓾"
+format-prefix-foreground = #e51d0b
+format-prefix-font = 2
+```
+## Instalar imagemagick
+[imagemagick](https://github.com/ImageMagick/ImageMagick)
+
+```shell
+sudo apt install imagemagick -y
+```
+
+Agregar al archivo `~/.config/bspwm/bspwmrc` la siguiente línea para las aplicaciones JAVA
+
+```shell
+vi ~/.config/bspwm/bspwmrc
+```
+
+```shell
+wmname LG3D &
+```
+# Instalar nvim y nvchad
+[nvchad](https://github.com/NvChad/NvChad)
+https://nvchad.com/docs/quickstart/install/
+[nvim](https://github.com/neovim/neovim)
+
+```shell
+git clone https://github.com/NvChad/starter ~/.config/nvim
+wget -P ~/Downloads https://github.com/neovim/neovim/releases/download/v0.10.0/nvim-linux64.tar.gz
+sudo mkdir /opt/nvim
+sudo mv ~/Downloads/nvim-linux64.tar.gz /opt/nvim
+sudo tar -xf /opt/nvim/nvim-linux64.tar.gz -C /opt/nvim
+sudo rm /opt/nvim/nvim-linux64.tar.gz
+```
+
+Agregar al `PATH` que está en el archivo `~/.zshrc` la ruta `/opt/nvim/nvim-linux64/bin`
+
+```shell
+vi ~/.zshrc
+```
+
+```shell
+export PATH=/opt/nvim/nvim-linux64/bin:$PATH
+```
+
+Ejecutar los siguientes comandos para finalizar la instación de `nvim`
+
+```shell
+source .zshrc
+nvim
+```
+
+Agregar la siguiente línea al archivo `~/.config/nvim/init.lua` para eliminar el signo dolar/peso `$` en `nvim`
+
+```shell
+nvim ~/.config/nvim/init.lua
+```
+
+```shell
+vim.opt.listchars = "tab:»·,trail:·"
+```
+
+Agregar la línea `transparency = true` al archivo `~/.config/nvim/lua/chadrc.lua` para agregarle transparencia
+
+```shell
+nvim ~/.config/nvim/lua/chadrc.lua
+```
+
+Debería quedar así
+
+```shell
+M.ui = {
+»·theme = "onedark",
+  transparency = true
+»
+»·-- hl_override = {
+»·-- »Comment = { italic = true },
+»·-- »["@comment"] = { italic = true },
+»·-- },
+}
+```
+
+Ejecutar el siguiente comando en nvim `:MasonInstallAll`
+
+```shell
+nvim
+```
+
+```shell
+:MasonInstallAll
+```
+
+Ejecutar los siguientes comandos para que el usuario `root` también tenga la misma configuración para `nvim`
+
+```shell
+sudo mkdir /root/.config/nvim
+sudo cp -r ~/.config/nvim/* /root/.config/nvim
+sudo su
+nvim
+```
+
+Ejecutar el siguiente comando como `root` en nvim `:MasonInstallAll`
+
+```shell
+nvim
+```
+
+```shell
+:MasonInstallAll
+```
+## Instalar fzf 
+[fzf](https://github.com/junegunn/fzf)
+Instalar `fzf` tanto como usuario no privilegiado como `root`
+
+```shell
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+~/.fzf/install
+```
+## Instalar i3lock
+```shell
+sudo apt install i3lock -y
+sudo su
+cd /opt
+git clone https://github.com/meskarune/i3lock-fancy.git
+cd i3lock-fancy
+sudo make install
+```
+## Instalar locate
+```shell
+sudo apt install locate
+sudo updatedb
+```
+
+Agregar al path la ruta `/usr/sbin`
+
+```shell
+export PATH=/usr/sbin:$PATH
+```
+## Instalar rofi
+```shell
+sudo apt install rofi
+mkdir $HOME/.config/rofi/themes
+sudo git clone https://github.com/newmanls/rofi-themes-collection /opt/rofi-themes-collection
+sudo cp /opt/rofi-themes-collection/themes $HOME/.config/rofi/themes
+```
+
+Modificar el archivo `$HOME/.config/sxhkd/sxhkdrc`
+
+```shell
+nvim $HOME/.config/sxhkd/sxhkdrc
+```
+
+```
+# program launcher
+super + d
+    /usr/bin/rofi -show run
+```
+## Burpsuite launcher
+```shell
+sudo touch /usr/bin/burpsuite-launcher
+sudo chmod +x /usr/bin/burpsuite-launcher
+```
+
+Agregar al archivo `/usr/bin/burpsuite-launcher` las siguientes líneas
+
+```shell
+sudo su
+nvim /usr/bin/burpsuite-launcher
+```
+
+```shell
+#!/bin/bash
+
+export _JAVA_AWT_WM_NONREPARENTING=1
+wmname LG3D &
+
+/usr/bin/burpsuite
+```
