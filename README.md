@@ -1,3 +1,5 @@
+# Personalización de Linux
+
 1. [Instalar bspwm](#Instalar-bspwm)
 2. [Instalar sxhkd](#Instalar-sxhkd)
 3. [Instalar kitty](#Instalar-kitty)
