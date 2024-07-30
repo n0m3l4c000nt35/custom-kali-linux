@@ -4,8 +4,8 @@
 2. [Instalar sxhkd](#Instalar-sxhkd)
 3. [Instalar kitty](#Instalar-kitty)
 4. [Instalar zsh](#Instalar-zsh)
-5. [Instalar powerlevel10k](#Instalar-powerlevel10k)
-6. [Instalar fuentes](#Instalar-fuentes)
+5. [Instalar fuentes](#Instalar-fuentes)
+6. [Instalar powerlevel10k](#Instalar-powerlevel10k)
 8. [Instalar picom](#Instalar-picom)
 9. [Instalar batcat y lsd](#Instalar-batcat-y-lsd)
 10. [Instalar feh](#Instalar-feh)
@@ -75,7 +75,7 @@ super + alt + shift + {Left,Down,Up,Right}
 
 # custom resize
 super + alt + {Left,Down,Up,Right}
-    /home/biff/.config/bspwm/scripts/bspwm_resize {west,south,north,east}
+    ~/.config/bspwm/scripts/bspwm_resize {west,south,north,east}
 ```
 
 Eliminar las siguientes líneas del archivo `~/.config/sxhkd/sxhkdrc`
@@ -147,9 +147,9 @@ super + shift + f
 
 Para que Firefox resuelva los dominios de `hack the box` ingresar en la barra de navegación `about:config`, ingresar `browser.fixup.domainsuffixwhitelist.htb` y ponerlo en `true`
 ## Instalar kitty
-[kitty](https://github.com/kovidgoyal/kitty)
+[Repositorio de kitty](https://github.com/kovidgoyal/kitty)
 
-```shell
+```bash
 sudo mkdir /opt/kitty
 sudo wget -P ~/Downloads https://github.com/kovidgoyal/kitty/releases/download/v0.34.1/kitty-0.34.1-x86_64.txz
 mkdir ~/Downloads/kitty
@@ -160,11 +160,11 @@ sudo mv ~/Downloads/kitty/ /opt/
 
 Modificar las siguientes líneas al archivo `~/.config/sxhkd/sxhkdrc`
 
-```shell
+```bash
 vi ~/.config/sxhkd/sxhkdrc
 ```
 
-```shell
+```bash
 # terminal emulator
 super + Return
 	/opt/kitty/bin/kitty
@@ -172,13 +172,13 @@ super + Return
 
 Crear el archivo `~/.config/kitty/kitty.conf` y agregarle el siguiente contenido
 
-```shell
+```bash
 mkdir ~/.config/kitty
 touch ~/.config/kitty/kitty.conf
 vi ~/.config/kitty/kitty.conf
 ```
 
-```shell
+```bash
 font_family HackNerdFont
 cursor_shape beam
 
@@ -206,15 +206,20 @@ tab_bar_margin_color black
 background_opacity 0.95
 ```
 
-```shell
+```bash
 sudo mkdir -p /root/.config/kitty
 sudo cp ~/.config/kitty/* /root/.config/kitty
+```
+
+Seleccionar el tema de kitty
+
+```bash
 kitten themes
 ```
 ## Instalar zsh
 ```shell
 sudo apt install zsh -y
-sudo apt install zsh-autocomplete zsh-autosuggestions zsh-syntax-highlighting
+sudo apt install zsh-autosuggestions zsh-syntax-highlighting
 ls -l /usr/share/ | grep zsh
 sudo usermod --shell /usr/bin/zsh biff
 sudo usermod --shell /usr/bin/zsh root
@@ -245,11 +250,11 @@ sudo fc-cache -v
 rm -rf ~/Downloads/blue-sky
 ```
 ## Instalar powerlevel10k
-[powerlevel10k](https://github.com/romkatv/powerlevel10k)
+[Repositorio de powerlevel10k](https://github.com/romkatv/powerlevel10k)
 
 ```shell
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
-echo 'source /home/biff/powerlevel10k/powerlevel10k.zsh-theme' >> ~/.zshrc
+echo 'source ~/powerlevel10k/powerlevel10k.zsh-theme' >> ~/.zshrc
 ```
 
 Configurar la `zsh` tanto para el usuario no privilegiado como para `root`
@@ -301,11 +306,6 @@ if [ -f /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
     source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
 
-# ZSH AutoComplete Plugin
-if [ -f /usr/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh ]; then
-    source /usr/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
-fi
-
 # History
 HISTFILE=$HOME/.zsh_history
 HISTSIZE=10000
@@ -327,7 +327,6 @@ alias ls='lsd --group-dirs=first'
 
 # burpsuite
 alias bs='/usr/bin/burpsuite 2>/dev/null & disown'
-alias bsp='/usr/local/bin/BurpSuitePro 2>/dev/null & disown'
 
 xset r rate 250 25
 ```
@@ -350,7 +349,7 @@ typeset -g POWERLEVEL9K_DIR_ANCHOR_BOLD=false
 typeset -g POWERLEVEL9K_OS_ICON_CONTENT_EXPANSION=''
 ```
 ## Instalar picom
-[picom](https://github.com/yshui/picom)
+[Repositorio de picom](https://github.com/yshui/picom)
 
 ```shell
 sudo apt install libconfig-dev libdbus-1-dev libegl-dev libev-dev libgl-dev libepoxy-dev libpcre2-dev libpixman-1-dev libx11-xcb-dev libxcb1-dev libxcb-composite0-dev libxcb-damage0-dev libxcb-dpms0-dev libxcb-glx0-dev libxcb-image0-dev libxcb-present-dev libxcb-randr0-dev libxcb-render0-dev libxcb-render-util0-dev libxcb-shape0-dev libxcb-util-dev libxcb-xfixes0-dev libxext-dev meson ninja-build uthash-dev -y
@@ -382,8 +381,8 @@ vi ~/.config/bspwm/bspwmrc
 picom &
 ```
 ## Instalar batcat y lsd
-[batcat](https://github.com/sharkdp/bat)
-[lsd](https://github.com/lsd-rs/lsd)
+[Repositorio de batcat](https://github.com/sharkdp/bat)
+[Repositorio de lsd](https://github.com/lsd-rs/lsd)
 
 ```shell
 wget -P ~/Downloads https://github.com/sharkdp/bat/releases/download/v0.24.0/bat_0.24.0_amd64.deb
@@ -393,7 +392,7 @@ sudo dpkg -i ~/Downloads/lsd_1.1.2_amd64.deb
 rm ~/Downloads/bat_0.24.0_amd64.deb ~/Downloads/lsd_1.1.2_amd64.deb
 ```
 ## Instalar feh
-[feh](https://github.com/derf/feh)
+[Repositorio de feh](https://github.com/derf/feh)
 
 ```shell
 sudo apt install feh -y
@@ -409,11 +408,11 @@ vi ~/.config/bspwm/bspwmrc
 /usr/bin/feh --bg-center $HOME/Pictures/<wallpaper-name>.<extension>
 ```
 ## Instalar polybar
-[polybar](https://github.com/polybar/polybar)
+[Repositorio de polybar](https://github.com/polybar/polybar)
 
 ```shell
 sudo apt install polybar -y
-echo '$HOME/.config/polybar/./launch.sh &' >> ~/.config/bspwm/bspwmrc
+echo '~/.config/polybar/./launch.sh &' >> ~/.config/bspwm/bspwmrc
 ```
 
 En el archivo `~/.config/polybar/launch.sh` agregar las siguientes líneas
@@ -474,8 +473,8 @@ vi ~/.config/bspwm/scripts/target_to_hack.sh
 ```shell
 #!/bin/bash
 
-ip_address=$(/bin/cat /home/biff/.config/bin/target | awk '{print $1}')
-machine_name=$(/bin/cat /home/biff/.config/bin/target | awk '{print $2}')
+ip_address=$(/bin/cat ~/.config/bin/target | awk '{print $1}')
+machine_name=$(/bin/cat ~/.config/bin/target | awk '{print $2}')
 
 if [ $ip_address ] && [ $machine_name ]; then
     echo "%{F#fff}$ip_address%{u-} - $machine_name"
@@ -517,7 +516,7 @@ font-3 = "Hack Nerd Font Mono:style=regular:size=20;4"
 
 [module/ethernet_status]
 type = custom/script
-exec = /home/biff/.config/bspwm/scripts/ethernet_status.sh
+exec = ~/.config/bspwm/scripts/ethernet_status.sh
 interval = 2
 format-prefix = "󰈀"
 format-prefix-foreground = #2494e7
@@ -525,7 +524,7 @@ format-prefix-font = 2
 
 [module/vpn_status]
 type = custom/script
-exec = /home/biff/.config/bspwm/scripts/vpn_status.sh
+exec = ~/.config/bspwm/scripts/vpn_status.sh
 interval = 2
 format-prefix = "󰆧"
 format-prefix-foreground = #1bbf3e
@@ -554,14 +553,14 @@ label-empty-font = 2
 
 [module/target_to_hack]
 type = custom/script
-exec = /home/biff/.config/bspwm/scripts/target_to_hack.sh
+exec = ~/.config/bspwm/scripts/target_to_hack.sh
 interval = 2
 format-prefix = "󰓾"
 format-prefix-foreground = #e51d0b
 format-prefix-font = 2
 ```
 ## Instalar imagemagick
-[imagemagick](https://github.com/ImageMagick/ImageMagick)
+[Repositorio de imagemagick](https://github.com/ImageMagick/ImageMagick)
 
 ```shell
 sudo apt install imagemagick -y
@@ -577,9 +576,9 @@ vi ~/.config/bspwm/bspwmrc
 wmname LG3D &
 ```
 # Instalar nvim y nvchad
-[nvchad](https://github.com/NvChad/NvChad)
-https://nvchad.com/docs/quickstart/install/
-[nvim](https://github.com/neovim/neovim)
+[Repositorio de nvchad](https://github.com/NvChad/NvChad)
+[Página oficial de nvchad](https://nvchad.com/docs/quickstart/install/)
+[Repositorio de nvim](https://github.com/neovim/neovim)
 
 ```shell
 git clone https://github.com/NvChad/starter ~/.config/nvim
@@ -666,7 +665,7 @@ nvim
 :MasonInstallAll
 ```
 ## Instalar fzf 
-[fzf](https://github.com/junegunn/fzf)
+[Repositorio de fzf](https://github.com/junegunn/fzf)
 Instalar `fzf` tanto como usuario no privilegiado como `root`
 
 ```shell
@@ -696,15 +695,15 @@ export PATH=/usr/sbin:$PATH
 ## Instalar rofi
 ```shell
 sudo apt install rofi
-mkdir $HOME/.config/rofi/themes
+mkdir ~/.config/rofi/themes
 sudo git clone https://github.com/newmanls/rofi-themes-collection /opt/rofi-themes-collection
-sudo cp /opt/rofi-themes-collection/themes $HOME/.config/rofi/themes
+sudo cp /opt/rofi-themes-collection/themes ~/.config/rofi/themes
 ```
 
-Modificar el archivo `$HOME/.config/sxhkd/sxhkdrc`
+Modificar el archivo `~/.config/sxhkd/sxhkdrc`
 
 ```shell
-nvim $HOME/.config/sxhkd/sxhkdrc
+nvim ~/.config/sxhkd/sxhkdrc
 ```
 
 ```
