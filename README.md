@@ -145,7 +145,7 @@ super + shift + f
     /usr/bin/firefox
 ```
 
-Para que Firefox resuelva los dominios de `htb` ingresar en la barra de navegación `about:config`, ingresar `browser.fixup.domainsuffixwhitelist.htb` y ponerlo en `true`
+Para que Firefox resuelva los dominios de `hack the box` ingresar en la barra de navegación `about:config`, ingresar `browser.fixup.domainsuffixwhitelist.htb` y ponerlo en `true`
 ## Instalar kitty
 [kitty](https://github.com/kovidgoyal/kitty)
 
