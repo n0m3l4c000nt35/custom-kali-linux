@@ -1,32 +1,29 @@
 1. [Instalar bspwm](#Instalar-bspwm)
-2. [Instalar sxhkd](#Instalar%20sxhkd)
-3. [Instalar kitty](#Instalar%20kitty)
-4. [Instalar zsh](#Instalar%20zsh)
-5. [Instalar powerlevel10k](#Instalar%20powerlevel10k)
-6. [Instalar fuentes](#Instalar%20fuentes)
-7. [Instalar powerlevel10k](#Instalar%20powerlevel10k)
-8. [Instalar picom](#Instalar%20picom)
-9. [Instalar batcat y lsd](#Instalar%20batcat%20y%20lsd)
+2. [Instalar sxhkd](#Instalar-sxhkd)
+3. [Instalar kitty](#Instalar-kitty)
+4. [Instalar zsh](#Instalar-zsh)
+5. [Instalar powerlevel10k](#Instalar-powerlevel10k)
+6. [Instalar fuentes](#Instalar-fuentes)
+8. [Instalar picom](#Instalar-picom)
+9. [Instalar batcat y lsd](#Instalar-batcat-y-lsd)
 10. [Instalar feh](#Instalar-feh)
-11. [Instalar polybar](#Instalar%20polybar)
-12. [Instalar imagemagick](#Instalar%20imagemagick)
-13. [Instalar nvim y nvchad](#Instalar%20nvim%20y%20nvchad)
-14. [Instalar fzf](#Instalar%20fzf )
-15. [Instalar i3lock](#Instalar%20i3lock)
-16. [Instalar locate](#Instalar%20locate)
-17. [Instalar rofi](#Instalar%20rofi)
-18. [Burpsuite launcher](#Burpsuite%20launcher)
+11. [Instalar polybar](#Instalar-polybar)
+12. [Instalar imagemagick](#Instalar-imagemagick)
+13. [Instalar nvim y nvchad](#Instalar-nvim-y-nvchad)
+14. [Instalar fzf](#Instalar-fzf )
+15. [Instalar i3lock](#Instalar-i3lock)
+16. [Instalar locate](#Instalar-locate)
+17. [Instalar rofi](#Instalar-rofi)
+18. [Burpsuite launcher](#Burpsuite-launcher)
 
 ## Instalar bspwm
-[bspwm](https://github.com/baskerville/bspwm)
+[Repositorio de bspwm](https://github.com/baskerville/bspwm)
 
-```shell
+```bash
 sudo apt install libxcb-xinerama0-dev libxcb-icccm4-dev libxcb-randr0-dev libxcb-util0-dev libxcb-ewmh-dev libxcb-keysyms1-dev libxcb-shape0-dev -y
 ```
 
-En la carpeta `Downloads` clonar los repositorios de **bspwm** y **sxhkd**
-
-```shell
+```bash
 cd ~/Downloads
 git clone https://github.com/baskerville/bspwm.git
 git clone https://github.com/baskerville/sxhkd.git
@@ -36,9 +33,9 @@ sudo make install
 which bspwm
 ```
 ## Instalar sxhkd
-[sxhkd](https://github.com/baskerville/sxhkd)
+[Repositorio de sxhkd](https://github.com/baskerville/sxhkd)
 
-```shell
+```bash
 cd ~/Downloads/sxhkd
 make
 sudo make install
@@ -47,7 +44,7 @@ which sxhkd
 
 Crear archivos de configuración de `bspwm` y `sxhkd`
 
-```shell
+```bash
 mkdir ~/.config/{bspwm,sxhkd}
 cp ~/Downloads/bspwm/examples/bspwmrc ~/.config/bspwm/
 chmod u+x ~/.config/bspwm/bspwmrc
@@ -57,11 +54,11 @@ cp ~/Downloads/bspwm/examples/sxhkdrc ~/.config/sxhkd/
 
 Modificar las siguientes líneas del archivo `~/.config/sxhkd/sxhkdrc`
 
-```shell
+```bash
 vi ~/.config/sxhkd/sxhkdrc
 ```
 
-```shell
+```bash
 # focus the node in the given direction
 super + {_,shift + }{Left,Down,Up,Right}
     bspc node -{f,s} {west,south,north,east}
@@ -81,7 +78,11 @@ super + alt + {Left,Down,Up,Right}
 
 Eliminar las siguientes líneas del archivo `~/.config/sxhkd/sxhkdrc`
 
-```shell
+```bash
+vi ~/.config/sxhkd/sxhkdrc
+```
+
+```bash
 # expand a window by moving one of its side outward
 super + alt + {h,j,k,l}
     bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
@@ -93,7 +94,7 @@ super + alt + shift + {h,j,k,l}
 
 Crear el script `~/.config/bspwm/scripts/bspwm_resize`
 
-```shell
+```bash
 mkdir ~/.config/bspwm/scripts
 touch ~/.config/bspwm/scripts/bspwm_resize
 chmod +x ~/.config/bspwm/scripts/bspwm_resize
@@ -101,11 +102,11 @@ chmod +x ~/.config/bspwm/scripts/bspwm_resize
 
 Agregarle el siguiente contenido al archivo `~/.config/bspwm/scripts/bspwm_resize`
 
-```shell
+```bash
 vi ~/.config/bspwm/scripts/bspwm_resize
 ```
 
-```shell
+```bash
 #!/usr/bin/env dash
 
 if bspc query -N -n focused.floating > /dev/null; then
@@ -126,32 +127,23 @@ bspc node -z "$dir" "$x" "$y" || bspc node -z "$falldir" "$x" "$y"
 
 Para poder copiar de manera bidireccional entre la máquina host y la máquina virtual, agregar la siguiente línea al archivo `~/.config/bspwm/bspwmrc`
 
-```shell
-vi ~/.config/bspwm/bspwmrc
+```bash
+echo "vmware-user-suid-wrapper &" >> ~/.config/bspwm/bspwmrc
 ```
 
-```shell
-vmware-user-suid-wrapper &
-```
+Agregar el siguiente bind al archivo `~/.config/sxhkd/sxhkdrc` para abrir `firefox`
 
-Agregar el siguiente bind para abrir `firefox` al archivo `~/.config/sxhkd/sxhkdrc`
-
-```shell
+```bash
 vi ~/.config/sxhkd/sxhkdrc
 ```
 
-```shell
+```bash
 # open firefox
 super + shift + f
     /usr/bin/firefox
 ```
 
-Para que Firefox resuelva los dominios de `htb`
-
-```
-about:config
-browser.fixup.domainsuffixwhitelist.htb
-```
+Para que Firefox resuelva los dominios de `htb` ingresar en la barra de navegación `about:config`, ingresar `browser.fixup.domainsuffixwhitelist.htb` y ponerlo en `true`
 ## Instalar kitty
 [kitty](https://github.com/kovidgoyal/kitty)
 
