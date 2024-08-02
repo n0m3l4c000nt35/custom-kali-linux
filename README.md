@@ -6,19 +6,20 @@
 4. [Instalar zsh](#Instalar-zsh)
 5. [Instalar fuentes](#Instalar-fuentes)
 6. [Instalar powerlevel10k](#Instalar-powerlevel10k)
-8. [Instalar picom](#Instalar-picom)
-9. [Instalar batcat y lsd](#Instalar-batcat-y-lsd)
-10. [Instalar feh](#Instalar-feh)
-11. [Instalar polybar](#Instalar-polybar)
-12. [Instalar imagemagick](#Instalar-imagemagick)
-13. [Instalar nvim y nvchad](#Instalar-nvim-y-nvchad)
-14. [Instalar fzf](#Instalar-fzf )
-15. [Instalar i3lock](#Instalar-i3lock)
-16. [Instalar locate](#Instalar-locate)
-17. [Instalar rofi](#Instalar-rofi)
-18. [Burpsuite launcher](#Burpsuite-launcher)
+7. [Instalar picom](#Instalar-picom)
+8. [Instalar batcat y lsd](#Instalar-batcat-y-lsd)
+9. [Instalar feh](#Instalar-feh)
+10. [Instalar polybar](#Instalar-polybar)
+11. [Instalar imagemagick](#Instalar-imagemagick)
+12. [Instalar nvim y nvchad](#Instalar-nvim-y-nvchad)
+13. [Instalar fzf](#Instalar-fzf)
+14. [Instalar i3lock](#Instalar-i3lock)
+15. [Instalar locate](#Instalar-locate)
+16. [Instalar rofi](#Instalar-rofi)
+17. [Burpsuite launcher](#Burpsuite-launcher)
 
 ## Instalar bspwm
+
 [Repositorio de bspwm](https://github.com/baskerville/bspwm)
 
 ```bash
@@ -34,7 +35,9 @@ make
 sudo make install
 which bspwm
 ```
+
 ## Instalar sxhkd
+
 [Repositorio de sxhkd](https://github.com/baskerville/sxhkd)
 
 ```bash
@@ -146,15 +149,17 @@ super + shift + f
 ```
 
 Para que Firefox resuelva los dominios de `hack the box` ingresar en la barra de navegación `about:config`, ingresar `browser.fixup.domainsuffixwhitelist.htb` y ponerlo en `true`
+
 ## Instalar kitty
+
 [Repositorio de kitty](https://github.com/kovidgoyal/kitty)
 
 ```bash
 sudo mkdir /opt/kitty
-sudo wget -P ~/Downloads https://github.com/kovidgoyal/kitty/releases/download/v0.34.1/kitty-0.34.1-x86_64.txz
+sudo wget -P ~/Downloads https://github.com/kovidgoyal/kitty/releases/download/v0.35.2/kitty-0.35.2-x86_64.txz
 mkdir ~/Downloads/kitty
-sudo tar -xf ~/Downloads/kitty-0.34.1-x86_64.txz -C ~/Downloads/kitty
-sudo rm -rf ~/Downloads/kitty-0.34.1-x86_64.txz
+sudo tar -xf ~/Downloads/kitty-0.35.2-x86_64.txz -C ~/Downloads/kitty
+sudo rm -rf ~/Downloads/kitty-0.35.2-x86_64.txz
 sudo mv ~/Downloads/kitty/ /opt/
 ```
 
@@ -216,7 +221,9 @@ Seleccionar el tema de kitty
 ```bash
 kitten themes
 ```
+
 ## Instalar zsh
+
 ```shell
 sudo apt install zsh -y
 sudo apt install zsh-autosuggestions zsh-syntax-highlighting
@@ -235,7 +242,9 @@ vi ~/.config/kitty/kitty.conf
 ```shell
 shell zsh
 ```
+
 ## Instalar fuentes
+
 [Nerd Fonts](https://www.nerdfonts.com/font-downloads)
 
 ```shell
@@ -249,7 +258,9 @@ sudo cp blue-sky/polybar/fonts/* /usr/share/fonts/truetype
 sudo fc-cache -v
 rm -rf ~/Downloads/blue-sky
 ```
+
 ## Instalar powerlevel10k
+
 [Repositorio de powerlevel10k](https://github.com/romkatv/powerlevel10k)
 
 ```shell
@@ -293,7 +304,7 @@ vi ~/.zshrc
 ```
 
 ```shell
-# Fix Java issue  
+# Fix Java issue
 export _JAVA_AWT_WM_NONREPARENTING=1
 
 # ZSH AutoSuggestions Plugin
@@ -348,7 +359,9 @@ typeset -g POWERLEVEL9K_CONTEXT_PREFIX=''
 typeset -g POWERLEVEL9K_DIR_ANCHOR_BOLD=false
 typeset -g POWERLEVEL9K_OS_ICON_CONTENT_EXPANSION=''
 ```
+
 ## Instalar picom
+
 [Repositorio de picom](https://github.com/yshui/picom)
 
 ```shell
@@ -380,7 +393,9 @@ vi ~/.config/bspwm/bspwmrc
 ```shell
 picom &
 ```
+
 ## Instalar batcat y lsd
+
 [Repositorio de batcat](https://github.com/sharkdp/bat)
 [Repositorio de lsd](https://github.com/lsd-rs/lsd)
 
@@ -391,7 +406,9 @@ sudo dpkg -i ~/Downloads/bat_0.24.0_amd64.deb
 sudo dpkg -i ~/Downloads/lsd_1.1.2_amd64.deb
 rm ~/Downloads/bat_0.24.0_amd64.deb ~/Downloads/lsd_1.1.2_amd64.deb
 ```
+
 ## Instalar feh
+
 [Repositorio de feh](https://github.com/derf/feh)
 
 ```shell
@@ -407,7 +424,9 @@ vi ~/.config/bspwm/bspwmrc
 ```shell
 /usr/bin/feh --bg-center $HOME/Pictures/<wallpaper-name>.<extension>
 ```
+
 ## Instalar polybar
+
 [Repositorio de polybar](https://github.com/polybar/polybar)
 
 ```shell
@@ -559,7 +578,9 @@ format-prefix = "󰓾"
 format-prefix-foreground = #e51d0b
 format-prefix-font = 2
 ```
+
 ## Instalar imagemagick
+
 [Repositorio de imagemagick](https://github.com/ImageMagick/ImageMagick)
 
 ```shell
@@ -575,7 +596,9 @@ vi ~/.config/bspwm/bspwmrc
 ```shell
 wmname LG3D &
 ```
+
 # Instalar nvim y nvchad
+
 [Repositorio de nvchad](https://github.com/NvChad/NvChad)
 [Página oficial de nvchad](https://nvchad.com/docs/quickstart/install/)
 [Repositorio de nvim](https://github.com/neovim/neovim)
@@ -664,7 +687,9 @@ nvim
 ```shell
 :MasonInstallAll
 ```
-## Instalar fzf 
+
+## Instalar fzf
+
 [Repositorio de fzf](https://github.com/junegunn/fzf)
 Instalar `fzf` tanto como usuario no privilegiado como `root`
 
@@ -672,7 +697,9 @@ Instalar `fzf` tanto como usuario no privilegiado como `root`
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install
 ```
+
 ## Instalar i3lock
+
 ```shell
 sudo apt install i3lock -y
 sudo su
@@ -681,7 +708,9 @@ git clone https://github.com/meskarune/i3lock-fancy.git
 cd i3lock-fancy
 sudo make install
 ```
+
 ## Instalar locate
+
 ```shell
 sudo apt install locate
 sudo updatedb
@@ -692,7 +721,9 @@ Agregar al path la ruta `/usr/sbin`
 ```shell
 export PATH=/usr/sbin:$PATH
 ```
+
 ## Instalar rofi
+
 ```shell
 sudo apt install rofi
 mkdir ~/.config/rofi/themes
@@ -711,7 +742,9 @@ nvim ~/.config/sxhkd/sxhkdrc
 super + d
     /usr/bin/rofi -show run
 ```
+
 ## Burpsuite launcher
+
 ```shell
 sudo touch /usr/bin/burpsuite-launcher
 sudo chmod +x /usr/bin/burpsuite-launcher
