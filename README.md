@@ -240,15 +240,7 @@ shell zsh
 [Nerd Fonts](https://www.nerdfonts.com/font-downloads)
 
 ```shell
-sudo wget -P /usr/local/share/fonts https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/Hack.zip
-sudo 7z x /usr/local/share/fonts/Hack.zip -o/usr/local/share/fonts
-sudo rm -rf /usr/local/share/fonts/Hack.zip /usr/local/share/fonts/README.md /usr/local/share/fonts/LICENSE.md
-
-cd ~/Downloads
-git clone https://github.com/VaughnValle/blue-sky.git
-sudo cp blue-sky/polybar/fonts/* /usr/share/fonts/truetype
-sudo fc-cache -v
-rm -rf ~/Downloads/blue-sky
+sudo bash -c 'wget -P /usr/local/share/fonts https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/Hack.zip && 7z x /usr/local/share/fonts/Hack.zip -o/usr/local/share/fonts && rm -rf /usr/local/share/fonts/{Hack.zip,README.md,LICENSE.md} && git clone https://github.com/VaughnValle/blue-sky.git /tmp/blue-sky && cp /tmp/blue-sky/polybar/fonts/* /usr/share/fonts/truetype && fc-cache -v && rm -rf /tmp/blue-sky'
 ```
 
 ## Instalar powerlevel10k
