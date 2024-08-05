@@ -401,11 +401,7 @@ picom &
 [Repositorio de lsd](https://github.com/lsd-rs/lsd)
 
 ```shell
-wget -P ~/Downloads https://github.com/sharkdp/bat/releases/download/v0.24.0/bat_0.24.0_amd64.deb
-wget -P ~/Downloads https://github.com/lsd-rs/lsd/releases/download/v1.1.2/lsd_1.1.2_amd64.deb
-sudo dpkg -i ~/Downloads/bat_0.24.0_amd64.deb
-sudo dpkg -i ~/Downloads/lsd_1.1.2_amd64.deb
-rm ~/Downloads/bat_0.24.0_amd64.deb ~/Downloads/lsd_1.1.2_amd64.deb
+wget -P ~/Downloads https://github.com/sharkdp/bat/releases/download/v0.24.0/bat_0.24.0_amd64.deb && wget -P ~/Downloads https://github.com/lsd-rs/lsd/releases/download/v1.1.2/lsd_1.1.2_amd64.deb && sudo dpkg -i ~/Downloads/bat_0.24.0_amd64.deb && sudo dpkg -i ~/Downloads/lsd_1.1.2_amd64.deb && rm ~/Downloads/bat_0.24.0_amd64.deb ~/Downloads/lsd_1.1.2_amd64.deb
 ```
 
 ## Instalar feh
