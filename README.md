@@ -596,8 +596,8 @@ wmname LG3D &
 
 # Instalar nvim y nvchad
 
-[Repositorio de nvchad](https://github.com/NvChad/NvChad)
-[Página oficial de nvchad](https://nvchad.com/docs/quickstart/install/)
+[Repositorio de nvchad](https://github.com/NvChad/NvChad)  
+[Página oficial de nvchad](https://nvchad.com/docs/quickstart/install/)  
 [Repositorio de nvim](https://github.com/neovim/neovim)
 
 ```shell
