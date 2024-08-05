@@ -173,9 +173,7 @@ super + Return
 Crear el archivo `~/.config/kitty/kitty.conf` y agregarle el siguiente contenido
 
 ```bash
-mkdir ~/.config/kitty
-touch ~/.config/kitty/kitty.conf
-vi ~/.config/kitty/kitty.conf
+mkdir -p ~/.config/kitty && touch ~/.config/kitty/kitty.conf && vi ~/.config/kitty/kitty.conf
 ```
 
 ```bash
@@ -203,12 +201,11 @@ active_tab_background #98c379
 inactive_tab_foreground #000000
 tab_bar_margin_color black
 
-background_opacity 0.95
+background_opacity 0.90
 ```
 
 ```bash
-sudo mkdir -p /root/.config/kitty
-sudo cp ~/.config/kitty/* /root/.config/kitty
+sudo mkdir -p /root/.config/kitty && sudo cp ~/.config/kitty/* /root/.config/kitty
 ```
 
 Seleccionar el tema de kitty
