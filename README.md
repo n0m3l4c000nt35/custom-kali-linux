@@ -27,9 +27,8 @@ sudo apt install libxcb-xinerama0-dev libxcb-icccm4-dev libxcb-randr0-dev libxcb
 ```
 
 ```bash
-cd ~/Downloads
-git clone https://github.com/baskerville/bspwm.git
-git clone https://github.com/baskerville/sxhkd.git
+git clone https://github.com/baskerville/bspwm.git ~/Downloads
+git clone https://github.com/baskerville/sxhkd.git ~/Downloads
 cd ~/Downloads/bspwm
 make
 sudo make install
