@@ -216,7 +216,7 @@ sudo nano /usr/share/applications/kitty.desktop
 Name=Kitty
 Comment=A fast, feature-rich, GPU based terminal emulator
 Exec=kitty
-Icon=kitty
+Icon=/opt/kitty/share/icons/hicolor/256x256/apps/kitty.png
 Terminal=false
 Type=Application
 Categories=System;TerminalEmulator;
