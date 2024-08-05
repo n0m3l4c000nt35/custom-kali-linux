@@ -654,10 +654,7 @@ nvim
 Ejecutar los siguientes comandos para que el usuario `root` también tenga la misma configuración para `nvim`
 
 ```shell
-sudo mkdir /root/.config/nvim
-sudo cp -r ~/.config/nvim/* /root/.config/nvim
-sudo su
-nvim
+sudo mkdir /root/.config/nvim && sudo cp -r ~/.config/nvim/* /root/.config/nvim && sudo su & nvim
 ```
 
 Ejecutar el siguiente comando como `root` en nvim `:MasonInstallAll`
@@ -676,8 +673,7 @@ nvim
 Instalar `fzf` tanto como usuario no privilegiado como `root`
 
 ```shell
-git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-~/.fzf/install
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && ~/.fzf/install
 ```
 
 ## Instalar i3lock
@@ -694,8 +690,7 @@ sudo make install
 ## Instalar locate
 
 ```shell
-sudo apt install locate
-sudo updatedb
+sudo apt install locate && sudo updatedb
 ```
 
 Agregar al path la ruta `/usr/sbin`
