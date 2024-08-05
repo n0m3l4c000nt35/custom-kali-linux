@@ -154,6 +154,8 @@ Para que Firefox resuelva los dominios de `hack the box` ingresar en la barra de
 ```bash
 sudo mkdir /opt/kitty
 wget -O- https://github.com/kovidgoyal/kitty/releases/download/v0.35.2/kitty-0.35.2-x86_64.txz | sudo tar -xJ -C /opt/kitty
+sudo ln -s /opt/kitty/bin/kitty /usr/bin/kitty
+sudo ln -s /opt/kitty/bin/kitten /usr/bin/kitten
 ```
 
 Modificar las siguientes líneas al archivo `~/.config/sxhkd/sxhkdrc`
