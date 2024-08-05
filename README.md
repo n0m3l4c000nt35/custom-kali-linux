@@ -205,6 +205,27 @@ background_opacity 0.90
 sudo mkdir -p /root/.config/kitty && sudo ln -s ~/.config/kitty/kitty.conf /root/.config/kitty/kitty.conf
 ```
 
+Crear acceso a **kitty**
+
+```bash
+sudo nano /usr/share/applications/kitty.desktop
+```
+
+```bash
+[Desktop Entry]
+Name=Kitty
+Comment=A fast, feature-rich, GPU based terminal emulator
+Exec=kitty
+Icon=kitty
+Terminal=false
+Type=Application
+Categories=System;TerminalEmulator;
+```
+
+```bash
+sudo update-desktop-database
+```
+
 Seleccionar el tema de kitty
 
 ```bash
