@@ -601,12 +601,7 @@ wmname LG3D &
 [Repositorio de nvim](https://github.com/neovim/neovim)
 
 ```shell
-git clone https://github.com/NvChad/starter ~/.config/nvim
-wget -P ~/Downloads https://github.com/neovim/neovim/releases/download/v0.10.0/nvim-linux64.tar.gz
-sudo mkdir /opt/nvim
-sudo mv ~/Downloads/nvim-linux64.tar.gz /opt/nvim
-sudo tar -xf /opt/nvim/nvim-linux64.tar.gz -C /opt/nvim
-sudo rm /opt/nvim/nvim-linux64.tar.gz
+git clone https://github.com/NvChad/starter ~/.config/nvim && wget -P ~/Downloads https://github.com/neovim/neovim/releases/download/v0.10.0/nvim-linux64.tar.gz && sudo mkdir /opt/nvim && sudo mv ~/Downloads/nvim-linux64.tar.gz /opt/nvim && sudo tar -xf /opt/nvim/nvim-linux64.tar.gz -C /opt/nvim && sudo rm /opt/nvim/nvim-linux64.tar.gz
 ```
 
 Agregar al `PATH` que está en el archivo `~/.zshrc` la ruta `/opt/nvim/nvim-linux64/bin`
