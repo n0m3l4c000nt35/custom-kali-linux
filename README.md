@@ -39,9 +39,8 @@ which bspwm
 [Repositorio de sxhkd](https://github.com/baskerville/sxhkd)
 
 ```bash
-cd ~/Downloads/sxhkd
-make
-sudo make install
+sudo make -C ~/Downloads/sxhkd
+sudo make -C ~/Downloads/sxhkd install
 which sxhkd
 ```
 
