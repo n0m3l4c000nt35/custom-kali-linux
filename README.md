@@ -202,7 +202,7 @@ background_opacity 0.90
 ```
 
 ```bash
-sudo mkdir -p /root/.config/kitty && sudo cp ~/.config/kitty/* /root/.config/kitty
+sudo mkdir -p /root/.config/kitty && sudo ln -s ~/.config/kitty/kitty.conf /root/.config/kitty/kitty.conf
 ```
 
 Seleccionar el tema de kitty
