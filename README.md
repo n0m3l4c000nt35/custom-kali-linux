@@ -265,8 +265,10 @@ sudo bash -c 'wget -P /usr/local/share/fonts https://github.com/ryanoasis/nerd-f
 
 [Repositorio de powerlevel10k](https://github.com/romkatv/powerlevel10k)
 
+Reemplazar `<user>` por el usuario no privilegiado
+
 ```shell
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k && echo 'source ~/powerlevel10k/powerlevel10k.zsh-theme' >> ~/.zshrc
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k && echo 'source /home/<user>/powerlevel10k/powerlevel10k.zsh-theme' >> ~/.zshrc
 ```
 
 Configurar la `zsh` tanto para el usuario no privilegiado como para `root`
