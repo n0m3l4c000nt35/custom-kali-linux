@@ -709,6 +709,18 @@ sudo git clone https://github.com/meskarune/i3lock-fancy.git /opt/i3lock-fancy
 sudo make -C /opt/i3lock-fancy install
 ```
 
+Agregar las siguientes líneas al archivo `~/.config/sxhkd/sxhkdrc`
+
+```bash
+nvim ~/.config/sxhkd/sxhkdrc
+```
+
+```bash
+# i3lock-fancy
+super + shift + x
+    /usr/bin/i3lock-fancy
+```
+
 ## Instalar locate
 
 ```shell
