@@ -611,7 +611,7 @@ Chequear si `nvim` está instalado
 which nvim
 ```
 
-Si `nvim` está instalado, eliminar `nvim` y su enlace simbólico
+Si `nvim` está instalado, eliminar `nvim` y el binario
 
 ```bash
 sudo apt remove nvim
