@@ -425,6 +425,12 @@ vi ~/.config/bspwm/bspwmrc
 /usr/bin/feh --bg-center $HOME/Pictures/<wallpaper-name>.<extension>
 ```
 
+## Enlace simbólico ifconfig
+
+```bash
+sudo ln -s /usr/sbin/ifconfig /usr/bin/ifconfig
+```
+
 ## Instalar polybar
 
 [Repositorio de polybar](https://github.com/polybar/polybar)
