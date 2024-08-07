@@ -351,12 +351,14 @@ Modificar el archivo `~/.p10k.zsh` tanto para el usuario no privilegiado como pa
 vi ~/.p10k.zsh
 ```
 
+Modificar `<icon>` por un ícono a elección de la web [Nerd Fonts](https://www.nerdfonts.com/cheat-sheet)
+
 ```shell
 context
 command_execution_time
 status
 
-typeset -g POWERLEVEL9K_CONTEXT_ROOT_TEMPLATE='<fire-icon>'
+typeset -g POWERLEVEL9K_CONTEXT_ROOT_TEMPLATE='<icon>'
 typeset -g POWERLEVEL9K_CONTEXT_PREFIX=''
 
 typeset -g POWERLEVEL9K_DIR_ANCHOR_BOLD=false
