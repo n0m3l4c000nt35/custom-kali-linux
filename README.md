@@ -675,7 +675,11 @@ nvim
 Ejecutar los siguientes comandos para que el usuario `root` también tenga la misma configuración para `nvim`
 
 ```shell
-sudo mkdir /root/.config/nvim && sudo cp -r ~/.config/nvim/* /root/.config/nvim && sudo su && nvim
+sudo mkdir /root/.config/nvim && sudo cp -r ~/.config/nvim/* /root/.config/nvim && sudo su
+```
+
+```bash
+nvim
 ```
 
 Ejecutar el siguiente comando como `root` en nvim `:MasonInstallAll`
