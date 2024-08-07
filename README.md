@@ -605,6 +605,18 @@ wmname LG3D &
 
 # Instalar nvim y nvchad
 
+Chequear si `nvim` está instalado
+
+```bash
+which nvim
+```
+
+Si `nvim` está instalado, eliminarlo
+
+```bash
+sudo apt remove nvim
+```
+
 [Repositorio de nvchad](https://github.com/NvChad/NvChad)  
 [Página oficial de nvchad](https://nvchad.com/docs/quickstart/install/)  
 [Repositorio de nvim](https://github.com/neovim/neovim)
