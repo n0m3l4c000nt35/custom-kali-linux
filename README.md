@@ -611,10 +611,11 @@ Chequear si `nvim` está instalado
 which nvim
 ```
 
-Si `nvim` está instalado, eliminarlo
+Si `nvim` está instalado, eliminar `nvim` y su enlace simbólico
 
 ```bash
 sudo apt remove nvim
+sudo rm /usr/bin/nvim
 ```
 
 [Repositorio de nvchad](https://github.com/NvChad/NvChad)  
