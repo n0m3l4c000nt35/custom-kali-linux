@@ -164,7 +164,7 @@ vi ~/.config/sxhkd/sxhkdrc
 ```bash
 # terminal emulator
 super + Return
-	/opt/kitty/bin/kitty
+	/usr/bin/kitty
 ```
 
 Crear el archivo `~/.config/kitty/kitty.conf` y agregarle el siguiente contenido
