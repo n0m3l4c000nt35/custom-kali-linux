@@ -52,6 +52,7 @@ cp ~/Downloads/bspwm/examples/bspwmrc ~/.config/bspwm/
 chmod u+x ~/.config/bspwm/bspwmrc
 sudo apt install bspwm -y
 cp ~/Downloads/bspwm/examples/sxhkdrc ~/.config/sxhkd/
+rm -rf ~/Downloads/{bspwm,sxhkd}
 ```
 
 Modificar las siguientes líneas del archivo `~/.config/sxhkd/sxhkdrc`
