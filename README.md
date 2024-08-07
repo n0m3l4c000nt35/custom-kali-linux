@@ -629,7 +629,6 @@ git clone https://github.com/NvChad/starter ~/.config/nvim && wget -P ~/Download
 Ejecutar los siguientes comandos para finalizar la instación de `nvim`
 
 ```shell
-source .zshrc
 nvim
 ```
 
