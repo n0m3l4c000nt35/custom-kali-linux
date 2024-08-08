@@ -251,7 +251,7 @@ kitten themes
 
 ```shell
 sudo apt install zsh -y
-sudo apt install zsh-autosuggestions zsh-syntax-highlighting
+sudo apt install zsh-autosuggestions zsh-syntax-highlighting zsh-autocomplete
 ls -l /usr/share/ | grep zsh
 sudo usermod --shell /usr/bin/zsh biff
 sudo usermod --shell /usr/bin/zsh root
@@ -333,6 +333,11 @@ fi
 # ZSH Syntax Highlighting Plugin
 if [ -f /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
     source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
+
+# ZSH AutoComplete Plugin
+if [ -f /usr/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh ]; then
+    source /usr/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 fi
 
 function settarget(){
