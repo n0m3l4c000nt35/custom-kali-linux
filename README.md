@@ -34,6 +34,16 @@ sudo make -C ~/Downloads/bspwm install
 which bspwm
 ```
 
+Agregar la siguiente línea al archivo `~/.config/bspwm/bspwmrc`
+
+```bash
+vi ~/.config/bspwm/bspwmrc
+```
+
+```bash
+bspc config focused_border_color "#ff1493"
+```
+
 ## Instalar sxhkd
 
 [Repositorio de sxhkd](https://github.com/baskerville/sxhkd)
@@ -62,6 +72,10 @@ vi ~/.config/sxhkd/sxhkdrc
 ```
 
 ```bash
+# quit/restart bspwm
+super + shift + {q,r}
+    bspc {quit,wm -r}
+
 # focus the node in the given direction
 super + {_,shift + }{Left,Down,Up,Right}
     bspc node -{f,s} {west,south,north,east}
