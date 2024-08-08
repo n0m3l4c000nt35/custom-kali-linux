@@ -335,6 +335,16 @@ if [ -f /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
     source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
 
+function settarget(){
+  ip_address=$1
+  machine_name=$2
+  echo "$ip_address $machine_name" > /home/parrot/.config/bin/target
+}
+
+function cleartarget(){
+  echo "" > /home/parrot/.config/bin/target
+}
+
 # History
 HISTFILE=$HOME/.zsh_history
 HISTSIZE=10000
