@@ -41,7 +41,9 @@ vi ~/.config/bspwm/bspwmrc
 ```
 
 ```bash
+bspc config border_width        1
 bspc config focused_border_color "#ff1493"
+bspc config normal_border_color "#750843"
 ```
 
 ## Instalar sxhkd
@@ -435,6 +437,16 @@ Copiar el contenido del archivo [picom.sample.conf](https://raw.githubuserconten
 ```shell
 vi ~/.config/picom/picom.conf
 ```
+
+Modificar las siguientes líneas del archivo `~/.config/picom/picom.conf`
+
+```bash
+backend = "xrender"
+detect-rounded-corners = false;
+detect-client-opacity = true;
+```
+
+Comentar sombras y blur para que la performance mejore
 
 Agregar al archivo `~/.config/bspwm/bspwmrc` la línea `picom &`
 
