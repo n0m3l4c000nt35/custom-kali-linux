@@ -74,23 +74,23 @@ vi ~/.config/sxhkd/sxhkdrc
 ```bash
 # quit/restart bspwm
 super + shift + {q,r}
-    bspc {quit,wm -r}
+  bspc {quit,wm -r}
 
 # focus the node in the given direction
 super + {_,shift + }{Left,Down,Up,Right}
-    bspc node -{f,s} {west,south,north,east}
+  bspc node -{f,s} {west,south,north,east}
 
 # preselect the direction
 super + ctrl + alt + {Left,Down,Up,Right}
-    bspc node -p {west,south,north,east}
+  bspc node -p {west,south,north,east}
 
 # move a floating window
 super + alt + shift + {Left,Down,Up,Right}
-    bspc node -v {-20 0,0 20,0 -20,20 0}
+  bspc node -v {-20 0,0 20,0 -20,20 0}
 
 # custom resize
 super + alt + {Left,Down,Up,Right}
-    ~/.config/bspwm/scripts/bspwm_resize {west,south,north,east}
+  ~/.config/bspwm/scripts/bspwm_resize {west,south,north,east}
 ```
 
 Eliminar las siguientes líneas del archivo `~/.config/sxhkd/sxhkdrc`
@@ -102,11 +102,11 @@ vi ~/.config/sxhkd/sxhkdrc
 ```bash
 # expand a window by moving one of its side outward
 super + alt + {h,j,k,l}
-    bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
+  bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
 
 # contract a window by moving one of its side inward
 super + alt + shift + {h,j,k,l}
-    bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
+  bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
 ```
 
 Crear el script `~/.config/bspwm/scripts/bspwm_resize`
@@ -157,7 +157,11 @@ vi ~/.config/sxhkd/sxhkdrc
 ```bash
 # open firefox
 super + shift + f
-    /usr/bin/firefox
+  /usr/bin/firefox
+
+# open chromium
+super + shift + g
+  /usr/bin/chromium
 ```
 
 Para que Firefox resuelva los dominios de `hack the box` ingresar en la barra de navegación `about:config`, ingresar `browser.fixup.domainsuffixwhitelist.htb` y ponerlo en `true`
@@ -327,17 +331,17 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 
 # ZSH AutoSuggestions Plugin
 if [ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
-    source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+  source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 fi
 
 # ZSH Syntax Highlighting Plugin
 if [ -f /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
-    source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+  source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
 
 # ZSH AutoComplete Plugin
 if [ -f /usr/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh ]; then
-    source /usr/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+	source /usr/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 fi
 
 function settarget(){
@@ -546,9 +550,9 @@ ip_address=$(/bin/cat ~/.config/bin/target | awk '{print $1}')
 machine_name=$(/bin/cat ~/.config/bin/target | awk '{print $2}')
 
 if [ $ip_address ] && [ $machine_name ]; then
-    echo " %{F#fff}$ip_address%{u-} - $machine_name"
+  echo " %{F#fff}$ip_address%{u-} - $machine_name"
 else
-    echo "%{u-}%{F#fff} No target"
+  echo "%{u-}%{F#fff} No target"
 fi
 ```
 
@@ -762,7 +766,7 @@ nvim ~/.config/sxhkd/sxhkdrc
 ```bash
 # i3lock-fancy
 super + shift + x
-    /usr/bin/i3lock-fancy
+  /usr/bin/i3lock-fancy
 ```
 
 ## Instalar locate
@@ -789,7 +793,7 @@ nvim ~/.config/sxhkd/sxhkdrc
 ```
 # program launcher
 super + d
-    /usr/bin/rofi -show run
+  /usr/bin/rofi -show run
 ```
 
 ## Burpsuite launcher
