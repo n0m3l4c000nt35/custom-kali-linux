@@ -345,6 +345,10 @@ function cleartarget(){
   echo "" > /home/parrot/.config/bin/target
 }
 
+function mkt(){
+	mkdir {nmap,content,exploits,scripts}
+}
+
 function extractPorts(){
 	ports="$(cat $1 | grep -oP '\d{1,5}/open' | awk '{print $1}' FS='/' | xargs | tr ' ' ',')"
 	ip_address="$(cat $1 | grep -oP '\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}' | sort -u | head -n 1)"
