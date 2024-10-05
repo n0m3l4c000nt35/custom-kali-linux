@@ -16,7 +16,6 @@
 14. [Instalar i3lock](#Instalar-i3lock)
 15. [Instalar locate](#Instalar-locate)
 16. [Instalar rofi](#Instalar-rofi)
-17. [Burpsuite launcher](#Burpsuite-launcher)
 
 ## Instalar bspwm
 
@@ -173,7 +172,7 @@ Para que Firefox resuelva los dominios de `hack the box` ingresar en la barra de
 [Repositorio de kitty](https://github.com/kovidgoyal/kitty)
 
 ```bash
-sudo mkdir /opt/kitty && wget -O- https://github.com/kovidgoyal/kitty/releases/download/v0.35.2/kitty-0.35.2-x86_64.txz | sudo tar -xJ -C /opt/kitty && sudo ln -s /opt/kitty/bin/kitty /usr/bin/kitty && sudo ln -s /opt/kitty/bin/kitten /usr/bin/kitten
+sudo mkdir /opt/kitty && wget -O- https://github.com/kovidgoyal/kitty/releases/download/v0.36.4/kitty-0.36.4-x86_64.txz | sudo tar -xJ -C /opt/kitty && sudo ln -s /opt/kitty/bin/kitty /usr/bin/kitty && sudo ln -s /opt/kitty/bin/kitten /usr/bin/kitten
 ```
 
 Modificar las siguientes líneas al archivo `~/.config/sxhkd/sxhkdrc`
@@ -828,27 +827,4 @@ nvim ~/.config/sxhkd/sxhkdrc
 # program launcher
 super + d
   /usr/bin/rofi -show run
-```
-
-## Burpsuite launcher
-
-```shell
-sudo touch /usr/bin/burpsuite-launcher
-sudo chmod +x /usr/bin/burpsuite-launcher
-```
-
-Agregar al archivo `/usr/bin/burpsuite-launcher` las siguientes líneas
-
-```shell
-sudo su
-nvim /usr/bin/burpsuite-launcher
-```
-
-```shell
-#!/bin/bash
-
-export _JAVA_AWT_WM_NONREPARENTING=1
-wmname LG3D &
-
-/usr/bin/burpsuite
 ```
