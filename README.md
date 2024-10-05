@@ -16,6 +16,7 @@
 14. [Instalar i3lock](#Instalar-i3lock)
 15. [Instalar locate](#Instalar-locate)
 16. [Instalar rofi](#Instalar-rofi)
+17. [Otras configuraciones](#Otras-configuraciones)
 
 ## Instalar bspwm
 
@@ -31,18 +32,6 @@ git clone https://github.com/baskerville/sxhkd.git ~/Downloads/sxhkd
 sudo make -C ~/Downloads/bspwm
 sudo make -C ~/Downloads/bspwm install
 which bspwm
-```
-
-Agregar la siguiente línea al archivo `~/.config/bspwm/bspwmrc`
-
-```bash
-vi ~/.config/bspwm/bspwmrc
-```
-
-```bash
-bspc config border_width        1
-bspc config focused_border_color "#ff1493"
-bspc config normal_border_color "#750843"
 ```
 
 ## Instalar sxhkd
@@ -143,6 +132,18 @@ esac
 bspc node -z "$dir" "$x" "$y" || bspc node -z "$falldir" "$x" "$y"
 ```
 
+Agregar la siguiente línea al archivo `~/.config/bspwm/bspwmrc`
+
+```bash
+vi ~/.config/bspwm/bspwmrc
+```
+
+```bash
+bspc config border_width        1
+bspc config focused_border_color "#ff1493"
+bspc config normal_border_color "#750843"
+```
+
 Para poder copiar de manera bidireccional entre la máquina host y la máquina virtual, agregar la siguiente línea al archivo `~/.config/bspwm/bspwmrc`
 
 ```bash
@@ -164,8 +165,6 @@ super + shift + f
 super + shift + g
   /usr/bin/chromium
 ```
-
-Para que Firefox resuelva los dominios de `hack the box` ingresar en la barra de navegación `about:config`, ingresar `browser.fixup.domainsuffixwhitelist.htb` y ponerlo en `true`
 
 ## Instalar kitty
 
@@ -828,3 +827,7 @@ nvim ~/.config/sxhkd/sxhkdrc
 super + d
   /usr/bin/rofi -show run
 ```
+
+## Otras configuraciones
+
+Para que Firefox resuelva los dominios de `hack the box` ingresar en la barra de navegación `about:config`, ingresar `browser.fixup.domainsuffixwhitelist.htb` y ponerlo en `true`
