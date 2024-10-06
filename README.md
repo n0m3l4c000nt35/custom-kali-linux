@@ -3,6 +3,7 @@
 - [Instalar dependencias](#Instalar-dependencias)
 - [Instalar bspwm](#Instalar-bspwm)
 - [Instalar sxhkd](#Instalar-sxhkd)
+- [Configuración de bspwm y sxhkd](#Configuracion-de-bspwm-y-sxhkd)
 - [Instalar kitty](#Instalar-kitty)
 - [Instalar zsh](#Instalar-zsh)
 - [Instalar fuentes](#Instalar-fuentes)
@@ -41,17 +42,13 @@ sudo make -C ~/Downloads/bspwm install
 sudo nano /usr/share/xsessions/bspwm.desktop
 ```
 
-Copiar el siguiente contenido al archivo `/usr/share/xsessions/bspwm.desktop`
+Copiar el siguiente contenido al archivo `/usr/share/xsessions/bspwm.desktop` para poder seleccionar `bspwm` al iniciar sesión
 
 ```
 [Desktop Entry]
 Name=bspwm
 Exec=bspwm
 Type=Application
-```
-
-```bash
-echo "exec bspwm" > ~/.xinitrc
 ```
 
 ## Instalar sxhkd
@@ -64,7 +61,7 @@ sudo make -C ~/Downloads/sxhkd
 sudo make -C ~/Downloads/sxhkd install
 ```
 
-Crear archivos de configuración de `bspwm` y `sxhkd`
+## Configuracion de `bspwm` y `sxhkd`
 
 ```bash
 mkdir ~/.config/{bspwm,sxhkd}
