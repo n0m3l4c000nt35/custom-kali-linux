@@ -22,7 +22,7 @@
 ## Instalar dependencias
 
 ```bash
-sudo apt install git make build-essential libxcb-xinerama0-dev libxcb-icccm4-dev libxcb-randr0-dev libxcb-util0-dev libxcb-ewmh-dev libxcb-keysyms1-dev libxcb-shape0-dev -y
+sudo apt install git make build-essential p7zip-full libxcb-xinerama0-dev libxcb-icccm4-dev libxcb-randr0-dev libxcb-util0-dev libxcb-ewmh-dev libxcb-keysyms1-dev libxcb-shape0-dev -y
 ```
 
 ## Instalar bspwm
@@ -31,10 +31,27 @@ sudo apt install git make build-essential libxcb-xinerama0-dev libxcb-icccm4-dev
 
 ```bash
 git clone https://github.com/baskerville/bspwm.git ~/Downloads/bspwm
-git clone https://github.com/baskerville/sxhkd.git ~/Downloads/sxhkd
 sudo make -C ~/Downloads/bspwm
 sudo make -C ~/Downloads/bspwm install
-which bspwm
+```
+
+### En Ubuntu
+
+```bash
+sudo nano /usr/share/xsessions/bspwm.desktop
+```
+
+Copiar el siguiente contenido al archivo `/usr/share/xsessions/bspwm.desktop`
+
+```
+[Desktop Entry]
+Name=bspwm
+Exec=bspwm
+Type=Application
+```
+
+```bash
+echo "exec bspwm" > ~/.xinitrc
 ```
 
 ## Instalar sxhkd
@@ -42,9 +59,9 @@ which bspwm
 [Repositorio de sxhkd](https://github.com/baskerville/sxhkd)
 
 ```bash
+git clone https://github.com/baskerville/sxhkd.git ~/Downloads/sxhkd
 sudo make -C ~/Downloads/sxhkd
 sudo make -C ~/Downloads/sxhkd install
-which sxhkd
 ```
 
 Crear archivos de configuración de `bspwm` y `sxhkd`
@@ -53,7 +70,6 @@ Crear archivos de configuración de `bspwm` y `sxhkd`
 mkdir ~/.config/{bspwm,sxhkd}
 cp ~/Downloads/bspwm/examples/bspwmrc ~/.config/bspwm/
 chmod u+x ~/.config/bspwm/bspwmrc
-sudo apt install bspwm -y
 cp ~/Downloads/bspwm/examples/sxhkdrc ~/.config/sxhkd/
 rm -rf ~/Downloads/{bspwm,sxhkd}
 ```
@@ -61,7 +77,7 @@ rm -rf ~/Downloads/{bspwm,sxhkd}
 Modificar las siguientes líneas del archivo `~/.config/sxhkd/sxhkdrc`
 
 ```bash
-vi ~/.config/sxhkd/sxhkdrc
+nano ~/.config/sxhkd/sxhkdrc
 ```
 
 ```bash
@@ -89,7 +105,7 @@ super + alt + {Left,Down,Up,Right}
 Eliminar las siguientes líneas del archivo `~/.config/sxhkd/sxhkdrc`
 
 ```bash
-vi ~/.config/sxhkd/sxhkdrc
+nano ~/.config/sxhkd/sxhkdrc
 ```
 
 ```bash
@@ -113,7 +129,7 @@ chmod +x ~/.config/bspwm/scripts/bspwm_resize
 Agregarle el siguiente contenido al archivo `~/.config/bspwm/scripts/bspwm_resize`
 
 ```bash
-vi ~/.config/bspwm/scripts/bspwm_resize
+nano ~/.config/bspwm/scripts/bspwm_resize
 ```
 
 ```bash
@@ -138,7 +154,7 @@ bspc node -z "$dir" "$x" "$y" || bspc node -z "$falldir" "$x" "$y"
 Agregar la siguiente línea al archivo `~/.config/bspwm/bspwmrc`
 
 ```bash
-vi ~/.config/bspwm/bspwmrc
+nano ~/.config/bspwm/bspwmrc
 ```
 
 ```bash
@@ -147,16 +163,26 @@ bspc config focused_border_color "#ff1493"
 bspc config normal_border_color "#750843"
 ```
 
+Eliminar las siguientes líneas del archivo `~/.config/bspwm/bspwmrc`
+
+```bash
+bspc rule -a Gimp desktop='^8' state=floating follow=on
+bspc rule -a Chromium desktop='^2'
+bspc rule -a mplayer2 state=floating
+bspc rule -a Kupfer.py focus=on
+bspc rule -a Screenkey manage=off
+```
+
 Para poder copiar de manera bidireccional entre la máquina host y la máquina virtual, agregar la siguiente línea al archivo `~/.config/bspwm/bspwmrc`
 
 ```bash
 echo "vmware-user-suid-wrapper &" >> ~/.config/bspwm/bspwmrc
 ```
 
-Agregar el siguiente bind al archivo `~/.config/sxhkd/sxhkdrc` para abrir `firefox`
+Agregar el siguiente bind al archivo `~/.config/sxhkd/sxhkdrc` para abrir `firefox` y `chromium`
 
 ```bash
-vi ~/.config/sxhkd/sxhkdrc
+nano ~/.config/sxhkd/sxhkdrc
 ```
 
 ```bash
@@ -174,13 +200,16 @@ super + shift + g
 [Repositorio de kitty](https://github.com/kovidgoyal/kitty)
 
 ```bash
-sudo mkdir /opt/kitty && wget -O- https://github.com/kovidgoyal/kitty/releases/download/v0.36.4/kitty-0.36.4-x86_64.txz | sudo tar -xJ -C /opt/kitty && sudo ln -s /opt/kitty/bin/kitty /usr/bin/kitty && sudo ln -s /opt/kitty/bin/kitten /usr/bin/kitten
+sudo mkdir /opt/kitty
+wget -O- https://github.com/kovidgoyal/kitty/releases/download/v0.36.4/kitty-0.36.4-x86_64.txz | sudo tar -xJ -C /opt/kitty
+sudo ln -s /opt/kitty/bin/kitty /usr/bin/kitty
+sudo ln -s /opt/kitty/bin/kitten /usr/bin/kitten
 ```
 
 Modificar las siguientes líneas al archivo `~/.config/sxhkd/sxhkdrc`
 
 ```bash
-vi ~/.config/sxhkd/sxhkdrc
+nano ~/.config/sxhkd/sxhkdrc
 ```
 
 ```bash
@@ -192,7 +221,8 @@ super + Return
 Crear el archivo `~/.config/kitty/kitty.conf` y agregarle el siguiente contenido
 
 ```bash
-mkdir -p ~/.config/kitty && touch ~/.config/kitty/kitty.conf && vi ~/.config/kitty/kitty.conf
+mkdir -p ~/.config/kitty
+nano ~/.config/kitty/kitty.conf
 ```
 
 ```bash
@@ -224,7 +254,8 @@ background_opacity 0.90
 ```
 
 ```bash
-sudo mkdir -p /root/.config/kitty && sudo ln -s ~/.config/kitty/kitty.conf /root/.config/kitty/kitty.conf
+sudo mkdir -p /root/.config/kitty
+sudo ln -s ~/.config/kitty/kitty.conf /root/.config/kitty/kitty.conf
 ```
 
 Crear acceso a **kitty**
@@ -256,19 +287,19 @@ kitten themes
 
 ## Instalar zsh
 
+Reemplazar `<user>` por el usuario no privilegiado.
+
 ```shell
 sudo apt install zsh -y
-sudo apt install zsh-autosuggestions zsh-syntax-highlighting zsh-autocomplete
-ls -l /usr/share/ | grep zsh
-sudo usermod --shell /usr/bin/zsh biff
+sudo apt install zsh-autosuggestions zsh-syntax-highlighting
+sudo usermod --shell /usr/bin/zsh <user>
 sudo usermod --shell /usr/bin/zsh root
-cat /etc/passwd | grep -E "^root|^biff"
 ```
 
 Agregar la siguiente línea al archivo `~/.config/kitty/kitty.conf`
 
 ```shell
-vi ~/.config/kitty/kitty.conf
+nano ~/.config/kitty/kitty.conf
 ```
 
 ```shell
@@ -279,8 +310,11 @@ shell zsh
 
 [Nerd Fonts](https://www.nerdfonts.com/font-downloads)
 
-```shell
-sudo bash -c 'wget -P /usr/local/share/fonts https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/Hack.zip && 7z x /usr/local/share/fonts/Hack.zip -o/usr/local/share/fonts && rm -rf /usr/local/share/fonts/{Hack.zip,README.md,LICENSE.md} && git clone https://github.com/VaughnValle/blue-sky.git /tmp/blue-sky && cp /tmp/blue-sky/polybar/fonts/* /usr/share/fonts/truetype && fc-cache -v && rm -rf /tmp/blue-sky'
+```bash
+sudo wget -P /usr/local/share/fonts https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/Hack.zip
+sudo 7z x /usr/local/share/fonts/Hack.zip -o/usr/local/share/fonts
+sudo rm -rf /usr/local/share/fonts/{Hack.zip,README.md,LICENSE.md}
+fc-cache
 ```
 
 ## Instalar powerlevel10k
