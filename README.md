@@ -1,30 +1,33 @@
 # Personalización de Linux
 
-1. [Instalar bspwm](#Instalar-bspwm)
-2. [Instalar sxhkd](#Instalar-sxhkd)
-3. [Instalar kitty](#Instalar-kitty)
-4. [Instalar zsh](#Instalar-zsh)
-5. [Instalar fuentes](#Instalar-fuentes)
-6. [Instalar powerlevel10k](#Instalar-powerlevel10k)
-7. [Instalar picom](#Instalar-picom)
-8. [Instalar batcat y lsd](#Instalar-batcat-y-lsd)
-9. [Instalar feh](#Instalar-feh)
-10. [Instalar polybar](#Instalar-polybar)
-11. [Instalar imagemagick](#Instalar-imagemagick)
-12. [Instalar nvim y nvchad](#Instalar-nvim-y-nvchad)
-13. [Instalar fzf](#Instalar-fzf)
-14. [Instalar i3lock](#Instalar-i3lock)
-15. [Instalar locate](#Instalar-locate)
-16. [Instalar rofi](#Instalar-rofi)
-17. [Otras configuraciones](#Otras-configuraciones)
+- [Instalar dependencias](#Instalar-dependencias)
+- [Instalar bspwm](#Instalar-bspwm)
+- [Instalar sxhkd](#Instalar-sxhkd)
+- [Instalar kitty](#Instalar-kitty)
+- [Instalar zsh](#Instalar-zsh)
+- [Instalar fuentes](#Instalar-fuentes)
+- [Instalar powerlevel10k](#Instalar-powerlevel10k)
+- [Instalar picom](#Instalar-picom)
+- [Instalar batcat y lsd](#Instalar-batcat-y-lsd)
+- [Instalar feh](#Instalar-feh)
+- [Instalar polybar](#Instalar-polybar)
+- [Instalar imagemagick](#Instalar-imagemagick)
+- [Instalar nvim y nvchad](#Instalar-nvim-y-nvchad)
+- [Instalar fzf](#Instalar-fzf)
+- [Instalar i3lock](#Instalar-i3lock)
+- [Instalar locate](#Instalar-locate)
+- [Instalar rofi](#Instalar-rofi)
+- [Otras configuraciones](#Otras-configuraciones)
+
+## Instalar dependencias
+
+```bash
+sudo apt install git make build-essential libxcb-xinerama0-dev libxcb-icccm4-dev libxcb-randr0-dev libxcb-util0-dev libxcb-ewmh-dev libxcb-keysyms1-dev libxcb-shape0-dev -y
+```
 
 ## Instalar bspwm
 
 [Repositorio de bspwm](https://github.com/baskerville/bspwm)
-
-```bash
-sudo apt install libxcb-xinerama0-dev libxcb-icccm4-dev libxcb-randr0-dev libxcb-util0-dev libxcb-ewmh-dev libxcb-keysyms1-dev libxcb-shape0-dev -y
-```
 
 ```bash
 git clone https://github.com/baskerville/bspwm.git ~/Downloads/bspwm
