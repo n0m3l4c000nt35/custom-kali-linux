@@ -198,7 +198,7 @@ super + shift + g
 
 ```bash
 sudo mkdir /opt/kitty
-wget -O- https://github.com/kovidgoyal/kitty/releases/download/v0.36.4/kitty-0.36.4-x86_64.txz | sudo tar -xJ -C /opt/kitty
+wget -O- https://github.com/kovidgoyal/kitty/releases/download/v0.37.0/kitty-0.37.0-x86_64.txz | sudo tar -xJ -C /opt/kitty
 sudo ln -s /opt/kitty/bin/kitty /usr/bin/kitty
 sudo ln -s /opt/kitty/bin/kitten /usr/bin/kitten
 ```
