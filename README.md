@@ -561,6 +561,10 @@ echo '~/.config/polybar/./launch.sh &' >> ~/.config/bspwm/bspwmrc
 En el archivo `~/.config/polybar/launch.sh` agregar las siguientes líneas
 
 ```shell
+chmod +x ~/.config/polybar/launch.sh
+```
+
+```shell
 vi ~/.config/polybar/launch.sh
 ```
 
