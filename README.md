@@ -308,7 +308,7 @@ shell zsh
 [Nerd Fonts](https://www.nerdfonts.com/font-downloads)
 
 ```bash
-sudo wget -P /usr/local/share/fonts https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/Hack.zip
+sudo wget -P /usr/local/share/fonts https://github.com/ryanoasis/nerd-fonts/releases/download/v3.3.0/Hack.zip
 sudo 7z x /usr/local/share/fonts/Hack.zip -o/usr/local/share/fonts
 sudo rm -rf /usr/local/share/fonts/{Hack.zip,README.md,LICENSE.md}
 fc-cache
