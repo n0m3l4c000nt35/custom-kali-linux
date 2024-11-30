@@ -225,6 +225,7 @@ nano ~/.config/kitty/kitty.conf
 ```bash
 font_family HackNerdFont
 cursor_shape beam
+window_padding_width 5
 
 map ctrl+left neighboring_window left
 map ctrl+right neighboring_window right
