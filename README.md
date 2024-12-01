@@ -566,7 +566,7 @@ sudo ln -s /usr/sbin/ifconfig /usr/bin/ifconfig
 
 ```shell
 sudo apt install polybar -y
-echo '~/.config/polybar/./launch.sh &' >> ~/.config/bspwm/bspwmrc
+echo '~/.config/polybar/launch.sh &' >> ~/.config/bspwm/bspwmrc
 ```
 
 En el archivo `~/.config/polybar/launch.sh` agregar las siguientes líneas
