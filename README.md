@@ -689,6 +689,7 @@ format-prefix-font = 2
 [module/vpn_status]
 type = custom/script
 exec = ~/.config/bspwm/scripts/vpn_status.sh
+click-left = echo -n "$(/usr/sbin/ifconfig tun0 | grep "inet " | awk '{print $2}')" | xclip -sel clip
 interval = 2
 format-prefix = "󰆧"
 format-prefix-foreground = #1bbf3e
