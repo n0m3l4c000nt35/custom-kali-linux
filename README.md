@@ -294,6 +294,12 @@ sudo usermod --shell /usr/bin/zsh <user>
 sudo usermod --shell /usr/bin/zsh root
 ```
 
+Agregar la siguiente línea al archivo `~/.zshrc` para modificar el prompt
+
+```shell
+PS1='%B%F{27}<U+F327>%f%b  %B%F{198}%n%f%b $(dir_icon)  %B%F{red}%~%f%b${vcs_info_msg_0_} %(?.%B%F{green}<U+F054><U+F054>.%F{red}<U+F054><U+F054>)%f%b%F{yellow}${VIRTUAL_ENV:+ ($(basename $VIRTUAL_ENV))}%f '
+```
+
 Agregar la siguiente línea al archivo `~/.config/kitty/kitty.conf`
 
 ```shell
