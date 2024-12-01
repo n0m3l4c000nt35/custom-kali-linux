@@ -712,6 +712,7 @@ label-empty-font = 2
 [module/target_to_hack]
 type = custom/script
 exec = ~/.config/bspwm/scripts/target_to_hack.sh
+click-left = echo -n "$(cat ~/.config/bin/target | awk '{print $1}')" | xclip -sel clip
 interval = 2
 format-prefix = "󰓾"
 format-prefix-foreground = #e51d0b
