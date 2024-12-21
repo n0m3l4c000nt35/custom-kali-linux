@@ -417,6 +417,10 @@ zstyle ':completion:*' verbose true
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
+function vpn(){
+    sudo openvpn /home/kali/Desktop/htb/lab_n0m3l4c000nt35.ovpn
+}
+
 function settarget(){
   ip_address=$1
   machine_name=$2
@@ -428,18 +432,19 @@ function cleartarget(){
 }
 
 function mkt(){
-	mkdir {nmap,content,exploits,scripts}
+    machine_name=$1
+    mkdir -p $1/{recon,tools,scripts}
 }
 
 function extractPorts(){
-	ports="$(cat $1 | grep -oP '\d{1,5}/open' | awk '{print $1}' FS='/' | xargs | tr ' ' ',')"
-	ip_address="$(cat $1 | grep -oP '\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}' | sort -u | head -n 1)"
-	echo -e "\n[*] Extracting information...\n" > extractPorts.tmp
-	echo -e "\t[*] IP Address: $ip_address"  >> extractPorts.tmp
-	echo -e "\t[*] Open ports: $ports\n"  >> extractPorts.tmp
-	echo $ports | tr -d '\n' | xclip -sel clip
-	echo -e "[*] Ports copied to clipboard\n"  >> extractPorts.tmp
-	cat extractPorts.tmp; rm extractPorts.tmp
+    ports="$(/usr/bin/cat $1 | grep -oP '\d{1,5}/open' | awk '{print $1}' FS='/' | xargs | tr ' ' ',')"
+    ip_address="$(/usr/bin/cat $1 | grep -oP '\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}' | sort -u | head -n 1)"
+    echo -e "\n[*] Extracting information...\n" > extractPorts.tmp
+    echo -e "\t[*] IP Address: $ip_address"  >> extractPorts.tmp
+    echo -e "\t[*] Open ports: $ports\n"  >> extractPorts.tmp
+    echo $ports | tr -d '\n' | xclip -sel clip
+    echo -e "[*] Ports copied to clipboard\n"  >> extractPorts.tmp
+    cat extractPorts.tmp; rm extractPorts.tmp
 }
 
 # History
@@ -466,13 +471,13 @@ alias bs='/usr/bin/burpsuite 2>/dev/null & disown'
 
 function dir_icon {
   if [[ "$PWD" == "$HOME" ]]; then
-    echo "%B%F{cyan}%f%b"
+    echo "%B%F{27}<U+F015>%f%b"
   else
-    echo "%B%F{cyan}%f%b"
+    echo "%B%F{27}<U+E5FE>%f%b"
   fi
 }
 
-PS1='%B%F{blue}%f%b  %B%F{magenta}%n%f%b $(dir_icon)  %B%F{red}%~%f%b${vcs_info_msg_0_} %(?.%B%F{green}.%F{red})%f%b '
+PS1='%B%F{27}<U+F327>%f%b  %B%F{198}%n%f%b $(dir_icon)  %B%F{red}%~%f%b${vcs_info_msg_0_} %(?.%B%F{green}<U+F054><U+F054>.%F{red}<U+F054><U+F054>)%f%b%F{yellow}${VIRTUAL_ENV:+ ($(basename $VIRTUAL_ENV))}%f '
 
 xset r rate 250 25
 ```
