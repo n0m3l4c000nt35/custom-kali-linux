@@ -192,7 +192,7 @@ super + shift + f
 
 # open chromium
 super + shift + g
-  /usr/bin/chromium
+    /usr/bin/chromium 2>/dev/null & disown
 ```
 
 ## Instalar kitty
