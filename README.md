@@ -661,18 +661,22 @@ vi ~/.config/polybar/config.ini
 ```
 
 ```shell
+[global/wm]
+margin-bottom = 5
+
 [bar/main]
-width = 98%
+width = 99.5%
 height = 40
-offset-x = 1%
+offset-x = 0.3%
 offset-y = 1%
-margin-bottom = 0
-background = #00000000
-module-margin = 5pt
+border-size = 1
+border-color = #39ff14
+background = #1139ff14
+module-margin = 7pt
 modules-left = ethernet_status vpn_status
 modules-center = workspaces
 modules-right = target_to_hack
-padding = 20px
+padding = 15px
 font-0 = "Hack Nerd Font Mono:style=regular:size=10;1"
 font-1 = "Hack Nerd Font Mono:style=regular:size=16;2"
 font-2 = "Hack Nerd Font Mono:style=regular:size=18;2"
@@ -701,18 +705,18 @@ icon-default = 
 format = <label-state>
 format-font = 3
 label-active = 󱓇
-label-active-foreground = #1bbf3e
+label-active-foreground = #39ff14
 label-active-padding = 5px
 label-active-font = 4
 label-occupied = %icon%
-label-occupied-foreground = #ffff00
+label-occupied-foreground = #4439ff14
 label-occupied-padding = 5px
 label-occupied-font = 2
 label-urgent = %icon%
 label-urgent-foreground = #e51d0b
 label-urgent-padding = 5px
 label-empty = %icon%
-label-empty-foreground = #a1a1a1
+label-empty-foreground = #6a6a6a
 label-empty-padding = 5px
 label-empty-font = 2
 
@@ -722,7 +726,7 @@ exec = ~/.config/bspwm/scripts/target_to_hack.sh
 click-left = echo -n "$(cat ~/.config/bin/target | awk '{print $1}')" | xclip -sel clip
 interval = 2
 format-prefix = "󰓾"
-format-prefix-foreground = #e51d0b
+format-prefix-foreground = #ff0000
 format-prefix-font = 2
 ```
 
