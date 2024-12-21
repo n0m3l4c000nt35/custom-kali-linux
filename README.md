@@ -155,9 +155,12 @@ nano ~/.config/bspwm/bspwmrc
 ```
 
 ```bash
-bspc config border_width        1
-bspc config focused_border_color "#ff1493"
-bspc config normal_border_color "#750843"
+bspc config split_ratio 0.5
+
+bspc config window_gap 2
+bspc config border_width 1
+bspc config normal_border_color "#5d5d5d"
+bspc config focused_border_color "#39ff14"
 ```
 
 Eliminar las siguientes líneas del archivo `~/.config/bspwm/bspwmrc`
