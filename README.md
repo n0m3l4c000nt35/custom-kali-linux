@@ -228,6 +228,12 @@ nano ~/.config/kitty/kitty.conf
 ```bash
 font_family HackNerdFont
 cursor_shape beam
+
+active_border_color #39ff14
+inactive_border_color #5d5d5d
+
+window_margin_width 1
+window_border_width 1
 window_padding_width 5
 
 map ctrl+left neighboring_window left
@@ -244,14 +250,15 @@ map f3 copy_to_buffer b
 map f4 paste_from_buffer b
 
 map ctrl+shift+z toggle_layout stack
+
 tab_bar_style powerline
 
 inactive_tab_background #e06c75
 active_tab_background #98c379
 inactive_tab_foreground #000000
-tab_bar_margin_color black
+tab_bar_margin_color #000
 
-background_opacity 0.90
+background_opacity 0.80
 ```
 
 ```bash
