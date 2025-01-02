@@ -911,3 +911,25 @@ super + d
 ## Otras configuraciones
 
 Para que Firefox resuelva los dominios de `hack the box` ingresar en la barra de navegación `about:config`, ingresar `browser.fixup.domainsuffixwhitelist.htb` y ponerlo en `true`
+
+Modificar el rate y delay del teclado
+
+```bash
+nano ~/.xprofile
+```
+
+```
+xset r rate 250 25
+```
+
+Configurar Git
+
+```bash
+git config --global user.name "<username>"
+git config --global user.email "<email>"
+git config --global core.editor "code --wait"
+git config --global alias.st status
+git config --global alias.co checkout
+git config --global alias.br branch
+git config --global alias.cm "commit -m"
+```
