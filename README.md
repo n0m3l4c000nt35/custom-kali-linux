@@ -297,6 +297,10 @@ kitten themes
 
 Reemplazar `<user>` por el usuario no privilegiado.
 
+[zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)
+
+[zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting)
+
 ```shell
 sudo apt install zsh -y
 sudo apt install zsh-autosuggestions zsh-syntax-highlighting
@@ -322,12 +326,10 @@ shell zsh
 
 ## Instalar fuentes
 
-[Nerd Fonts](https://www.nerdfonts.com/font-downloads)
+[MesloLGS NF](https://github.com/romkatv/powerlevel10k?tab=readme-ov-file#manual-font-installation)
 
 ```bash
-sudo wget -P /usr/local/share/fonts https://github.com/ryanoasis/nerd-fonts/releases/download/v3.3.0/Hack.zip
-sudo 7z x /usr/local/share/fonts/Hack.zip -o/usr/local/share/fonts
-sudo rm -rf /usr/local/share/fonts/{Hack.zip,README.md,LICENSE.md}
+
 fc-cache
 ```
 
