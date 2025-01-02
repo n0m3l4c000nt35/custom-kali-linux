@@ -933,3 +933,15 @@ git config --global alias.co checkout
 git config --global alias.br branch
 git config --global alias.cm "commit -m"
 ```
+
+Instalar **NVM**
+
+[Repositorio de Github](https://github.com/nvm-sh/nvm)
+
+Instalar **Node**
+
+[Descargar Node.js](https://nodejs.org/es/download)
+
+Instalar **Docker**
+
+[Descargar Docker](https://docs.docker.com/engine/install/ubuntu/)
