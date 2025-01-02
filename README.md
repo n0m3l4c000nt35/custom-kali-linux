@@ -259,6 +259,7 @@ inactive_tab_foreground #000000
 tab_bar_margin_color #000
 
 background_opacity 0.80
+enable_audio_bell no
 ```
 
 ```bash
