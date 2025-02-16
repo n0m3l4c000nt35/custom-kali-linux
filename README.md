@@ -17,7 +17,6 @@
 - [Instalar fzf](#Instalar-fzf)
 - [Instalar i3lock](#Instalar-i3lock)
 - [Instalar locate](#Instalar-locate)
-- [Instalar rofi](#Instalar-rofi)
 - [Otras configuraciones](#Otras-configuraciones)
 
 ## Instalar dependencias
@@ -34,21 +33,6 @@ sudo apt install git make build-essential p7zip-full libxcb-xinerama0-dev libxcb
 git clone https://github.com/baskerville/bspwm.git ~/Downloads/bspwm
 sudo make -C ~/Downloads/bspwm
 sudo make -C ~/Downloads/bspwm install
-```
-
-### En Ubuntu
-
-```bash
-sudo nano /usr/share/xsessions/bspwm.desktop
-```
-
-Copiar el siguiente contenido al archivo `/usr/share/xsessions/bspwm.desktop` para poder seleccionar `bspwm` al iniciar sesión
-
-```
-[Desktop Entry]
-Name=bspwm
-Exec=bspwm
-Type=Application
 ```
 
 ## Instalar sxhkd
@@ -150,20 +134,33 @@ bspc node -z "$dir" "$x" "$y" || bspc node -z "$falldir" "$x" "$y"
 
 Agregar la siguiente línea al archivo `~/.config/bspwm/bspwmrc`
 
+Para poder copiar de manera bidireccional entre la máquina host y la máquina virtual, agregar la siguiente línea al archivo `~/.config/bspwm/bspwmrc`
+
 ```bash
 nano ~/.config/bspwm/bspwmrc
 ```
 
 ```bash
+#! /bin/sh
+
+pgrep -x sxhkd > /dev/null || sxhkd &
+
+bspc monitor -d I II III IV V VI VII VIII IX X
+
+bspc config borderless_monocle   true
+bspc config gapless_monocle      true
+
 bspc config split_ratio 0.5
 
-bspc config window_gap 2
+bspc config window_gap 4
 bspc config border_width 1
 bspc config normal_border_color "#5d5d5d"
-bspc config focused_border_color "#39ff14"
+bspc config focused_border_color "#1A7A14"
+
+vmware-user-suid-wrapper &
 ```
 
-Eliminar las siguientes líneas del archivo `~/.config/bspwm/bspwmrc`
+Eliminar las siguientes líneas del archivo `$HOME/.config/bspwm/bspwmrc`
 
 ```bash
 bspc rule -a Gimp desktop='^8' state=floating follow=on
@@ -173,16 +170,10 @@ bspc rule -a Kupfer.py focus=on
 bspc rule -a Screenkey manage=off
 ```
 
-Para poder copiar de manera bidireccional entre la máquina host y la máquina virtual, agregar la siguiente línea al archivo `~/.config/bspwm/bspwmrc`
+Agregar lo siguiente al archivo `$HOME/.config/sxhkd/sxhkdrc` para abrir `firefox` y `chromium`
 
 ```bash
-echo "vmware-user-suid-wrapper &" >> ~/.config/bspwm/bspwmrc
-```
-
-Agregar el siguiente bind al archivo `~/.config/sxhkd/sxhkdrc` para abrir `firefox` y `chromium`
-
-```bash
-nano ~/.config/sxhkd/sxhkdrc
+nano $HOME/.config/sxhkd/sxhkdrc
 ```
 
 ```bash
@@ -193,6 +184,10 @@ super + shift + f
 # open chromium
 super + shift + g
     /usr/bin/chromium 2>/dev/null & disown
+
+# copy target
+super + shift + alt + t
+  $HOME/.config/bspwm/scripts/copy_target.sh
 ```
 
 ## Instalar kitty
@@ -232,7 +227,7 @@ cursor_shape beam
 active_border_color #39ff14
 inactive_border_color #5d5d5d
 
-window_margin_width 1
+window_margin_width 2
 window_border_width 1
 window_padding_width 5
 
@@ -248,6 +243,12 @@ map f1 copy_to_buffer a
 map f2 paste_from_buffer a
 map f3 copy_to_buffer b
 map f4 paste_from_buffer b
+map f5 copy_to_buffer c
+map f6 paste_from_buffer c
+map f7 copy_to_buffer d
+map f8 paste_from_buffer d
+map f9 copy_to_buffer e
+map f10 paste_from_buffer e
 
 map ctrl+shift+z toggle_layout stack
 
@@ -260,40 +261,11 @@ tab_bar_margin_color #000
 
 background_opacity 0.80
 enable_audio_bell no
-
-shell zsh
 ```
 
 ```bash
 sudo mkdir -p /root/.config/kitty
 sudo ln -s ~/.config/kitty/kitty.conf /root/.config/kitty/kitty.conf
-```
-
-Crear acceso a **kitty**
-
-```bash
-sudo nano /usr/share/applications/kitty.desktop
-```
-
-```bash
-[Desktop Entry]
-Name=Kitty
-Comment=A fast, feature-rich, GPU based terminal emulator
-Exec=kitty
-Icon=/opt/kitty/share/icons/hicolor/256x256/apps/kitty.png
-Terminal=false
-Type=Application
-Categories=System;TerminalEmulator;
-```
-
-```bash
-sudo update-desktop-database
-```
-
-Seleccionar el tema de kitty
-
-```bash
-kitten themes
 ```
 
 ## Instalar zsh
@@ -311,12 +283,6 @@ sudo usermod --shell /usr/bin/zsh <user>
 sudo usermod --shell /usr/bin/zsh root
 ```
 
-Agregar la siguiente línea al archivo `~/.zshrc` para modificar el prompt
-
-```shell
-PS1='%B%F{27}<U+F327>%f%b  %B%F{198}%n%f%b $(dir_icon)  %B%F{red}%~%f%b${vcs_info_msg_0_} %(?.%B%F{green}<U+F054><U+F054>.%F{red}<U+F054><U+F054>)%f%b%F{yellow}${VIRTUAL_ENV:+ ($(basename $VIRTUAL_ENV))}%f '
-```
-
 Agregar la siguiente línea al archivo `~/.config/kitty/kitty.conf`
 
 ```shell
@@ -332,7 +298,6 @@ shell zsh
 [MesloLGS NF](https://github.com/romkatv/powerlevel10k?tab=readme-ov-file#manual-font-installation)
 
 ```bash
-
 fc-cache
 ```
 
@@ -378,7 +343,7 @@ chown root:root /usr/local/share/zsh/site-functions/_bspc
 Modificar el archivo `~/.zshrc` y agregar las siguientes líneas
 
 ```shell
-vi ~/.zshrc
+nano ~/.zshrc
 ```
 
 ```shell
@@ -422,23 +387,14 @@ zstyle ':completion:*' verbose true
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
-function vpn(){
-    sudo openvpn /home/kali/Desktop/htb/lab_n0m3l4c000nt35.ovpn
-}
-
-function settarget(){
+function st(){
   ip_address=$1
   machine_name=$2
-  echo "$ip_address $machine_name" > /home/parrot/.config/bin/target
+  echo "$ip_address $machine_name" > /home/<user>/.config/bin/target
 }
 
-function cleartarget(){
-  echo "" > /home/parrot/.config/bin/target
-}
-
-function mkt(){
-    machine_name=$1
-    mkdir -p $1/{recon,tools,scripts}
+function ct(){
+  echo "" > /home/<user>/.config/bin/target
 }
 
 function extractPorts(){
@@ -458,7 +414,6 @@ HISTSIZE=10000
 SAVEHIST=10000
 setopt histignorealldups sharehistory
 
-# Custom Aliases
 # bat
 alias cat='bat'
 alias catn='bat --style=plain'
@@ -473,24 +428,12 @@ alias ls='lsd --group-dirs=first'
 
 # burpsuite
 alias bs='/usr/bin/burpsuite 2>/dev/null & disown'
-
-function dir_icon {
-  if [[ "$PWD" == "$HOME" ]]; then
-    echo "%B%F{27}<U+F015>%f%b"
-  else
-    echo "%B%F{27}<U+E5FE>%f%b"
-  fi
-}
-
-PS1='%B%F{27}<U+F327>%f%b  %B%F{198}%n%f%b $(dir_icon)  %B%F{red}%~%f%b${vcs_info_msg_0_} %(?.%B%F{green}<U+F054><U+F054>.%F{red}<U+F054><U+F054>)%f%b%F{yellow}${VIRTUAL_ENV:+ ($(basename $VIRTUAL_ENV))}%f '
-
-xset r rate 250 25
 ```
 
 Modificar el archivo `~/.p10k.zsh` tanto para el usuario no privilegiado como para root comentando los plugins de la derecha de la zsh que no se quiere que aparezcan y agregar al lado izquierdo los que si se quiere que aparezcan
 
 ```shell
-vi ~/.p10k.zsh
+nano ~/.p10k.zsh
 ```
 
 Modificar `<icon>` por un ícono a elección de la web [Nerd Fonts](https://www.nerdfonts.com/cheat-sheet)
@@ -526,7 +469,7 @@ touch ~/.config/picom/picom.conf
 Copiar el contenido del archivo [picom.sample.conf](https://raw.githubusercontent.com/yshui/picom/next/picom.sample.conf) al archivo `~/.config/picom/picom.conf`
 
 ```shell
-vi ~/.config/picom/picom.conf
+nano ~/.config/picom/picom.conf
 ```
 
 Modificar las siguientes líneas del archivo `~/.config/picom/picom.conf`
@@ -542,7 +485,7 @@ Comentar sombras y blur para que la performance mejore
 Agregar al archivo `~/.config/bspwm/bspwmrc` la línea `picom &`
 
 ```shell
-vi ~/.config/bspwm/bspwmrc
+nano ~/.config/bspwm/bspwmrc
 ```
 
 ```shell
@@ -573,17 +516,11 @@ sudo apt install feh -y
 Editar el archivo `~/.config/bspwm/bspwmrc`
 
 ```shell
-vi ~/.config/bspwm/bspwmrc
+nano ~/.config/bspwm/bspwmrc
 ```
 
 ```shell
 /usr/bin/feh --bg-center $HOME/Pictures/<wallpaper-name>.<extension>
-```
-
-## Enlace simbólico ifconfig
-
-```bash
-sudo ln -s /usr/sbin/ifconfig /usr/bin/ifconfig
 ```
 
 ## Instalar polybar
@@ -602,7 +539,7 @@ chmod +x ~/.config/polybar/launch.sh
 ```
 
 ```shell
-vi ~/.config/polybar/launch.sh
+nano ~/.config/polybar/launch.sh
 ```
 
 ```shell
@@ -614,14 +551,14 @@ polybar main -c ~/.config/polybar/config.ini
 ```
 
 ```shell
-touch ~/.config/bspwm/scripts/{ethernet_status.sh,vpn_status.sh,target_to_hack.sh}
-chmod +x ~/.config/bspwm/scripts/{ethernet_status.sh,vpn_status.sh,target_to_hack.sh}
+touch ~/.config/bspwm/scripts/{ethernet_status.sh,vpn_status.sh,target_to_hack.sh,copy_target.sh}
+chmod +x ~/.config/bspwm/scripts/{ethernet_status.sh,vpn_status.sh,target_to_hack.sh,copy_target.sh}
 ```
 
 Agregar al archivo `~/.config/bspwm/scripts/ethernet_status.sh` el siguiente contenido
 
 ```shell
-vi ~/.config/bspwm/scripts/ethernet_status.sh
+nano ~/.config/bspwm/scripts/ethernet_status.sh
 ```
 
 ```shell
@@ -633,7 +570,7 @@ echo " %{F#fff}$(/usr/sbin/ifconfig ens33 | grep "inet " | awk '{print $2}')"
 Agregar al archivo `~/.config/bspwm/scripts/vpn_status.sh` el siguiente contenido
 
 ```shell
-vi ~/.config/bspwm/scripts/vpn_status.sh
+nano ~/.config/bspwm/scripts/vpn_status.sh
 ```
 
 ```shell
@@ -651,7 +588,7 @@ fi
 Agregar al archivo `~/.config/bspwm/scripts/target_to_hack.sh` el siguiente contenido
 
 ```shell
-vi ~/.config/bspwm/scripts/target_to_hack.sh
+nano $HOME/.config/bspwm/scripts/target_to_hack.sh
 ```
 
 ```shell
@@ -667,17 +604,29 @@ else
 fi
 ```
 
+Agregar al archivo `~/.config/bspwm/scripts/copy_target.sh` el siguiente contenido
+
+```shell
+nano $HOME/.config/bspwm/scripts/copy_target.sh
+```
+
+```bash
+#!/bin/bash
+
+echo -n "$(cat $HOME/.config/bin/target | awk '{print $2}')" | xclip -sel clip
+```
+
 Crear el archivo `~/.config/bin/target`
 
 ```shell
-mkdir ~/.config/bin
-touch ~/.config/bin/target
+mkdir $HOME/.config/bin
+touch $HOME$/.config/bin/target
 ```
 
-Agregar al archivo `~/.config/polybar/current.ini` las siguientes líneas
+Agregar al archivo `$HOME/.config/polybar/current.ini` las siguientes líneas
 
 ```shell
-vi ~/.config/polybar/config.ini
+nano $HOME/.config/polybar/config.ini
 ```
 
 ```shell
@@ -685,13 +634,10 @@ vi ~/.config/polybar/config.ini
 margin-bottom = 5
 
 [bar/main]
-width = 99.5%
+width = 100%
 height = 40
-offset-x = 0.3%
+offset-x = 0%
 offset-y = 1%
-border-size = 1
-border-color = #39ff14
-background = #1139ff14
 module-margin = 7pt
 modules-left = ethernet_status vpn_status
 modules-center = workspaces
@@ -743,7 +689,7 @@ label-empty-font = 2
 [module/target_to_hack]
 type = custom/script
 exec = ~/.config/bspwm/scripts/target_to_hack.sh
-click-left = echo -n "$(cat ~/.config/bin/target | awk '{print $1}')" | xclip -sel clip
+click-left = echo -n "$(cat ~/.config/bin/target | awk '{print $2}')" | xclip -sel clip
 interval = 2
 format-prefix = "󰓾"
 format-prefix-foreground = #ff0000
@@ -761,7 +707,7 @@ sudo apt install imagemagick -y
 Agregar al archivo `~/.config/bspwm/bspwmrc` la siguiente línea para las aplicaciones JAVA
 
 ```shell
-vi ~/.config/bspwm/bspwmrc
+nano ~/.config/bspwm/bspwmrc
 ```
 
 ```shell
@@ -788,7 +734,13 @@ sudo rm /usr/bin/nvim
 [Repositorio de nvim](https://github.com/neovim/neovim)
 
 ```shell
-git clone https://github.com/NvChad/starter ~/.config/nvim && wget -P ~/Downloads https://github.com/neovim/neovim/releases/download/v0.10.0/nvim-linux64.tar.gz && sudo mkdir /opt/nvim && sudo mv ~/Downloads/nvim-linux64.tar.gz /opt/nvim && sudo tar -xf /opt/nvim/nvim-linux64.tar.gz -C /opt/nvim && sudo rm /opt/nvim/nvim-linux64.tar.gz && sudo ln -s /opt/nvim/nvim-linux64/bin/nvim /usr/bin/nvim
+git clone https://github.com/NvChad/starter ~/.config/nvim
+wget -P ~/Downloads https://github.com/neovim/neovim/releases/download/v0.10.0/nvim-linux64.tar.gz
+sudo mkdir /opt/nvim
+sudo mv ~/Downloads/nvim-linux64.tar.gz /opt/nvim
+sudo tar -xf /opt/nvim/nvim-linux64.tar.gz -C /opt/nvim
+sudo rm /opt/nvim/nvim-linux64.tar.gz
+sudo ln -s /opt/nvim/nvim-linux64/bin/nvim /usr/bin/nvim
 ```
 
 Ejecutar los siguientes comandos para finalizar la instación de `nvim`
@@ -800,7 +752,7 @@ nvim
 Agregar la siguiente línea al archivo `~/.config/nvim/init.lua` para eliminar el signo dolar/peso `$` en `nvim`
 
 ```shell
-nvim ~/.config/nvim/init.lua
+nvim $HOME/.config/nvim/init.lua
 ```
 
 ```shell
@@ -840,7 +792,9 @@ nvim
 Ejecutar los siguientes comandos para que el usuario `root` también tenga la misma configuración para `nvim`
 
 ```shell
-sudo mkdir /root/.config/nvim && sudo cp -r ~/.config/nvim/* /root/.config/nvim && sudo su
+sudo mkdir /root/.config/nvim
+sudo cp -r ~/.config/nvim/* /root/.config/nvim
+sudo su
 ```
 
 ```bash
@@ -877,7 +831,7 @@ sudo make -C /opt/i3lock-fancy install
 Agregar las siguientes líneas al archivo `~/.config/sxhkd/sxhkdrc`
 
 ```bash
-nvim ~/.config/sxhkd/sxhkdrc
+nano ~/.config/sxhkd/sxhkdrc
 ```
 
 ```bash
@@ -890,27 +844,6 @@ super + shift + x
 
 ```shell
 sudo apt install locate && sudo updatedb
-```
-
-## Instalar rofi
-
-```shell
-sudo apt install rofi
-mkdir ~/.config/rofi/themes
-sudo git clone https://github.com/newmanls/rofi-themes-collection /opt/rofi-themes-collection
-sudo cp /opt/rofi-themes-collection/themes ~/.config/rofi/themes
-```
-
-Modificar el archivo `~/.config/sxhkd/sxhkdrc`
-
-```shell
-nvim ~/.config/sxhkd/sxhkdrc
-```
-
-```
-# program launcher
-super + d
-  /usr/bin/rofi -show run
 ```
 
 ## Otras configuraciones
