@@ -276,7 +276,7 @@ Reemplazar `<user>` por el usuario no privilegiado.
 
 [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting)
 
-```shell
+```bash
 sudo apt install zsh -y
 sudo apt install zsh-autosuggestions zsh-syntax-highlighting
 sudo usermod --shell /usr/bin/zsh <user>
@@ -285,11 +285,11 @@ sudo usermod --shell /usr/bin/zsh root
 
 Agregar la siguiente línea al archivo `~/.config/kitty/kitty.conf`
 
-```shell
+```bash
 nano ~/.config/kitty/kitty.conf
 ```
 
-```shell
+```bash
 shell zsh
 ```
 
@@ -307,13 +307,13 @@ fc-cache
 
 Reemplazar `<user>` por el usuario no privilegiado
 
-```shell
+```bash
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k && echo 'source /home/<user>/powerlevel10k/powerlevel10k.zsh-theme' >> ~/.zshrc
 ```
 
 Configurar la `zsh` tanto para el usuario no privilegiado como para `root`
 
-```shell
+```bash
 zsh
 ```
 
@@ -334,35 +334,43 @@ zsh
 | Instant Prompt Mode        | 1      |
 | Apply changes to ~/.zshrc? | y      |
 
-```shell
+```bash
 sudo ln -s -f ~/.zshrc /root/.zshrc
 sudo compaudit
 chown root:root /usr/local/share/zsh/site-functions/_bspc
 ```
 
+Descargar el archivo `https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/sudo/sudo.plugin.zsh`
+
+```bash
+sudo mkdir -p /usr/share/zsh-sudo/
+sudo wget -P /usr/share/zsh-sudo/ https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/sudo/sudo.plugin.zsh
+sudo chown <user>:<group> /usr/share/zsh-sudo/ -R
+```
+
 Modificar el archivo `~/.zshrc` y agregar las siguientes líneas
 
-```shell
+```bash
 nano ~/.zshrc
 ```
 
-```shell
+```bash
 # Fix Java issue
 export _JAVA_AWT_WM_NONREPARENTING=1
 
-# ZSH AutoSuggestions Plugin
+# ZSH AutoSuggestions plugin
 if [ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
   source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 fi
 
-# ZSH Syntax Highlighting Plugin
+# ZSH Syntax Highlighting plugin
 if [ -f /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
   source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
 
-# ZSH AutoComplete Plugin
-if [ -f /usr/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh ]; then
-	source /usr/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+# ZSH Sudo plugin
+if [ -f /usr/share/zsh-sudo/sudo.plugin.zsh ]; then
+    source /usr/share/zsh-sudo/sudo.plugin.zsh
 fi
 
 # Use modern completion system
@@ -432,13 +440,13 @@ alias bs='/usr/bin/burpsuite 2>/dev/null & disown'
 
 Modificar el archivo `~/.p10k.zsh` tanto para el usuario no privilegiado como para root comentando los plugins de la derecha de la zsh que no se quiere que aparezcan y agregar al lado izquierdo los que si se quiere que aparezcan
 
-```shell
+```bash
 nano ~/.p10k.zsh
 ```
 
 Modificar `<icon>` por un ícono a elección de la web [Nerd Fonts](https://www.nerdfonts.com/cheat-sheet)
 
-```shell
+```bash
 context
 command_execution_time
 status
@@ -454,7 +462,7 @@ typeset -g POWERLEVEL9K_OS_ICON_CONTENT_EXPANSION=''
 
 [Repositorio de picom](https://github.com/yshui/picom)
 
-```shell
+```bash
 sudo apt install libconfig-dev libdbus-1-dev libegl-dev libev-dev libgl-dev libepoxy-dev libpcre2-dev libpixman-1-dev libx11-xcb-dev libxcb1-dev libxcb-composite0-dev libxcb-damage0-dev libxcb-dpms0-dev libxcb-glx0-dev libxcb-image0-dev libxcb-present-dev libxcb-randr0-dev libxcb-render0-dev libxcb-render-util0-dev libxcb-shape0-dev libxcb-util-dev libxcb-xfixes0-dev libxext-dev meson ninja-build uthash-dev cmake -y
 git clone https://github.com/yshui/picom ~/Downloads/picom
 meson setup --buildtype=release ~/Downloads/picom/build ~/Downloads/picom
@@ -468,7 +476,7 @@ touch ~/.config/picom/picom.conf
 
 Copiar el contenido del archivo [picom.sample.conf](https://raw.githubusercontent.com/yshui/picom/next/picom.sample.conf) al archivo `~/.config/picom/picom.conf`
 
-```shell
+```bash
 nano ~/.config/picom/picom.conf
 ```
 
@@ -484,11 +492,11 @@ Comentar sombras y blur para que la performance mejore
 
 Agregar al archivo `~/.config/bspwm/bspwmrc` la línea `picom &`
 
-```shell
+```bash
 nano ~/.config/bspwm/bspwmrc
 ```
 
-```shell
+```bash
 picom &
 ```
 
@@ -497,7 +505,7 @@ picom &
 [Repositorio de batcat](https://github.com/sharkdp/bat)  
 [Repositorio de lsd](https://github.com/lsd-rs/lsd)
 
-```shell
+```bash
 wget -P ~/Downloads https://github.com/sharkdp/bat/releases/download/v0.24.0/bat_0.24.0_amd64.deb
 wget -P ~/Downloads https://github.com/lsd-rs/lsd/releases/download/v1.1.5/lsd_1.1.5_amd64.deb
 sudo dpkg -i ~/Downloads/bat_0.24.0_amd64.deb
@@ -509,17 +517,17 @@ rm ~/Downloads/bat_0.24.0_amd64.deb ~/Downloads/lsd_1.1.5_amd64.deb
 
 [Repositorio de feh](https://github.com/derf/feh)
 
-```shell
+```bash
 sudo apt install feh -y
 ```
 
 Editar el archivo `~/.config/bspwm/bspwmrc`
 
-```shell
+```bash
 nano ~/.config/bspwm/bspwmrc
 ```
 
-```shell
+```bash
 /usr/bin/feh --bg-center $HOME/Pictures/<wallpaper-name>.<extension>
 ```
 
@@ -527,22 +535,22 @@ nano ~/.config/bspwm/bspwmrc
 
 [Repositorio de polybar](https://github.com/polybar/polybar)
 
-```shell
+```bash
 sudo apt install polybar -y
 echo '~/.config/polybar/launch.sh &' >> ~/.config/bspwm/bspwmrc
 ```
 
 En el archivo `~/.config/polybar/launch.sh` agregar las siguientes líneas
 
-```shell
+```bash
 chmod +x ~/.config/polybar/launch.sh
 ```
 
-```shell
+```bash
 nano ~/.config/polybar/launch.sh
 ```
 
-```shell
+```bash
 #!/bin/bash
 
 killall -q polybar
@@ -550,18 +558,18 @@ killall -q polybar
 polybar main -c ~/.config/polybar/config.ini
 ```
 
-```shell
+```bash
 touch ~/.config/bspwm/scripts/{ethernet_status.sh,vpn_status.sh,target_to_hack.sh,copy_target.sh}
 chmod +x ~/.config/bspwm/scripts/{ethernet_status.sh,vpn_status.sh,target_to_hack.sh,copy_target.sh}
 ```
 
 Agregar al archivo `~/.config/bspwm/scripts/ethernet_status.sh` el siguiente contenido
 
-```shell
+```bash
 nano ~/.config/bspwm/scripts/ethernet_status.sh
 ```
 
-```shell
+```bash
 #!/bin/sh
 
 echo " %{F#fff}$(/usr/sbin/ifconfig ens33 | grep "inet " | awk '{print $2}')"
@@ -569,11 +577,11 @@ echo " %{F#fff}$(/usr/sbin/ifconfig ens33 | grep "inet " | awk '{print $2}')"
 
 Agregar al archivo `~/.config/bspwm/scripts/vpn_status.sh` el siguiente contenido
 
-```shell
+```bash
 nano ~/.config/bspwm/scripts/vpn_status.sh
 ```
 
-```shell
+```bash
 #!/bin/sh
 
 IFACE=$(/usr/sbin/ifconfig | grep tun0 | awk '{print $1}' | tr -d ':')
@@ -587,11 +595,11 @@ fi
 
 Agregar al archivo `~/.config/bspwm/scripts/target_to_hack.sh` el siguiente contenido
 
-```shell
+```bash
 nano $HOME/.config/bspwm/scripts/target_to_hack.sh
 ```
 
-```shell
+```bash
 #!/bin/bash
 
 ip_address=$(/bin/cat ~/.config/bin/target | awk '{print $1}')
@@ -606,7 +614,7 @@ fi
 
 Agregar al archivo `~/.config/bspwm/scripts/copy_target.sh` el siguiente contenido
 
-```shell
+```bash
 nano $HOME/.config/bspwm/scripts/copy_target.sh
 ```
 
@@ -618,18 +626,18 @@ echo -n "$(cat $HOME/.config/bin/target | awk '{print $2}')" | xclip -sel clip
 
 Crear el archivo `~/.config/bin/target`
 
-```shell
+```bash
 mkdir $HOME/.config/bin
 touch $HOME$/.config/bin/target
 ```
 
 Agregar al archivo `$HOME/.config/polybar/current.ini` las siguientes líneas
 
-```shell
+```bash
 nano $HOME/.config/polybar/config.ini
 ```
 
-```shell
+```bash
 [global/wm]
 margin-bottom = 5
 
@@ -700,17 +708,17 @@ format-prefix-font = 2
 
 [Repositorio de imagemagick](https://github.com/ImageMagick/ImageMagick)
 
-```shell
+```bash
 sudo apt install imagemagick -y
 ```
 
 Agregar al archivo `~/.config/bspwm/bspwmrc` la siguiente línea para las aplicaciones JAVA
 
-```shell
+```bash
 nano ~/.config/bspwm/bspwmrc
 ```
 
-```shell
+```bash
 wmname LG3D &
 ```
 
@@ -733,7 +741,7 @@ sudo rm /usr/bin/nvim
 [Página oficial de nvchad](https://nvchad.com/docs/quickstart/install/)  
 [Repositorio de nvim](https://github.com/neovim/neovim)
 
-```shell
+```bash
 git clone https://github.com/NvChad/starter ~/.config/nvim
 wget -P ~/Downloads https://github.com/neovim/neovim/releases/download/v0.10.0/nvim-linux64.tar.gz
 sudo mkdir /opt/nvim
@@ -745,29 +753,29 @@ sudo ln -s /opt/nvim/nvim-linux64/bin/nvim /usr/bin/nvim
 
 Ejecutar los siguientes comandos para finalizar la instación de `nvim`
 
-```shell
+```bash
 nvim
 ```
 
 Agregar la siguiente línea al archivo `~/.config/nvim/init.lua` para eliminar el signo dolar/peso `$` en `nvim`
 
-```shell
+```bash
 nvim $HOME/.config/nvim/init.lua
 ```
 
-```shell
+```bash
 vim.opt.listchars = "tab:»·,trail:·"
 ```
 
 Agregar la línea `transparency = true` al archivo `~/.config/nvim/lua/chadrc.lua` para agregarle transparencia
 
-```shell
+```bash
 nvim ~/.config/nvim/lua/chadrc.lua
 ```
 
 Debería quedar así
 
-```shell
+```bash
 M.ui = {
 »·theme = "onedark",
   transparency = true
@@ -781,17 +789,17 @@ M.ui = {
 
 Ejecutar el siguiente comando en nvim `:MasonInstallAll`
 
-```shell
+```bash
 nvim
 ```
 
-```shell
+```bash
 :MasonInstallAll
 ```
 
 Ejecutar los siguientes comandos para que el usuario `root` también tenga la misma configuración para `nvim`
 
-```shell
+```bash
 sudo mkdir /root/.config/nvim
 sudo cp -r ~/.config/nvim/* /root/.config/nvim
 sudo su
@@ -803,11 +811,11 @@ nvim
 
 Ejecutar el siguiente comando como `root` en nvim `:MasonInstallAll`
 
-```shell
+```bash
 nvim
 ```
 
-```shell
+```bash
 :MasonInstallAll
 ```
 
@@ -816,13 +824,13 @@ nvim
 [Repositorio de fzf](https://github.com/junegunn/fzf)
 Instalar `fzf` tanto como usuario no privilegiado como `root`
 
-```shell
+```bash
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && ~/.fzf/install
 ```
 
 ## Instalar i3lock
 
-```shell
+```bash
 sudo apt install i3lock -y
 sudo git clone https://github.com/meskarune/i3lock-fancy.git /opt/i3lock-fancy
 sudo make -C /opt/i3lock-fancy install
@@ -842,7 +850,7 @@ super + shift + x
 
 ## Instalar locate
 
-```shell
+```bash
 sudo apt install locate && sudo updatedb
 ```
 
