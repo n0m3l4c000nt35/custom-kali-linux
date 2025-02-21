@@ -891,3 +891,13 @@ Instalar **Node**
 Instalar **Docker**
 
 [Descargar Docker](https://docs.docker.com/engine/install/ubuntu/)
+
+Instalar Python2.7
+
+```bash
+sudo nano /etc/apt/sources.list
+# Agregar la siguiente línea al archivo /etc/apt/sources.list
+deb http://archive.debian.org/debian/ stretch contrib main non-free
+sudo apt-get update
+sudo apt-get install python2.7
+```
