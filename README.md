@@ -572,7 +572,13 @@ nano ~/.config/bspwm/scripts/ethernet_status.sh
 ```bash
 #!/bin/sh
 
-echo " %{F#fff}$(/usr/sbin/ifconfig ens33 | grep "inet " | awk '{print $2}')"
+ETH=$(/usr/sbin/ifconfig ens33 | grep "inet " | awk '{print $2}')
+
+if [ -n "$ETH" ]; then
+  echo "%{T2}%{F#2494e7}󰈀%{T-} %{F#fff}$(/usr/sbin/ifconfig ens33 | grep "inet " | awk '{print $2}')"
+else
+  echo "%{T2}%{F#808080}󰈀%{T-} %{F#fff} Ups!"
+fi
 ```
 
 Agregar al archivo `~/.config/bspwm/scripts/vpn_status.sh` el siguiente contenido
@@ -587,9 +593,9 @@ nano ~/.config/bspwm/scripts/vpn_status.sh
 IFACE=$(/usr/sbin/ifconfig | grep tun0 | awk '{print $1}' | tr -d ':')
 
 if [ "$IFACE" = "tun0" ]; then
-    echo " %{F#fff}$(/usr/sbin/ifconfig tun0 | grep "inet " | awk '{print $2}')"
+  echo "%{T2}%{F#1bbf3e}󰆧%{T-} %{F#fff}$(/usr/sbin/ifconfig tun0 | grep 'inet ' | awk '{print $2}')"
 else
-  echo " %{F#fff}Disconnected"
+  echo "%{T2}%{F#808080}󰆧%{T-} %{F#fff}Disconnected"
 fi
 ```
 
@@ -602,13 +608,12 @@ nano $HOME/.config/bspwm/scripts/target_to_hack.sh
 ```bash
 #!/bin/bash
 
-ip_address=$(/bin/cat ~/.config/bin/target | awk '{print $1}')
-machine_name=$(/bin/cat ~/.config/bin/target | awk '{print $2}')
+ip_address=$(/bin/cat ~/.config/bin/target)
 
-if [ $ip_address ] && [ $machine_name ]; then
-  echo " %{F#fff}$ip_address%{u-} - $machine_name"
+if [ -n "$ip_address" ]; then
+  echo "%{T2}%{F#ff0000}󰓾%{T-} %{F#fff}$ip_address"
 else
-  echo "%{u-}%{F#fff} No target"
+  echo "%{T2}%{F#808080}󰓾%{T-} %{F#fff}No target"
 fi
 ```
 
@@ -660,18 +665,14 @@ font-3 = "Hack Nerd Font Mono:style=regular:size=20;4"
 type = custom/script
 exec = ~/.config/bspwm/scripts/ethernet_status.sh
 interval = 2
-format-prefix = "󰈀"
-format-prefix-foreground = #2494e7
-format-prefix-font = 2
+format = <label>
 
 [module/vpn_status]
 type = custom/script
 exec = ~/.config/bspwm/scripts/vpn_status.sh
-click-left = echo -n "$(/usr/sbin/ifconfig tun0 | grep "inet " | awk '{print $2}')" | xclip -sel clip
+click-left = echo "$(/usr/sbin/ifconfig tun0 | grep "inet " | awk '{print $2}')" | xclip -sel clip
 interval = 2
-format-prefix = "󰆧"
-format-prefix-foreground = #1bbf3e
-format-prefix-font = 2
+format = <label>
 
 [module/workspaces]
 type = internal/xworkspaces
@@ -697,11 +698,9 @@ label-empty-font = 2
 [module/target_to_hack]
 type = custom/script
 exec = ~/.config/bspwm/scripts/target_to_hack.sh
-click-left = echo -n "$(cat ~/.config/bin/target | awk '{print $2}')" | xclip -sel clip
+click-left = echo -n "$(cat ~/.config/bin/target)" | xclip -sel clip
 interval = 2
-format-prefix = "󰓾"
-format-prefix-foreground = #ff0000
-format-prefix-font = 2
+format = <label>
 ```
 
 ## Instalar imagemagick
