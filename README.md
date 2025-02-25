@@ -1,6 +1,6 @@
 # Personalización de Linux
 
-![cl](https://github.com/user-attachments/assets/d2f4bdf1-de1e-4405-bda6-1d11c4aa08d2)
+![cl](https://github.com/user-attachments/assets/fdfa3d8a-de11-4989-bce4-9cde8dc09bd9)
 
 - [Instalar dependencias](#Instalar-dependencias)
 - [Instalar bspwm](#Instalar-bspwm)
