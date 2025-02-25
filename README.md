@@ -1,5 +1,7 @@
 # Personalización de Linux
 
+![cl](https://github.com/user-attachments/assets/d2f4bdf1-de1e-4405-bda6-1d11c4aa08d2)
+
 - [Instalar dependencias](#Instalar-dependencias)
 - [Instalar bspwm](#Instalar-bspwm)
 - [Instalar sxhkd](#Instalar-sxhkd)
