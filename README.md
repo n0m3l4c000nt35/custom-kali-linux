@@ -645,19 +645,17 @@ nano $HOME/.config/polybar/config.ini
 ```
 
 ```bash
-[global/wm]
-margin-bottom = 5
-
-[bar/main]
-width = 100%
+width = 99.5%
 height = 40
-offset-x = 0%
+offset-x = 0.25%
 offset-y = 1%
 module-margin = 7pt
+padding-left = 4
+padding-right = 4
+background = #aa000000
 modules-left = ethernet_status vpn_status
 modules-center = workspaces
 modules-right = target_to_hack
-padding = 15px
 font-0 = "Hack Nerd Font Mono:style=regular:size=10;1"
 font-1 = "Hack Nerd Font Mono:style=regular:size=16;2"
 font-2 = "Hack Nerd Font Mono:style=regular:size=18;2"
