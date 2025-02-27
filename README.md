@@ -447,6 +447,8 @@ alias ls='lsd --group-dirs=first'
 
 # burpsuite
 alias bs='/usr/bin/burpsuite 2>/dev/null & disown'
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 ```
 
 Modificar el archivo `~/.p10k.zsh` tanto para el usuario no privilegiado como para root comentando los plugins de la derecha de la zsh que no se quiere que aparezcan y agregar al lado izquierdo los que si se quiere que aparezcan
