@@ -635,7 +635,7 @@ Crear el archivo `~/.config/bin/target`
 
 ```bash
 mkdir $HOME/.config/bin
-touch $HOME$/.config/bin/target
+touch $HOME/.config/bin/target
 ```
 
 Agregar al archivo `$HOME/.config/polybar/current.ini` las siguientes líneas
