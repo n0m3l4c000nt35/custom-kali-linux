@@ -639,7 +639,7 @@ nano $HOME/.config/bspwm/scripts/copy_target.sh
 ```bash
 #!/bin/bash
 
-echo -n "$(cat $HOME/.config/bin/target | awk '{print $2}')" | xclip -sel clip
+echo -n "$(cat $HOME/.config/bin/target | awk '{print $1}')" | xclip -sel clip
 ```
 
 Crear el archivo `~/.config/bin/target`
