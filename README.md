@@ -397,6 +397,15 @@ zstyle ':completion:*' verbose true
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
+htb(){
+  opt=$1
+  case $opt in
+    a) sudo openvpn $HOME/academy-regular.ovpn ;;
+    m) sudo openvpn $HOME/lab_n0m3l4c000nt35.ovpn ;;
+    *) echo "Uso: htb a | m"
+  esac
+}
+
 function st(){
   ip_address=$1
   machine_name=$2
