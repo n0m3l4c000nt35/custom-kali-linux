@@ -223,7 +223,7 @@ nano ~/.config/kitty/kitty.conf
 ```
 
 ```bash
-font_family HackNerdFont
+font_family JetBrainsMono
 cursor_shape beam
 
 active_border_color #39ff14
