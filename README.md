@@ -345,9 +345,8 @@ chown root:root /usr/local/share/zsh/site-functions/_bspc
 Descargar el archivo `https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/sudo/sudo.plugin.zsh`
 
 ```bash
-sudo mkdir -p /usr/share/zsh-sudo/
-sudo wget -P /usr/share/zsh-sudo/ https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/sudo/sudo.plugin.zsh
-sudo chown <user>:<group> /usr/share/zsh-sudo/ -R
+sudo mkdir -p /usr/share/zsh/plugins/zsh-sudo/
+sudo wget -P /usr/share/zsh/plugins/zsh-sudo/ https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/sudo/sudo.plugin.zsh
 ```
 
 Modificar el archivo `~/.zshrc` y agregar las siguientes líneas
@@ -406,17 +405,17 @@ htb(){
   esac
 }
 
-function st(){
+st(){
   ip_address=$1
   machine_name=$2
   echo "$ip_address $machine_name" > /home/<user>/.config/bin/target
 }
 
-function ct(){
+ct(){
   echo "" > /home/<user>/.config/bin/target
 }
 
-function extractPorts(){
+ep(){
     ports="$(/usr/bin/cat $1 | grep -oP '\d{1,5}/open' | awk '{print $1}' FS='/' | xargs | tr ' ' ',')"
     ip_address="$(/usr/bin/cat $1 | grep -oP '\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}' | sort -u | head -n 1)"
     echo -e "\n[*] Extracting information...\n" > extractPorts.tmp
