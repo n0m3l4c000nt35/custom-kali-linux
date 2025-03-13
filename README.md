@@ -279,8 +279,7 @@ Reemplazar `<user>` por el usuario no privilegiado.
 [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting)
 
 ```bash
-sudo apt install zsh -y
-sudo apt install zsh-autosuggestions zsh-syntax-highlighting
+sudo apt install zsh zsh-autosuggestions zsh-syntax-highlighting -y
 sudo usermod --shell /usr/bin/zsh <user>
 sudo usermod --shell /usr/bin/zsh root
 ```
