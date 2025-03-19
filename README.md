@@ -658,6 +658,7 @@ nano $HOME/.config/polybar/config.ini
 ```
 
 ```bash
+[bar/main]
 width = 99.5%
 height = 40
 offset-x = 0.25%
