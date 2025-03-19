@@ -574,14 +574,14 @@ polybar main -c ~/.config/polybar/config.ini
 ```
 
 ```bash
-touch ~/.config/bspwm/scripts/{ethernet_status.sh,vpn_status.sh,target_to_hack.sh,copy_target.sh}
-chmod +x ~/.config/bspwm/scripts/{ethernet_status.sh,vpn_status.sh,target_to_hack.sh,copy_target.sh}
+touch ~/.config/polybar/scripts/{ethernet_status.sh,vpn_status.sh,target_to_hack.sh,copy_target.sh}
+chmod +x ~/.config/polybar/scripts/{ethernet_status.sh,vpn_status.sh,target_to_hack.sh,copy_target.sh}
 ```
 
-Agregar al archivo `~/.config/bspwm/scripts/ethernet_status.sh` el siguiente contenido
+Agregar al archivo `~/.config/polybar/scripts/ethernet_status.sh` el siguiente contenido
 
 ```bash
-nano ~/.config/bspwm/scripts/ethernet_status.sh
+nano ~/.config/polybar/scripts/ethernet_status.sh
 ```
 
 ```bash
