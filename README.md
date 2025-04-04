@@ -32,9 +32,9 @@ sudo apt install git make build-essential p7zip-full libxcb-xinerama0-dev libxcb
 [Repositorio de bspwm](https://github.com/baskerville/bspwm)
 
 ```bash
-git clone https://github.com/baskerville/bspwm.git ~/Downloads/bspwm
-sudo make -C ~/Downloads/bspwm
-sudo make -C ~/Downloads/bspwm install
+git clone https://github.com/baskerville/bspwm.git $HOME/Downloads/bspwm
+sudo make -C $HOME/Downloads/bspwm
+sudo make -C $HOME/Downloads/bspwm install
 ```
 
 ## Instalar sxhkd
@@ -42,25 +42,25 @@ sudo make -C ~/Downloads/bspwm install
 [Repositorio de sxhkd](https://github.com/baskerville/sxhkd)
 
 ```bash
-git clone https://github.com/baskerville/sxhkd.git ~/Downloads/sxhkd
-sudo make -C ~/Downloads/sxhkd
-sudo make -C ~/Downloads/sxhkd install
+git clone https://github.com/baskerville/sxhkd.git $HOME/Downloads/sxhkd
+sudo make -C $HOME/Downloads/sxhkd
+sudo make -C $HOME/Downloads/sxhkd install
 ```
 
 ## Configuracion de `bspwm` y `sxhkd`
 
 ```bash
-mkdir ~/.config/{bspwm,sxhkd}
-cp ~/Downloads/bspwm/examples/bspwmrc ~/.config/bspwm/
-chmod u+x ~/.config/bspwm/bspwmrc
-cp ~/Downloads/bspwm/examples/sxhkdrc ~/.config/sxhkd/
-rm -rf ~/Downloads/{bspwm,sxhkd}
+mkdir $HOME/.config/{bspwm,sxhkd}
+cp $HOME/Downloads/bspwm/examples/bspwmrc $HOME/.config/bspwm/
+chmod u+x $HOME/.config/bspwm/bspwmrc
+cp $HOME/Downloads/bspwm/examples/sxhkdrc $HOME/.config/sxhkd/
+rm -rf $HOME/Downloads/{bspwm,sxhkd}
 ```
 
-Modificar las siguientes líneas del archivo `~/.config/sxhkd/sxhkdrc`
+Modificar las siguientes líneas del archivo `$HOME/.config/sxhkd/sxhkdrc`
 
 ```bash
-nano ~/.config/sxhkd/sxhkdrc
+nano $HOME/.config/sxhkd/sxhkdrc
 ```
 
 ```bash
@@ -101,18 +101,18 @@ super + alt + shift + {h,j,k,l}
   bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
 ```
 
-Crear el script `~/.config/bspwm/scripts/bspwm_resize`
+Crear el script `$HOME/.config/bspwm/scripts/bspwm_resize`
 
 ```bash
-mkdir ~/.config/bspwm/scripts
-touch ~/.config/bspwm/scripts/bspwm_resize
-chmod +x ~/.config/bspwm/scripts/bspwm_resize
+mkdir $HOME/.config/bspwm/scripts
+touch $HOME/.config/bspwm/scripts/bspwm_resize
+chmod +x $HOME/.config/bspwm/scripts/bspwm_resize
 ```
 
-Agregarle el siguiente contenido al archivo `~/.config/bspwm/scripts/bspwm_resize`
+Agregarle el siguiente contenido al archivo `$HOME/.config/bspwm/scripts/bspwm_resize`
 
 ```bash
-nano ~/.config/bspwm/scripts/bspwm_resize
+nano $HOME/.config/bspwm/scripts/bspwm_resize
 ```
 
 ```bash
@@ -134,16 +134,16 @@ esac
 bspc node -z "$dir" "$x" "$y" || bspc node -z "$falldir" "$x" "$y"
 ```
 
-Agregar la siguiente línea al archivo `~/.config/bspwm/bspwmrc`
+Agregar la siguiente línea al archivo `$HOME/.config/bspwm/bspwmrc`
 
-Para poder copiar de manera bidireccional entre la máquina host y la máquina virtual, agregar la siguiente línea al archivo `~/.config/bspwm/bspwmrc`
+Para poder copiar de manera bidireccional entre la máquina host y la máquina virtual, agregar la siguiente línea al archivo `$HOME/.config/bspwm/bspwmrc`
 
 ```bash
-nano ~/.config/bspwm/bspwmrc
+nano $HOME/.config/bspwm/bspwmrc
 ```
 
 ```bash
-#! /bin/sh
+#!/bin/sh
 
 pgrep -x sxhkd > /dev/null || sxhkd &
 
