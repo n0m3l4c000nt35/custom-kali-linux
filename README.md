@@ -198,15 +198,15 @@ super + shift + alt + t
 
 ```bash
 sudo mkdir /opt/kitty
-wget -O- https://github.com/kovidgoyal/kitty/releases/download/v0.40.0/kitty-0.40.0-x86_64.txz | sudo tar -xJ -C /opt/kitty
+wget -O- https://github.com/kovidgoyal/kitty/releases/download/v0.41.1/kitty-0.41.1-x86_64.txz | sudo tar -xJ -C /opt/kitty
 sudo ln -s /opt/kitty/bin/kitty /usr/bin/kitty
 sudo ln -s /opt/kitty/bin/kitten /usr/bin/kitten
 ```
 
-Modificar las siguientes líneas al archivo `~/.config/sxhkd/sxhkdrc`
+Modificar las siguientes líneas al archivo `$HOME/.config/sxhkd/sxhkdrc`
 
 ```bash
-nano ~/.config/sxhkd/sxhkdrc
+nano $HOME/.config/sxhkd/sxhkdrc
 ```
 
 ```bash
