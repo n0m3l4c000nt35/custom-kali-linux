@@ -215,11 +215,11 @@ super + Return
 	/usr/bin/kitty
 ```
 
-Crear el archivo `~/.config/kitty/kitty.conf` y agregarle el siguiente contenido
+Crear el archivo `$HOME/.config/kitty/kitty.conf` y agregarle el siguiente contenido
 
 ```bash
-mkdir -p ~/.config/kitty
-nano ~/.config/kitty/kitty.conf
+mkdir -p $HOME/.config/kitty
+nano $HOME/.config/kitty/kitty.conf
 ```
 
 ```bash
@@ -267,7 +267,7 @@ enable_audio_bell no
 
 ```bash
 sudo mkdir -p /root/.config/kitty
-sudo ln -s ~/.config/kitty/kitty.conf /root/.config/kitty/kitty.conf
+sudo ln -s $HOME/.config/kitty/kitty.conf /root/.config/kitty/kitty.conf
 ```
 
 ## Instalar zsh
@@ -280,14 +280,14 @@ Reemplazar `<user>` por el usuario no privilegiado.
 
 ```bash
 sudo apt install zsh zsh-autosuggestions zsh-syntax-highlighting -y
-sudo usermod --shell /usr/bin/zsh <user>
+sudo usermod --shell /usr/bin/zsh $USER
 sudo usermod --shell /usr/bin/zsh root
 ```
 
-Agregar la siguiente línea al archivo `~/.config/kitty/kitty.conf`
+Agregar la siguiente línea al archivo `$HOME/.config/kitty/kitty.conf`
 
 ```bash
-nano ~/.config/kitty/kitty.conf
+nano $HOME/.config/kitty/kitty.conf
 ```
 
 ```bash
@@ -303,7 +303,7 @@ sudo wget -O /usr/share/fonts/"MesloLGS NF Regular.ttf" https://github.com/romka
 sudo wget -O /usr/share/fonts/"MesloLGS NF Bold.ttf" https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf
 sudo wget -O /usr/share/fonts/"MesloLGS NF Italic.ttf" https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf
 sudo wget -O /usr/share/fonts/"MesloLGS NF Bold Italic.ttf" https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf
-fc-cache
+fc-cache -fv
 ```
 
 ## Instalar powerlevel10k
@@ -313,7 +313,7 @@ fc-cache
 Reemplazar `<user>` por el usuario no privilegiado
 
 ```bash
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k && echo 'source /home/<user>/powerlevel10k/powerlevel10k.zsh-theme' >> ~/.zshrc
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $HOME/powerlevel10k && echo 'source /home/$USER/powerlevel10k/powerlevel10k.zsh-theme' >> $HOME/.zshrc
 ```
 
 Configurar la `zsh` tanto para el usuario no privilegiado como para `root`
@@ -340,7 +340,7 @@ zsh
 | Apply changes to ~/.zshrc? | y      |
 
 ```bash
-sudo ln -s -f ~/.zshrc /root/.zshrc
+sudo ln -s -f $HOME/.zshrc /root/.zshrc
 sudo compaudit
 chown root:root /usr/local/share/zsh/site-functions/_bspc
 ```
@@ -352,10 +352,10 @@ sudo mkdir -p /usr/share/zsh/plugins/zsh-sudo/
 sudo wget -P /usr/share/zsh/plugins/zsh-sudo/ https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/sudo/sudo.plugin.zsh
 ```
 
-Modificar el archivo `~/.zshrc` y agregar las siguientes líneas
+Modificar el archivo `$HOME/.zshrc` y agregar las siguientes líneas
 
 ```bash
-nano ~/.zshrc
+nano $HOME/.zshrc
 ```
 
 ```bash
@@ -453,10 +453,10 @@ alias bs='/usr/bin/burpsuite 2>/dev/null & disown'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 ```
 
-Modificar el archivo `~/.p10k.zsh` tanto para el usuario no privilegiado como para root comentando los plugins de la derecha de la zsh que no se quiere que aparezcan y agregar al lado izquierdo los que si se quiere que aparezcan
+Modificar el archivo `$HOME/.p10k.zsh` tanto para el usuario no privilegiado como para root comentando los plugins de la derecha de la zsh que no se quiere que aparezcan y agregar al lado izquierdo los que si se quiere que aparezcan
 
 ```bash
-nano ~/.p10k.zsh
+nano $HOME/.p10k.zsh
 ```
 
 Modificar `<icon>` por un ícono a elección de la web [Nerd Fonts](https://www.nerdfonts.com/cheat-sheet)
@@ -479,23 +479,23 @@ typeset -g POWERLEVEL9K_OS_ICON_CONTENT_EXPANSION=''
 
 ```bash
 sudo apt install libconfig-dev libdbus-1-dev libegl-dev libev-dev libgl-dev libepoxy-dev libpcre2-dev libpixman-1-dev libx11-xcb-dev libxcb1-dev libxcb-composite0-dev libxcb-damage0-dev libxcb-dpms0-dev libxcb-glx0-dev libxcb-image0-dev libxcb-present-dev libxcb-randr0-dev libxcb-render0-dev libxcb-render-util0-dev libxcb-shape0-dev libxcb-util-dev libxcb-xfixes0-dev libxext-dev meson ninja-build uthash-dev cmake -y
-git clone https://github.com/yshui/picom ~/Downloads/picom
-meson setup --buildtype=release ~/Downloads/picom/build ~/Downloads/picom
-ninja -C ~/Downloads/picom/build
-sudo ninja -C ~/Downloads/picom/build install
-rm -rf ~/Downloads/picom
+git clone https://github.com/yshui/picom $HOME/Downloads/picom
+meson setup --buildtype=release $HOME/Downloads/picom/build $HOME/Downloads/picom
+ninja -C $HOME/Downloads/picom/build
+sudo ninja -C $HOME/Downloads/picom/build install
+rm -rf $HOME/Downloads/picom
 which picom
-mkdir ~/.config/picom
-touch ~/.config/picom/picom.conf
+mkdir $HOME/.config/picom
+touch $HOME/.config/picom/picom.conf
 ```
 
-Copiar el contenido del archivo [picom.sample.conf](https://raw.githubusercontent.com/yshui/picom/next/picom.sample.conf) al archivo `~/.config/picom/picom.conf`
+Copiar el contenido del archivo [picom.sample.conf](https://raw.githubusercontent.com/yshui/picom/next/picom.sample.conf) al archivo `$HOME/.config/picom/picom.conf`
 
 ```bash
-nano ~/.config/picom/picom.conf
+nano $HOME/.config/picom/picom.conf
 ```
 
-Modificar las siguientes líneas del archivo `~/.config/picom/picom.conf`
+Modificar las siguientes líneas del archivo `$HOME/.config/picom/picom.conf`
 
 ```bash
 backend = "xrender"
@@ -505,10 +505,10 @@ detect-client-opacity = true;
 
 Comentar sombras y blur para que la performance mejore
 
-Agregar al archivo `~/.config/bspwm/bspwmrc` la línea `picom &`
+Agregar al archivo `$HOME/.config/bspwm/bspwmrc` la línea `picom &`
 
 ```bash
-nano ~/.config/bspwm/bspwmrc
+nano $HOME/.config/bspwm/bspwmrc
 ```
 
 ```bash
@@ -521,11 +521,11 @@ picom &
 [Repositorio de lsd](https://github.com/lsd-rs/lsd)
 
 ```bash
-wget -P ~/Downloads https://github.com/sharkdp/bat/releases/download/v0.24.0/bat_0.24.0_amd64.deb
-wget -P ~/Downloads https://github.com/lsd-rs/lsd/releases/download/v1.1.5/lsd_1.1.5_amd64.deb
-sudo dpkg -i ~/Downloads/bat_0.24.0_amd64.deb
-sudo dpkg -i ~/Downloads/lsd_1.1.5_amd64.deb
-rm ~/Downloads/bat_0.24.0_amd64.deb ~/Downloads/lsd_1.1.5_amd64.deb
+wget -P $HOME/Downloads https://github.com/sharkdp/bat/releases/download/v0.24.0/bat_0.24.0_amd64.deb
+wget -P $HOME/Downloads https://github.com/lsd-rs/lsd/releases/download/v1.1.5/lsd_1.1.5_amd64.deb
+sudo dpkg -i $HOME/Downloads/bat_0.24.0_amd64.deb
+sudo dpkg -i $HOME/Downloads/lsd_1.1.5_amd64.deb
+rm $HOME/Downloads/bat_0.24.0_amd64.deb $HOME/Downloads/lsd_1.1.5_amd64.deb
 ```
 
 ## Instalar feh
@@ -536,10 +536,10 @@ rm ~/Downloads/bat_0.24.0_amd64.deb ~/Downloads/lsd_1.1.5_amd64.deb
 sudo apt install feh -y
 ```
 
-Editar el archivo `~/.config/bspwm/bspwmrc`
+Editar el archivo `$HOME/.config/bspwm/bspwmrc`
 
 ```bash
-nano ~/.config/bspwm/bspwmrc
+nano $HOME/.config/bspwm/bspwmrc
 ```
 
 ```bash
@@ -552,17 +552,17 @@ nano ~/.config/bspwm/bspwmrc
 
 ```bash
 sudo apt install polybar -y
-echo '~/.config/polybar/launch.sh &' >> ~/.config/bspwm/bspwmrc
+echo '$HOME/.config/polybar/launch.sh &' >> $HOME/.config/bspwm/bspwmrc
 ```
 
-En el archivo `~/.config/polybar/launch.sh` agregar las siguientes líneas
+En el archivo `$HOME/.config/polybar/launch.sh` agregar las siguientes líneas
 
 ```bash
-chmod +x ~/.config/polybar/launch.sh
+chmod +x $HOME/.config/polybar/launch.sh
 ```
 
 ```bash
-nano ~/.config/polybar/launch.sh
+nano $HOME/.config/polybar/launch.sh
 ```
 
 ```bash
@@ -570,18 +570,18 @@ nano ~/.config/polybar/launch.sh
 
 killall -q polybar
 
-polybar main -c ~/.config/polybar/config.ini
+polybar main -c $HOME/.config/polybar/config.ini
 ```
 
 ```bash
-touch ~/.config/polybar/scripts/{ethernet_status.sh,vpn_status.sh,target_to_hack.sh,copy_target.sh}
-chmod +x ~/.config/polybar/scripts/{ethernet_status.sh,vpn_status.sh,target_to_hack.sh,copy_target.sh}
+touch $HOME/.config/polybar/scripts/{ethernet_status.sh,vpn_status.sh,target_to_hack.sh,copy_target.sh}
+chmod +x $HOME/.config/polybar/scripts/{ethernet_status.sh,vpn_status.sh,target_to_hack.sh,copy_target.sh}
 ```
 
-Agregar al archivo `~/.config/polybar/scripts/ethernet_status.sh` el siguiente contenido
+Agregar al archivo `$HOME/.config/polybar/scripts/ethernet_status.sh` el siguiente contenido
 
 ```bash
-nano ~/.config/polybar/scripts/ethernet_status.sh
+nano $HOME/.config/polybar/scripts/ethernet_status.sh
 ```
 
 ```bash
@@ -596,10 +596,10 @@ else
 fi
 ```
 
-Agregar al archivo `~/.config/bspwm/scripts/vpn_status.sh` el siguiente contenido
+Agregar al archivo `$HOME/.config/bspwm/scripts/vpn_status.sh` el siguiente contenido
 
 ```bash
-nano ~/.config/bspwm/scripts/vpn_status.sh
+nano $HOME/.config/bspwm/scripts/vpn_status.sh
 ```
 
 ```bash
@@ -614,7 +614,7 @@ else
 fi
 ```
 
-Agregar al archivo `~/.config/bspwm/scripts/target_to_hack.sh` el siguiente contenido
+Agregar al archivo `$HOME/.config/bspwm/scripts/target_to_hack.sh` el siguiente contenido
 
 ```bash
 nano $HOME/.config/bspwm/scripts/target_to_hack.sh
@@ -632,7 +632,7 @@ else
 fi
 ```
 
-Agregar al archivo `~/.config/bspwm/scripts/copy_target.sh` el siguiente contenido
+Agregar al archivo `$HOME/.config/bspwm/scripts/copy_target.sh` el siguiente contenido
 
 ```bash
 nano $HOME/.config/bspwm/scripts/copy_target.sh
@@ -644,7 +644,7 @@ nano $HOME/.config/bspwm/scripts/copy_target.sh
 echo -n "$(cat $HOME/.config/bin/target | awk '{print $1}')" | xclip -sel clip
 ```
 
-Crear el archivo `~/.config/bin/target`
+Crear el archivo `$HOME/.config/bin/target`
 
 ```bash
 mkdir $HOME/.config/bin
@@ -677,13 +677,13 @@ font-3 = "Hack Nerd Font Mono:style=regular:size=20;4"
 
 [module/ethernet_status]
 type = custom/script
-exec = ~/.config/bspwm/scripts/ethernet_status.sh
+exec = $HOME/.config/bspwm/scripts/ethernet_status.sh
 interval = 2
 format = <label>
 
 [module/vpn_status]
 type = custom/script
-exec = ~/.config/bspwm/scripts/vpn_status.sh
+exec = $HOME/.config/bspwm/scripts/vpn_status.sh
 click-left = echo "$(/usr/sbin/ifconfig tun0 | grep "inet " | awk '{print $2}')" | xclip -sel clip
 interval = 2
 format = <label>
@@ -711,8 +711,8 @@ label-empty-font = 2
 
 [module/target_to_hack]
 type = custom/script
-exec = ~/.config/bspwm/scripts/target_to_hack.sh
-click-left = echo -n "$(cat ~/.config/bin/target)" | xclip -sel clip
+exec = $HOME/.config/bspwm/scripts/target_to_hack.sh
+click-left = echo -n "$(cat $HOME/.config/bin/target)" | xclip -sel clip
 interval = 2
 format = <label>
 ```
@@ -725,10 +725,10 @@ format = <label>
 sudo apt install imagemagick -y
 ```
 
-Agregar al archivo `~/.config/bspwm/bspwmrc` la siguiente línea para las aplicaciones JAVA
+Agregar al archivo `$HOME/.config/bspwm/bspwmrc` la siguiente línea para las aplicaciones JAVA
 
 ```bash
-nano ~/.config/bspwm/bspwmrc
+nano $HOME/.config/bspwm/bspwmrc
 ```
 
 ```bash
@@ -755,10 +755,10 @@ sudo rm /usr/bin/nvim
 [Repositorio de nvim](https://github.com/neovim/neovim)
 
 ```bash
-git clone https://github.com/NvChad/starter ~/.config/nvim
-wget -P ~/Downloads https://github.com/neovim/neovim/releases/download/v0.10.0/nvim-linux64.tar.gz
+git clone https://github.com/NvChad/starter $HOME/.config/nvim
+wget -P $HOME/Downloads https://github.com/neovim/neovim/releases/download/v0.10.0/nvim-linux64.tar.gz
 sudo mkdir /opt/nvim
-sudo mv ~/Downloads/nvim-linux64.tar.gz /opt/nvim
+sudo mv $HOME/Downloads/nvim-linux64.tar.gz /opt/nvim
 sudo tar -xf /opt/nvim/nvim-linux64.tar.gz -C /opt/nvim
 sudo rm /opt/nvim/nvim-linux64.tar.gz
 sudo ln -s /opt/nvim/nvim-linux64/bin/nvim /usr/bin/nvim
@@ -770,7 +770,7 @@ Ejecutar los siguientes comandos para finalizar la instación de `nvim`
 nvim
 ```
 
-Agregar la siguiente línea al archivo `~/.config/nvim/init.lua` para eliminar el signo dolar/peso `$` en `nvim`
+Agregar la siguiente línea al archivo `$HOME/.config/nvim/init.lua` para eliminar el signo dolar/peso `$` en `nvim`
 
 ```bash
 nvim $HOME/.config/nvim/init.lua
@@ -780,10 +780,10 @@ nvim $HOME/.config/nvim/init.lua
 vim.opt.listchars = "tab:»·,trail:·"
 ```
 
-Agregar la línea `transparency = true` al archivo `~/.config/nvim/lua/chadrc.lua` para agregarle transparencia
+Agregar la línea `transparency = true` al archivo `$HOME/.config/nvim/lua/chadrc.lua` para agregarle transparencia
 
 ```bash
-nvim ~/.config/nvim/lua/chadrc.lua
+nvim $HOME/.config/nvim/lua/chadrc.lua
 ```
 
 Debería quedar así
@@ -814,7 +814,7 @@ Ejecutar los siguientes comandos para que el usuario `root` también tenga la mi
 
 ```bash
 sudo mkdir /root/.config/nvim
-sudo cp -r ~/.config/nvim/* /root/.config/nvim
+sudo cp -r $HOME/.config/nvim/* /root/.config/nvim
 sudo su
 ```
 
@@ -838,7 +838,7 @@ nvim
 Instalar `fzf` tanto como usuario no privilegiado como `root`
 
 ```bash
-git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && ~/.fzf/install
+git clone --depth 1 https://github.com/junegunn/fzf.git $HOME/.fzf && $HOME/.fzf/install
 ```
 
 ## Instalar i3lock
@@ -849,10 +849,10 @@ sudo git clone https://github.com/meskarune/i3lock-fancy.git /opt/i3lock-fancy
 sudo make -C /opt/i3lock-fancy install
 ```
 
-Agregar las siguientes líneas al archivo `~/.config/sxhkd/sxhkdrc`
+Agregar las siguientes líneas al archivo `$HOME/.config/sxhkd/sxhkdrc`
 
 ```bash
-nano ~/.config/sxhkd/sxhkdrc
+nano $HOME/.config/sxhkd/sxhkdrc
 ```
 
 ```bash
@@ -874,7 +874,7 @@ Para que Firefox resuelva los dominios de `hack the box` ingresar en la barra de
 Modificar el rate y delay del teclado
 
 ```bash
-nano ~/.xprofile
+nano $HOME/.xprofile
 ```
 
 ```
