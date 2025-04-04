@@ -82,7 +82,7 @@ super + alt + shift + {Left,Down,Up,Right}
 
 # custom resize
 super + alt + {Left,Down,Up,Right}
-  ~/.config/bspwm/scripts/bspwm_resize {west,south,north,east}
+  $HOME/.config/bspwm/scripts/bspwm_resize {west,south,north,east}
 ```
 
 Eliminar las siguientes líneas del archivo `~/.config/sxhkd/sxhkdrc`
