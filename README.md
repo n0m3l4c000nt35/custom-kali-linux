@@ -61,6 +61,10 @@ cp /usr/share/doc/bspwm/examples/sxhkdrc $HOME/.config/sxhkd/
 ### bspwmrc
 
 ```bash
+nano $HOME/.config/bspwm/bspwmrc
+```
+
+```bash
 #!/bin/sh
 
 pgrep -x sxhkd > /dev/null || sxhkd &
