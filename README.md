@@ -450,7 +450,7 @@ hth(){
     if [ -z "$1" ]; then
       echo "[+] No NTP server provided. Syncing with host time (VBox)..."
       sudo timedatectl set-ntp off > /dev/null 2>&1
-      sudo systemctl restart VBoxService > /dev/null 2>&1
+      sudo VBoxService > /dev/null 2>&1
     else
       echo "[+] Disabling NTP and killing VBoxService..."
       sudo timedatectl set-ntp off > /dev/null 2>&1
