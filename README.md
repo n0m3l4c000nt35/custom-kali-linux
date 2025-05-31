@@ -13,6 +13,7 @@
 - [Creación de archvivos](#creación-de-archvivos)
 - [Permisos](#permisos)
 - [.xinitrc](#xinitrc)
+- [.Xresources](#Xresources)
 
 ## Actualización
 
