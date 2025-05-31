@@ -17,6 +17,10 @@
 - [Fuentes](#fuentes)
 - [bspwm](#bspwm)
 	- [bspwmrc](#bspwmrc)
+	- [bspwm_resize](#bspwm_resize)
+	- [sxhkdrc](#sxhkdrc)
+- [Kitty](#kitty)
+	- [kitty.conf](#kittyconf)
 
 ## Actualización
 
