@@ -34,7 +34,7 @@
 - [batcat y lsd](#batcat-y-lsd)
 - [Polybar](#polybar)
 	- [launch.sh](#launchsh)
-	- [current.ini](#currentini)
+	- [config.ini](#configini)
 	- [ethernet_status.sh](#ethernet_statussh)
 	- [vpn_status.sh](#vpn_statussh)
 	- [target_to_hack.sh](#target_to_hacksh)
@@ -513,7 +513,7 @@ killall -q polybar
 polybar main -c $HOME/.config/polybar/config.ini
 ```
 
-### current.ini
+### config.ini
 
 ```bash
 nano $HOME/.config/polybar/config.ini
