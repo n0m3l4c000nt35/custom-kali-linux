@@ -75,7 +75,7 @@ sudo reboot
 > Agregar las líneas faltantes al archivo `.zshrc`  
 > Chequear que todo lo demás esté instalado y personalizado  
 
-✅ DONE!
+✅ [DONE!](#debería-quedarte-así)
 
 > [!NOTE]
 > O podés hacerlo a mano a partir de acá ⬇️
@@ -821,5 +821,9 @@ x-scheme-handler/http=firefox-esr.desktop
 x-scheme-handler/https=firefox-esr.desktop
 text/html=firefox-esr.desktop
 ```
+
+<div align=center>
+	<h2>Debería quedarte así</h2>
+</div>
 
 ![kali-linux](https://github.com/user-attachments/assets/0288c44f-293a-49ea-9f6d-9e25832791f5)
