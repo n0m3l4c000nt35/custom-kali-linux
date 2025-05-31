@@ -15,6 +15,8 @@
 - [.xinitrc](#xinitrc)
 - [.Xresources](#Xresources)
 - [Fuentes](#fuentes)
+- [bspwm](#bspwm)
+	- [bspwmrc](#bspwmrc)
 
 ## Actualización
 
