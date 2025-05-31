@@ -69,7 +69,16 @@ sudo reboot
 > [!tip]
 > Después de actualizar, upgradear y reiniciar, ejecutá este comando para ahorrarte un poco de tiempo `wget https://raw.githubusercontent.com/n0m3l4c000nt35/custom-kali-linux/refs/heads/main/custom-kali.sh && chmod +x custom-kali.sh && ./custom-kali.sh`  
 > Una vez finalizado el script ejecutar el comando `startx`  
-> 
+> Presionar las teclas `super` + `enter` para abrir la kitty, se va a abrir la configuración de la powerlevel10k
+> Ejecutar el comando `kitten themes` y seleccionar el theme `Box`, luego seleccionar la opción `Place the theme file in /home/kali/.config/kitty but do not modify kitty.conf`
+> Modificar el archivo `.p10k.zsh` con las indicaciones del README
+> Agregar las líneas faltantes al archivo `.zshrc`
+> Chequear que todo lo demás esté instalado y personalizado
+
+✅ DONE!
+
+> [!NOTE]
+> O podés hacerlo a mano a partir de acá ⬇️
 
 ## Instalación de paquetes
 
