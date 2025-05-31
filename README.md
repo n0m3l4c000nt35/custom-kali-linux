@@ -2,14 +2,17 @@
 	<h1>Instalación y personalización de Kali Linux</h1>
 </div>
 
+<br>
+
 ```bash
 sudo apt update && sudo apt upgrade -y
-sudo apt install -y xorg xinit xserver-xorg virtualbox-guest-x11 bspwm kitty feh polybar i3lock locate
+sudo apt install -y xorg xinit xserver-xorg virtualbox-guest-x11 bspwm kitty feh polybar i3lock xclip firefox-esr ntpsec-ntpdate locate
 sudo updatedb
 mkdir -p $HOME/.config/{bspwm,sxhkd,kitty,polybar}
 mkdir $HOME/.config/bspwm/scripts
 mkdir $HOME/.config/polybar/scripts
 sudo mkdir /opt/nvim
+sudo mkdir /usr/share/fonts/truetype/hacknerd
 touch $HOME/.config/polybar/scripts/{ethernet_status.sh,vpn_status.sh,target_to_hack.sh,copy_target.sh,target.txt}
 touch $HOME/.config/bspwm/scripts/bspwm_resize
 touch $HOME/.config/polybar/launch.sh
@@ -34,6 +37,13 @@ VBoxClient --clipboard -d &
 xset r rate 250 25
 setxkbmap latam
 exec bspwm
+```
+
+## fuentes
+
+```bash
+sudo wget -P /usr/share/fonts/truetype/hacknerd https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/Hack.zip
+sudo unzip /usr/share/fonts/truetype/hacknerd/Hack.zip -d /usr/share/fonts/truetype/hacknerd
 ```
 
 ## bspwm
@@ -654,3 +664,9 @@ sudo apt-get install python2.7
 ## Otras configuraciones
 
 Para que Firefox resuelva los dominios de `hack the box` ingresar en la barra de navegación `about:config`, ingresar `browser.fixup.domainsuffixwhitelist.htb` y ponerlo en `true`
+
+Navegador predeterminado
+
+```bash
+xdg-settings set default-web-browser firefox-esr.desktop
+```
