@@ -54,5 +54,3 @@ git clone --depth 1 https://github.com/junegunn/fzf.git $HOME/.fzf && $HOME/.fzf
 
 sudo git clone https://github.com/meskarune/i3lock-fancy.git /opt/i3lock-fancy
 sudo make -C /opt/i3lock-fancy install
-
-xdg-settings set default-web-browser firefox-esr.desktop
