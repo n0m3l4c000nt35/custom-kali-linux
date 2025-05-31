@@ -288,6 +288,8 @@ context
 command_execution_time
 status
 
+typeset -g POWERLEVEL9K_OS_ICON_CONTENT_EXPANSION='<kali-icon> '
+
 typeset -g POWERLEVEL9K_CONTEXT_ROOT_TEMPLATE='<icon>'
 typeset -g POWERLEVEL9K_CONTEXT_PREFIX=''
 
