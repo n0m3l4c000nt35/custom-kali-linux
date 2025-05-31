@@ -57,7 +57,7 @@ sudo apt update && sudo apt upgrade -y
 ## Instalación de paquetes
 
 ```bash
-sudo apt install -y xorg xinit xserver-xorg virtualbox-guest-x11 bspwm kitty feh polybar i3lock xclip firefox-esr ntpsec-ntpdate locate
+sudo apt install -y xorg virtualbox-guest-x11 bspwm kitty feh polybar i3lock xclip firefox-esr ntpsec-ntpdate locate
 sudo updatedb
 ```
 
