@@ -16,6 +16,7 @@ mkdir $HOME/.config/bspwm/scripts
 mkdir $HOME/.config/polybar/scripts
 sudo mkdir /opt/nvim
 sudo mkdir /usr/share/fonts/truetype/hacknerd
+sudo mkdir /usr/share/zsh-sudo
 touch $HOME/.xinitrc
 touch $HOME/.config/polybar/scripts/{ethernet_status.sh,vpn_status.sh,target_to_hack.sh,copy_target.sh,target.txt}
 touch $HOME/.config/bspwm/scripts/bspwm_resize
@@ -378,7 +379,6 @@ hth() {
 ### zsh-sudo
 
 ```bash
-sudo mkdir /usr/share/zsh-sudo
 sudo wget -P /usr/share/zsh-sudo/ https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/refs/heads/master/plugins/sudo/sudo.plugin.zsh
 ```
 
