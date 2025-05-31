@@ -79,8 +79,7 @@ touch $HOME/.xinitrc
 touch $HOME/.Xresources
 touch $HOME/.config/polybar/scripts/{ethernet_status.sh,vpn_status.sh,target_to_hack.sh,copy_target.sh,target.txt}
 touch $HOME/.config/bspwm/scripts/bspwm_resize
-touch $HOME/.config/polybar/launch.sh
-touch $HOME/.config/polybar/config.ini
+touch $HOME/.config/polybar/{launch.sh,config.ini}
 ```
 
 ## Permisos
