@@ -398,6 +398,8 @@ typeset -g POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(
 typeset -g POWERLEVEL9K_OS_ICON_CONTENT_EXPANSION='<kali-icon> '
 ```
 
+Una vez configurado el archivo `.p10k.zsh` ejecutar el comando `source $HOME/.p10k.zsh` para aplicar los cambios inmediatamente
+
 ## zsh
 
 ### .zshrc
