@@ -56,7 +56,7 @@ sudo reboot
 ```
 
 > [!tip]
-> Ejecutá este comando para ahorrarte un poco de tiempo `wget https://raw.githubusercontent.com/n0m3l4c000nt35/custom-kali-linux/refs/heads/main/custom-kali.sh && chmod +x custom-kali.sh && ./custom-kali.sh`
+> Después de actualizar, upgradear y reiniciar, ejecutá este comando para ahorrarte un poco de tiempo `wget https://raw.githubusercontent.com/n0m3l4c000nt35/custom-kali-linux/refs/heads/main/custom-kali.sh && chmod +x custom-kali.sh && ./custom-kali.sh`
 
 ## Instalación de paquetes
 
