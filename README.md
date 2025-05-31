@@ -773,3 +773,5 @@ Navegador predeterminado
 ```bash
 xdg-settings set default-web-browser firefox-esr.desktop
 ```
+
+![kali-linux](https://github.com/user-attachments/assets/0288c44f-293a-49ea-9f6d-9e25832791f5)
