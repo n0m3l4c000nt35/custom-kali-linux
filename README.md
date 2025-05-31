@@ -370,20 +370,26 @@ p10k configure
 nano $HOME/.p10k.zsh
 ```
 
-Modificar `<icon>` por un ícono a elección de la web [Nerd Fonts](https://www.nerdfonts.com/cheat-sheet)
+Modificar `<kali-linux` por el ícono de kali de la web [Nerd Fonts](https://www.nerdfonts.com/cheat-sheet).
 
 ```bash
-context
-command_execution_time
-status
+# Modificar la siguiente sección para que quede de esta manera
+# The list of segments shown on the left. Fill it with the most important segments.
+  typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
+    os_icon                 # os identifier
+    dir                     # current directory
+    vcs                     # git status
+    prompt_char             # prompt symbol
+    context
+    command_execution_time
+    status
+  )
 
+# Comentar `context`, `command_execution_time` y `status` de la siguiente sección, de esta manera quedaran solo del lado izquierdo
+typeset -g POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(
+
+# Esta línea es para agregar un espacio a la derecha del ícono de Kali para separarlo un poco del ícono de la carpeta que representa la ruta $HOME
 typeset -g POWERLEVEL9K_OS_ICON_CONTENT_EXPANSION='<kali-icon> '
-
-typeset -g POWERLEVEL9K_CONTEXT_ROOT_TEMPLATE='<icon>'
-typeset -g POWERLEVEL9K_CONTEXT_PREFIX=''
-
-typeset -g POWERLEVEL9K_DIR_ANCHOR_BOLD=false
-typeset -g POWERLEVEL9K_OS_ICON_CONTENT_EXPANSION=''
 ```
 
 ## zsh
