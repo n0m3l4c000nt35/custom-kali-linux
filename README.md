@@ -4,46 +4,46 @@
 
 ```bash
 sudo apt update && sudo apt upgrade -y
-sudo apt install -y xorg xinit xserver-xorg virtualbox-guest-x11 locate
+sudo apt install -y xorg xinit xserver-xorg virtualbox-guest-x11 bspwm kitty feh polybar i3lock locate
 sudo updatedb
 mkdir -p $HOME/.config/{bspwm,sxhkd,kitty,polybar}
 mkdir $HOME/.config/bspwm/scripts
 mkdir $HOME/.config/polybar/scripts
+sudo mkdir /opt/nvim
 touch $HOME/.config/polybar/scripts/{ethernet_status.sh,vpn_status.sh,target_to_hack.sh,copy_target.sh,target.txt}
+touch $HOME/.config/bspwm/scripts/bspwm_resize
+touch $HOME/.config/polybar/launch.sh
+chmod u+x $HOME/.config/bspwm/bspwmrc
 chmod +x $HOME/.config/polybar/scripts/{ethernet_status.sh,vpn_status.sh,target_to_hack.sh,copy_target.sh}
 chmod +x $HOME/.config/polybar/launch.sh
+chmod +x $HOME/.config/bspwm/scripts/bspwm_resize
+chmod +x $HOME/.config/polybar/launch.sh
+```
+
+## .xinitrc
+
+```bash
+nano $HOME/.xinitrc
+```
+
+```
+#!/bin/bash
+
+VBoxClient --vmsvga -d &
+VBoxClient --clipboard -d &
+xset r rate 250 25
+setxkbmap latam
+exec bspwm
 ```
 
 ## bspwm
 
 ```bash
-sudo apt install bspwm
 cp /usr/share/doc/bspwm/examples/bspwmrc $HOME/.config/bspwm/
-chmod u+x $HOME/.config/bspwm/bspwmrc
 cp /usr/share/doc/bspwm/examples/sxhkdrc $HOME/.config/sxhkd/
-touch $HOME/.config/bspwm/scripts/bspwm_resize
-chmod +x $HOME/.config/bspwm/scripts/bspwm_resize
-nano $HOME/.config/bspwm/scripts/bspwm_resize
 ```
 
-```bash
-#!/usr/bin/env dash
-
-if bspc query -N -n focused.floating > /dev/null; then
-	step=20
-else
-	step=100
-fi
-
-case "$1" in
-	west) dir=right; falldir=left; x="-$step"; y=0;;
-	east) dir=right; falldir=left; x="$step"; y=0;;
-	north) dir=top; falldir=bottom; x=0; y="-$step";;
-	south) dir=top; falldir=bottom; x=0; y="$step";;
-esac
-
-bspc node -z "$dir" "$x" "$y" || bspc node -z "$falldir" "$x" "$y"
-```
+### bspwmrc
 
 ```bash
 #!/bin/sh
@@ -67,7 +67,32 @@ wmname LG3D &
 $HOME/.config/polybar/launch.sh &
 ```
 
-## sxhkdrc
+### bspwm_resize
+
+```bash
+nano $HOME/.config/bspwm/scripts/bspwm_resize
+```
+
+```bash
+#!/usr/bin/env dash
+
+if bspc query -N -n focused.floating > /dev/null; then
+	step=20
+else
+	step=100
+fi
+
+case "$1" in
+	west) dir=right; falldir=left; x="-$step"; y=0;;
+	east) dir=right; falldir=left; x="$step"; y=0;;
+	north) dir=top; falldir=bottom; x=0; y="-$step";;
+	south) dir=top; falldir=bottom; x=0; y="$step";;
+esac
+
+bspc node -z "$dir" "$x" "$y" || bspc node -z "$falldir" "$x" "$y"
+```
+
+### sxhkdrc
 
 ```bash
 # terminal emulator
@@ -175,8 +200,15 @@ super + shift + alt + t
 
 ## kitty
 
+Seleccionar el theme de preferencia y seleccionar la opción `Place the theme file in /home/kali/.config/kitty but do not modify kitty.conf`
+
 ```bash
-sudo apt install kitty
+kitten themes
+```
+
+### kitty.conf
+
+```bash
 nano $HOME/.config/kitty/kitty.conf
 ```
 
@@ -212,7 +244,7 @@ map f10 paste_from_buffer e
 enable_audio_bell no
 ```
 
-## Instalar powerlevel10k
+## powerlevel10k
 
 ```bash
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
@@ -220,10 +252,27 @@ echo 'source ~/powerlevel10k/powerlevel10k.zsh-theme' >> ~/.zshrc
 p10k configure
 ```
 
+### .p10k.zsh
+
 ```bash
-sudo mkdir /usr/share/zsh-sudo
-sudo wget -P /usr/share/zsh-sudo/ https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/refs/heads/master/plugins/sudo/sudo.plugin.zsh
+nano $HOME/.p10k.zsh
 ```
+
+Modificar `<icon>` por un ícono a elección de la web [Nerd Fonts](https://www.nerdfonts.com/cheat-sheet)
+
+```bash
+context
+command_execution_time
+status
+
+typeset -g POWERLEVEL9K_CONTEXT_ROOT_TEMPLATE='<icon>'
+typeset -g POWERLEVEL9K_CONTEXT_PREFIX=''
+
+typeset -g POWERLEVEL9K_DIR_ANCHOR_BOLD=false
+typeset -g POWERLEVEL9K_OS_ICON_CONTENT_EXPANSION=''
+```
+
+## zsh
 
 ### zshrc
 
@@ -292,24 +341,12 @@ hth() {
   sudo ntpdate "$1"
 }
 ```
-### .p10k.zsh
+
+### zsh-sudo
 
 ```bash
-nano $HOME/.p10k.zsh
-```
-
-Modificar `<icon>` por un ícono a elección de la web [Nerd Fonts](https://www.nerdfonts.com/cheat-sheet)
-
-```bash
-context
-command_execution_time
-status
-
-typeset -g POWERLEVEL9K_CONTEXT_ROOT_TEMPLATE='<icon>'
-typeset -g POWERLEVEL9K_CONTEXT_PREFIX=''
-
-typeset -g POWERLEVEL9K_DIR_ANCHOR_BOLD=false
-typeset -g POWERLEVEL9K_OS_ICON_CONTENT_EXPANSION=''
+sudo mkdir /usr/share/zsh-sudo
+sudo wget -P /usr/share/zsh-sudo/ https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/refs/heads/master/plugins/sudo/sudo.plugin.zsh
 ```
 
 ## batcat y lsd
@@ -325,19 +362,9 @@ sudo dpkg -i $HOME/Downloads/lsd_1.1.5_amd64.deb
 rm $HOME/Downloads/bat_0.25.0_amd64.deb $HOME/Downloads/lsd_1.1.5_amd64.deb
 ```
 
-## feh
-
-```bash
-sudo apt install feh -y
-```
-
 ## polybar
 
 [Repositorio de polybar](https://github.com/polybar/polybar)
-
-```bash
-sudo apt install polybar -y
-```
 
 ### launch.sh
 
@@ -351,6 +378,80 @@ nano $HOME/.config/polybar/launch.sh
 killall -q polybar
 
 polybar main -c $HOME/.config/polybar/config.ini
+```
+
+### current.ini
+
+```bash
+nano $HOME/.config/polybar/config.ini
+```
+
+```bash
+[bar/main]
+width = 99.5%
+height = 40
+offset-x = 0.25%
+offset-y = 1%
+module-margin = 7pt
+padding-left = 2
+padding-right = 2
+modules-left = date ethernet vpn
+modules-center = workspaces
+modules-right = target
+font-0 = "Hack Nerd Font Mono:style=regular:size=10;1"
+font-1 = "Hack Nerd Font Mono:style=regular:size=16;2"
+font-2 = "Hack Nerd Font Mono:style=regular:size=18;2"
+font-3 = "Hack Nerd Font Mono:style=regular:size=20;4"
+
+[module/date]
+type = internal/date
+interval = 1.0
+date = %d/%m/%Y%
+time = %H:%M:%S
+format = <label>
+format-foreground = #fff
+label = %date% %{T2}%{F#ff1493}%{F-}%{T-} %time%
+
+[module/ethernet]
+type = custom/script
+exec = $HOME/.config/polybar/scripts/ethernet_status.sh
+interval = 2
+format = <label>
+
+[module/vpn]
+type = custom/script
+exec = $HOME/.config/polybar/scripts/vpn_status.sh
+click-left = echo -n "$(ip a show tun0 | grep -oP '(?<=inet\s)\d+\.\d+\.\d+\.\d+')" | xclip -sel clip
+interval = 2
+format = <label>
+
+[module/workspaces]
+type = internal/xworkspaces
+icon-default = 
+format = <label-state>
+format-font = 3
+label-active = 󱓇
+label-active-foreground = #39ff14
+label-active-padding = 5px
+label-active-font = 4
+label-occupied = %icon%
+label-occupied-foreground = #4439ff14
+label-occupied-padding = 5px
+label-occupied-font = 2
+label-urgent = %icon%
+label-urgent-foreground = #e51d0b
+label-urgent-padding = 5px
+label-empty = %icon%
+label-empty-foreground = #6a6a6a
+label-empty-padding = 5px
+label-empty-font = 2
+
+[module/target]
+type = custom/script
+exec = $HOME/.config/polybar/scripts/target_to_hack.sh
+click-left = echo -n "$(cat $HOME/.config/polybar/scripts/target.txt)" | xclip -sel clip
+interval = 2
+format = <label>
 ```
 
 ### ethernet_status.sh
@@ -419,72 +520,6 @@ nano $HOME/.config/polybar/scripts/copy_target.sh
 echo -n "$(cat $HOME/.config/polybar/scripts/target.txt)" | xclip -sel clip
 ```
 
-### current.ini
-
-```bash
-nano $HOME/.config/polybar/config.ini
-```
-
-```bash
-[bar/main]
-width = 99.5%
-height = 40
-offset-x = 0.25%
-offset-y = 1%
-module-margin = 7pt
-padding-left = 4
-padding-right = 4
-background = #aa000000
-modules-left = ethernet_status vpn_status
-modules-center = workspaces
-modules-right = target_to_hack
-font-0 = "Hack Nerd Font Mono:style=regular:size=10;1"
-font-1 = "Hack Nerd Font Mono:style=regular:size=16;2"
-font-2 = "Hack Nerd Font Mono:style=regular:size=18;2"
-font-3 = "Hack Nerd Font Mono:style=regular:size=20;4"
-
-[module/ethernet_status]
-type = custom/script
-exec = $HOME/.config/bspwm/scripts/ethernet_status.sh
-interval = 2
-format = <label>
-
-[module/vpn_status]
-type = custom/script
-exec = $HOME/.config/bspwm/scripts/vpn_status.sh
-click-left = echo "$(/usr/sbin/ifconfig tun0 | grep "inet " | awk '{print $2}')" | xclip -sel clip
-interval = 2
-format = <label>
-
-[module/workspaces]
-type = internal/xworkspaces
-icon-default = 
-format = <label-state>
-format-font = 3
-label-active = 󱓇
-label-active-foreground = #39ff14
-label-active-padding = 5px
-label-active-font = 4
-label-occupied = %icon%
-label-occupied-foreground = #4439ff14
-label-occupied-padding = 5px
-label-occupied-font = 2
-label-urgent = %icon%
-label-urgent-foreground = #e51d0b
-label-urgent-padding = 5px
-label-empty = %icon%
-label-empty-foreground = #6a6a6a
-label-empty-padding = 5px
-label-empty-font = 2
-
-[module/target_to_hack]
-type = custom/script
-exec = $HOME/.config/bspwm/scripts/target_to_hack.sh
-click-left = echo -n "$(cat $HOME/.config/bin/target)" | xclip -sel clip
-interval = 2
-format = <label>
-```
-
 # nvim y nvchad
 
 Chequear si `nvim` está instalado
@@ -507,7 +542,6 @@ sudo rm /usr/bin/nvim
 ```bash
 git clone https://github.com/NvChad/starter $HOME/.config/nvim
 wget -P $HOME/Downloads https://github.com/neovim/neovim/releases/download/v0.11.0/nvim-linux-x86_64.tar.gz
-sudo mkdir /opt/nvim
 sudo mv $HOME/Downloads/nvim-linux-x86_64.tar.gz /opt/nvim
 sudo tar -xf /opt/nvim/nvim-linux-x86_64.tar.gz -C /opt/nvim
 sudo rm /opt/nvim/nvim-linux-x86_64.tar.gz
@@ -571,7 +605,6 @@ git clone --depth 1 https://github.com/junegunn/fzf.git $HOME/.fzf && $HOME/.fzf
 ## i3lock
 
 ```bash
-sudo apt install i3lock -y
 sudo git clone https://github.com/meskarune/i3lock-fancy.git /opt/i3lock-fancy
 sudo make -C /opt/i3lock-fancy install
 ```
@@ -586,22 +619,6 @@ nano $HOME/.config/sxhkd/sxhkdrc
 # i3lock-fancy
 super + shift + x
   /usr/bin/i3lock-fancy
-```
-
-## .xinitrc
-
-```bash
-nano $HOME/.xinitrc
-```
-
-```
-#!/bin/bash
-
-VBoxClient --vmsvga -d &
-VBoxClient --clipboard -d &
-xset r rate 250 25
-setxkbmap latam
-exec bspwm
 ```
 
 ## git
