@@ -7,11 +7,22 @@
 > [!NOTE]
 > En Virtual Box
 
+- [Actualización](#actualizacion)
+- [Instalación de paquetes](#instalacion-de-paquetes)
+
+## actualizacion
+
 ```bash
-# actualización
 sudo apt update && sudo apt upgrade -y
-# instalación de paquetes
+```
+
+## instalacion de paquetes
+
+```bash
 sudo apt install -y xorg xinit xserver-xorg virtualbox-guest-x11 bspwm kitty feh polybar i3lock xclip firefox-esr ntpsec-ntpdate locate
+```
+
+```bash
 sudo updatedb
 # creación de directorios
 mkdir -p $HOME/.config/{bspwm,sxhkd,kitty,polybar}
