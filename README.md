@@ -681,6 +681,9 @@ nano $HOME/.config/polybar/scripts/copy_target.sh
 echo -n "$(cat $HOME/.config/polybar/scripts/target.txt)" | xclip -sel clip
 ```
 
+> [!tip]
+> Antes de instalar `nvim` se recomienda instalar `node` porque hay algunos plugins de `nvim` que dependen de `node` si no, después de instalar `node` hay que volver a ejecutar el comando `MasonInstallAll` dentro de `nvim`
+
 ## nvim y nvchad
 
 Chequear si `nvim` está instalado
