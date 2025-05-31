@@ -300,6 +300,10 @@ typeset -g POWERLEVEL9K_OS_ICON_CONTENT_EXPANSION=''
 ### zshrc
 
 ```bash
+nano $HOME/.zshrc
+```
+
+```bash
 export _JAVA_AWT_WM_NONREPARENTING=1
 
 alias cat='bat'
