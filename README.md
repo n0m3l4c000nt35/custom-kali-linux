@@ -2,6 +2,11 @@
 	<h1>Instalación y personalización de Kali Linux</h1>
 </div>
 
+```bash
+sudo apt update && sudo apt upgrade -y
+sudo apt install -y xorg xinit xserver-xorg
+```
+
 ## bspwm
 
 ```bash
@@ -159,9 +164,7 @@ super + shift + alt + t
   $HOME/.config/polybar/scripts/copy_target.sh
 ```
 
-## Instalar kitty
-
-[Repositorio de kitty](https://github.com/kovidgoyal/kitty)
+## kitty
 
 ```bash
 sudo mkdir /opt/kitty
