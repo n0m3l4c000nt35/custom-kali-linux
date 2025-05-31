@@ -122,6 +122,8 @@ exec bspwm
 
 ## .Xresources
 
+Modifica el cursor
+
 ```bash
 nano $HOME/.Xresources
 ```
@@ -163,9 +165,6 @@ bspc config borderless_monocle true
 bspc config gapless_monocle true
 
 /usr/bin/feh --bg-center $HOME/Pictures/<wallpaper-name>.<extension>
-
-wmname LG3D &
-$HOME/.config/polybar/launch.sh &
 ```
 
 ### bspwm_resize
