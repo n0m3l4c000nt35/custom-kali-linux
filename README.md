@@ -30,7 +30,7 @@
 - [Polybar](#polybar)
 	- [launch.sh](#launchsh)
 	- [current.ini](#currentini)
-	- [ethernet_status.sh](#ethernetstatussh)
+	- [ethernet_status.sh](#ethernet-statussh)
 
 ## Actualización
 
