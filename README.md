@@ -416,7 +416,7 @@ Modificar `<kali-linux` por el ícono de kali de la web [Nerd Fonts](https://www
 # Comentar `context`, `command_execution_time` y `status` de la siguiente sección, de esta manera quedaran solo del lado izquierdo
 typeset -g POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(
 
-# Esta línea es para agregar un espacio a la derecha del ícono de Kali para separarlo un poco del ícono de la carpeta que representa la ruta $HOME
+# Esta línea es para agregar un espacio a la derecha del ícono de Kali para separarlo un poco del ícono de la carpeta que representa la ruta $HOME, la tenés que descomentar
 typeset -g POWERLEVEL9K_OS_ICON_CONTENT_EXPANSION='<kali-icon> '
 ```
 
