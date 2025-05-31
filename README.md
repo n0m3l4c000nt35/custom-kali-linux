@@ -110,6 +110,10 @@ bspc node -z "$dir" "$x" "$y" || bspc node -z "$falldir" "$x" "$y"
 ### sxhkdrc
 
 ```bash
+nano $HOME/.config/sxhkd/sxhkdrc
+```
+
+```bash
 # terminal emulator
 super + Return
 	/usr/bin/kitty
