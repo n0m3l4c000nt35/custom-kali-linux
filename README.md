@@ -71,10 +71,10 @@ pgrep -x sxhkd > /dev/null || sxhkd &
 
 bspc monitor -d I II III IV V VI VII VIII IX X
 
+bspc config window_gap 5
 bspc config border_width 2
 bspc config normal_border_color "#5d5d5d"
 bspc config focused_border_color "#1A7A14"
-bspc config window_gap 4
 
 bspc config split_ratio 0.52
 bspc config borderless_monocle true
