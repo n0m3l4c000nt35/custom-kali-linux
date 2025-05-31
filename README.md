@@ -14,6 +14,7 @@
 - [Permisos](#permisos)
 - [.xinitrc](#xinitrc)
 - [.Xresources](#Xresources)
+- [Fuentes](#fuentes)
 
 ## Actualización
 
@@ -95,7 +96,7 @@ Xcursor.theme: Adwaita
 Xcursor.size: 24
 ```
 
-## fuentes
+## Fuentes
 
 ```bash
 sudo wget -P /usr/share/fonts/truetype/hacknerd https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/Hack.zip
