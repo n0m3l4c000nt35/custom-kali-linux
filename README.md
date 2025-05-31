@@ -9,6 +9,7 @@
 
 - [Actualización](#actualización)
 - [Instalación de paquetes](#instalación-de-paquetes)
+- [Creación de directorios](#creación-de-directorios)
 
 ## Actualización
 
@@ -22,15 +23,19 @@ sudo apt update && sudo apt upgrade -y
 sudo apt install -y xorg xinit xserver-xorg virtualbox-guest-x11 bspwm kitty feh polybar i3lock xclip firefox-esr ntpsec-ntpdate locate
 ```
 
+## Creación de directorios
+
 ```bash
-sudo updatedb
-# creación de directorios
 mkdir -p $HOME/.config/{bspwm,sxhkd,kitty,polybar}
 mkdir $HOME/.config/bspwm/scripts
 mkdir $HOME/.config/polybar/scripts
 sudo mkdir /opt/nvim
 sudo mkdir /usr/share/fonts/truetype/hacknerd
 sudo mkdir /usr/share/zsh-sudo
+```
+
+```bash
+sudo updatedb
 # creación de archvivos
 touch $HOME/.xinitrc
 touch $HOME/.Xresources
