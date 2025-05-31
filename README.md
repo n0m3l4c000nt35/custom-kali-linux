@@ -137,11 +137,6 @@ sudo unzip /usr/share/fonts/truetype/hacknerd/Hack.zip -d /usr/share/fonts/truet
 
 ## bspwm
 
-```bash
-cp /usr/share/doc/bspwm/examples/bspwmrc $HOME/.config/bspwm/
-cp /usr/share/doc/bspwm/examples/sxhkdrc $HOME/.config/sxhkd/
-```
-
 ### bspwmrc
 
 ```bash
