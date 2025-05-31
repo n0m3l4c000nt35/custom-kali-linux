@@ -7,10 +7,10 @@
 > [!NOTE]
 > En Virtual Box
 
-- [Actualización](#actualizacion)
+- [Actualización](#actualización)
 - [Instalación de paquetes](#instalacion-de-paquetes)
 
-## actualizacion
+## actualización
 
 ```bash
 sudo apt update && sudo apt upgrade -y
