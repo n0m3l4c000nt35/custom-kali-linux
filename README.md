@@ -31,6 +31,17 @@
 	- [launch.sh](#launchsh)
 	- [current.ini](#currentini)
 	- [ethernet_status.sh](#ethernet_statussh)
+	- [vpn_status.sh](#vpn_statussh)
+	- [target_to_hack.sh](#target_to_hacksh)
+	- [copy_target.sh](#copy_targetsh)
+- [nvim y nvchad](#nvim-y-nvchad)
+- [fzf](#fzf)
+- [i3lock](#i3lock)
+- [Configurar git](#configurar-git)
+- [Node](#node)
+- [Docker](#docker)
+- [Python 2.7](#python-27)
+- [Otras configuraciones](#otras-configuraciones)
 
 ## Actualización
 
@@ -620,7 +631,7 @@ nano $HOME/.config/polybar/scripts/copy_target.sh
 echo -n "$(cat $HOME/.config/polybar/scripts/target.txt)" | xclip -sel clip
 ```
 
-# nvim y nvchad
+## nvim y nvchad
 
 Chequear si `nvim` está instalado
 
@@ -628,7 +639,7 @@ Chequear si `nvim` está instalado
 which nvim
 ```
 
-Si `nvim` está instalado, eliminar `nvim` y el binario
+Si `nvim` está instalado, desinstalarlo y eliminar el binario
 
 ```bash
 sudo apt remove nvim
@@ -690,8 +701,10 @@ Ejecutar el comando `:MasonInstallAll` en `nvim`
 nvim
 ```
 
+Presionar `shift` + `:` e ingresar
+
 ```bash
-:MasonInstallAll
+MasonInstallAll
 ```
 
 ## fzf
@@ -721,7 +734,7 @@ super + shift + x
   /usr/bin/i3lock-fancy
 ```
 
-## git
+## Configurar git
 
 ```bash
 git config --global user.name "<username>"
@@ -733,15 +746,15 @@ git config --global alias.br branch
 git config --global alias.cm "commit -m"
 ```
 
-## node
+## Node
 
 [Descargar Node.js](https://nodejs.org/es/download)
 
-## docker
+## Docker
 
 [Descargar Docker](https://docs.docker.com/engine/install/ubuntu/)
 
-## python2.7
+## Python 2.7
 
 ```bash
 sudo nano /etc/apt/sources.list
