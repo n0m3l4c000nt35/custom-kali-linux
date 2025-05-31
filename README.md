@@ -18,6 +18,7 @@ sudo mkdir /opt/nvim
 sudo mkdir /usr/share/fonts/truetype/hacknerd
 sudo mkdir /usr/share/zsh-sudo
 touch $HOME/.xinitrc
+touch $HOME/.Xresources
 touch $HOME/.config/polybar/scripts/{ethernet_status.sh,vpn_status.sh,target_to_hack.sh,copy_target.sh,target.txt}
 touch $HOME/.config/bspwm/scripts/bspwm_resize
 touch $HOME/.config/polybar/launch.sh
@@ -51,6 +52,17 @@ xsetroot -cursor_name left_ptr &
 [ -f ~/.Xresources ] && xrdb -merge ~/.Xresources
 
 exec bspwm
+```
+
+## .Xresources
+
+```bash
+nano $HOME/.Xresources
+```
+
+```bash
+Xcursor.theme: Adwaita
+Xcursor.size: 24
 ```
 
 ## fuentes
