@@ -7,6 +7,11 @@
 > [!NOTE]
 > En Virtual Box
 
+> [!warning]
+> No seleccionar ningún software a instalar
+
+![software-selection](https://github.com/user-attachments/assets/17e9a9d8-4138-48fe-ad02-ffb5c4031033)
+
 - [Actualización](#actualización)
 - [Instalación de paquetes](#instalación-de-paquetes)
 - [Creación de directorios](#creación-de-directorios)
