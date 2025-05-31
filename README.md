@@ -21,6 +21,8 @@
 	- [sxhkdrc](#sxhkdrc)
 - [Kitty](#kitty)
 	- [kitty.conf](#kittyconf)
+- [Powerlevel10k](#powerlevel10k)
+	- [.p10k.zsh](#p10kzsh)
 
 ## Actualización
 
