@@ -11,6 +11,7 @@
 - [Instalación de paquetes](#instalación-de-paquetes)
 - [Creación de directorios](#creación-de-directorios)
 - [Creación de archvivos](#creación-de-archvivos)
+- [Permisos](#permisos)
 
 ## Actualización
 
@@ -45,9 +46,10 @@ touch $HOME/.config/bspwm/scripts/bspwm_resize
 touch $HOME/.config/polybar/launch.sh
 ```
 
+## Permisos
+
 ```bash
 sudo updatedb
-# permisos
 chmod +x $HOME/.xinitrc
 chmod u+x $HOME/.config/bspwm/bspwmrc
 chmod +x $HOME/.config/polybar/scripts/{ethernet_status.sh,vpn_status.sh,target_to_hack.sh,copy_target.sh}
