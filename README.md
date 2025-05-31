@@ -8,15 +8,15 @@
 > En Virtual Box
 
 - [Actualización](#actualización)
-- [Instalación de paquetes](#instalacion-de-paquetes)
+- [Instalación de paquetes](#instalación-de-paquetes)
 
-## actualización
+## Actualización
 
 ```bash
 sudo apt update && sudo apt upgrade -y
 ```
 
-## instalacion de paquetes
+## Instalación de paquetes
 
 ```bash
 sudo apt install -y xorg xinit xserver-xorg virtualbox-guest-x11 bspwm kitty feh polybar i3lock xclip firefox-esr ntpsec-ntpdate locate
