@@ -21,6 +21,7 @@ wget -P $HOME/.config/polybar/scripts/ https://raw.githubusercontent.com/n0m3l4c
 wget -P $HOME/.config/bspwm/scripts/ https://raw.githubusercontent.com/n0m3l4c000nt35/custom-kali-linux/refs/heads/main/files/bspwm_resize
 wget -P $HOME/.config/polybar/ https://raw.githubusercontent.com/n0m3l4c000nt35/custom-kali-linux/refs/heads/main/files/launch.sh
 wget -P $HOME/.config/polybar/ https://raw.githubusercontent.com/n0m3l4c000nt35/custom-kali-linux/refs/heads/main/files/config.ini
+wget -P $HOME/.config/kitty/ https://raw.githubusercontent.com/n0m3l4c000nt35/custom-kali-linux/refs/heads/main/files/kitty.conf
 
 touch $HOME/.config/polybar/scripts/target.txt
 
