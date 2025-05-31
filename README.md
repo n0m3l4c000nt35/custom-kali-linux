@@ -240,8 +240,12 @@ include Box.conf
 
 cursor_shape beam
 
-window_margin_width 2
+window_margin_width 2 4
 window_padding_width 5
+
+window_border_width 1
+active_border_color #1A7A14
+inactive_border_color #5d5d5d
 
 map ctrl+shift+enter new_window_with_cwd
 map ctrl+shift+t new_tab_with_cwd
