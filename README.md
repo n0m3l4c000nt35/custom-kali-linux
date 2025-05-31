@@ -4,14 +4,16 @@
 
 ```bash
 sudo apt update && sudo apt upgrade -y
-sudo apt install -y xorg xinit xserver-xorg
+sudo apt install -y xorg xinit xserver-xorg virtualbox-guest-x11
+mkdir -p $HOME/.config/{bspwm,sxhkd,kitty,polybar}
+mkdir $HOME/.config/bspwm/scripts
+mkdir $HOME/.config/polybar/scripts
 ```
 
 ## bspwm
 
 ```bash
 sudo apt install bspwm
-mkdir $HOME/.config/{bspwm,sxhkd}
 cp /usr/share/doc/bspwm/examples/bspwmrc $HOME/.config/bspwm/
 chmod u+x $HOME/.config/bspwm/bspwmrc
 cp /usr/share/doc/bspwm/examples/sxhkdrc $HOME/.config/sxhkd/
@@ -54,6 +56,8 @@ bspc config window_gap 4
 bspc config split_ratio 0.52
 bspc config borderless_monocle true
 bspc config gapless_monocle true
+
+/usr/bin/feh --bg-center $HOME/Pictures/<wallpaper-name>.<extension>
 
 $HOME/.config/polybar/launch.sh &
 ```
@@ -167,49 +171,27 @@ super + shift + alt + t
 ## kitty
 
 ```bash
-sudo mkdir /opt/kitty
-wget -O- https://github.com/kovidgoyal/kitty/releases/download/v0.41.1/kitty-0.41.1-x86_64.txz | sudo tar -xJ -C /opt/kitty
-sudo ln -s /opt/kitty/bin/kitty /usr/bin/kitty
-sudo ln -s /opt/kitty/bin/kitten /usr/bin/kitten
-```
-
-Modificar las siguientes líneas al archivo `$HOME/.config/sxhkd/sxhkdrc`
-
-```bash
-nano $HOME/.config/sxhkd/sxhkdrc
-```
-
-```bash
-# terminal emulator
-super + Return
-	/usr/bin/kitty
-```
-
-Crear el archivo `$HOME/.config/kitty/kitty.conf` y agregarle el siguiente contenido
-
-```bash
-mkdir -p $HOME/.config/kitty
+sudo apt install kitty
 nano $HOME/.config/kitty/kitty.conf
 ```
 
 ```bash
-font_family JetBrainsMono
+include Box.conf
+
 cursor_shape beam
 
-active_border_color #39ff14
-inactive_border_color #5d5d5d
-
 window_margin_width 2
-window_border_width 1
 window_padding_width 5
+
+map ctrl+shift+enter new_window_with_cwd
+map ctrl+shift+t new_tab_with_cwd
 
 map ctrl+left neighboring_window left
 map ctrl+right neighboring_window right
 map ctrl+up neighboring_window up
 map ctrl+down neighboring_window down
 
-map ctrl+shift+enter new_window_with_cwd
-map ctrl+shift+t new_tab_with_cwd
+map ctrl+shift+z toggle_layout stack
 
 map f1 copy_to_buffer a
 map f2 paste_from_buffer a
@@ -222,170 +204,62 @@ map f8 paste_from_buffer d
 map f9 copy_to_buffer e
 map f10 paste_from_buffer e
 
-map ctrl+shift+z toggle_layout stack
-
-tab_bar_style powerline
-
-inactive_tab_background #e06c75
-active_tab_background #98c379
-inactive_tab_foreground #000000
-tab_bar_margin_color #000
-
-background_opacity 0.80
 enable_audio_bell no
-```
-
-```bash
-sudo mkdir -p /root/.config/kitty
-sudo ln -s $HOME/.config/kitty/kitty.conf /root/.config/kitty/kitty.conf
-```
-
-## Instalar zsh
-
-Reemplazar `<user>` por el usuario no privilegiado.
-
-[zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)
-
-[zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting)
-
-```bash
-sudo apt install zsh zsh-autosuggestions zsh-syntax-highlighting -y
-sudo usermod --shell /usr/bin/zsh $USER
-sudo usermod --shell /usr/bin/zsh root
-```
-
-Agregar la siguiente línea al archivo `$HOME/.config/kitty/kitty.conf`
-
-```bash
-nano $HOME/.config/kitty/kitty.conf
-```
-
-```bash
-shell zsh
-```
-
-## Instalar fuentes
-
-[MesloLGS NF](https://github.com/romkatv/powerlevel10k?tab=readme-ov-file#manual-font-installation)
-
-```bash
-sudo wget -O /usr/share/fonts/"MesloLGS NF Regular.ttf" https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf
-sudo wget -O /usr/share/fonts/"MesloLGS NF Bold.ttf" https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf
-sudo wget -O /usr/share/fonts/"MesloLGS NF Italic.ttf" https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf
-sudo wget -O /usr/share/fonts/"MesloLGS NF Bold Italic.ttf" https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf
-fc-cache -fv
 ```
 
 ## Instalar powerlevel10k
 
-[Repositorio de powerlevel10k](https://github.com/romkatv/powerlevel10k)
-
-Reemplazar `<user>` por el usuario no privilegiado
-
 ```bash
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $HOME/powerlevel10k && echo 'source /home/$USER/powerlevel10k/powerlevel10k.zsh-theme' >> $HOME/.zshrc
-```
-
-Configurar la `zsh` tanto para el usuario no privilegiado como para `root`
-
-```bash
-zsh
-```
-
-| Configuración              | Opción |
-| -------------------------- | ------ |
-| Prompt Style               | 2      |
-| Character Set              | 1      |
-| Prompt Color               | 2      |
-| Show current time?         | n      |
-| Prompt Separators          | 1      |
-| Prompt Heads               | 3      |
-| Prompt Tails               | 4      |
-| Prompt Height              | 1      |
-| Prompt Spacing             | 2      |
-| Icons                      | 2      |
-| Prompt Flow                | 2      |
-| Enable Transient Prompt?   | y      |
-| Instant Prompt Mode        | 1      |
-| Apply changes to ~/.zshrc? | y      |
-
-```bash
-sudo ln -s -f $HOME/.zshrc /root/.zshrc
-sudo compaudit
-chown root:root /usr/local/share/zsh/site-functions/_bspc
-```
-
-Descargar el archivo `https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/sudo/sudo.plugin.zsh`
-
-```bash
-sudo mkdir -p /usr/share/zsh/plugins/zsh-sudo/
-sudo wget -P /usr/share/zsh/plugins/zsh-sudo/ https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/sudo/sudo.plugin.zsh
-```
-
-Modificar el archivo `$HOME/.zshrc` y agregar las siguientes líneas
-
-```bash
-nano $HOME/.zshrc
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
+echo 'source ~/powerlevel10k/powerlevel10k.zsh-theme' >> ~/.zshrc
+p10k configure
 ```
 
 ```bash
-# Fix Java issue
+sudo mkdir /usr/share/zsh-sudo
+sudo wget -P /usr/share/zsh-sudo/ https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/refs/heads/master/plugins/sudo/sudo.plugin.zsh
+```
+
+### zshrc
+
+```bash
 export _JAVA_AWT_WM_NONREPARENTING=1
 
-# ZSH AutoSuggestions plugin
-if [ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
-  source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-fi
+alias cat='bat'
+alias catn='bat --style=plain'
+alias catnp='bat --style=plain --paging=never'
+alias ll='lsd -lh --group-dirs=first'
+alias la='lsd -a --group-dirs=first'
+alias l='lsd --group-dirs=first'
+alias lla='lsd -lha --group-dirs=first'
+alias ls='lsd --group-dirs=first'
 
-# ZSH Syntax Highlighting plugin
-if [ -f /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
-  source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-fi
-
-# ZSH Sudo plugin
 if [ -f /usr/share/zsh-sudo/sudo.plugin.zsh ]; then
-    source /usr/share/zsh-sudo/sudo.plugin.zsh
+    . /usr/share/zsh-sudo/sudo.plugin.zsh
 fi
 
-# Use modern completion system
-autoload -Uz compinit
-compinit
-
-zstyle ':completion:*' auto-description 'specify: %d'
-zstyle ':completion:*' completer _expand _complete _correct _approximate
-zstyle ':completion:*' format 'Completing %d'
-zstyle ':completion:*' group-name ''
-zstyle ':completion:*' menu select=2
-eval "$(dircolors -b)"
-zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
-zstyle ':completion:*' list-colors ''
-zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
-zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=* l:|=*'
-zstyle ':completion:*' menu select=long
-zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
-zstyle ':completion:*' use-compctl false
-zstyle ':completion:*' verbose true
-
-zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
-zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
+if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
+    exec startx
+fi
 
 htb(){
   opt=$1
   case $opt in
     a) sudo openvpn $HOME/academy-regular.ovpn ;;
     m) sudo openvpn $HOME/lab_n0m3l4c000nt35.ovpn ;;
-    *) echo "Uso: htb a | m"
+    c) sudo openvpn $HOME/competitive_n0m3l4c000nt35.ovpn ;;
+    *) echo "Uso: htb a | m | c"
   esac
 }
 
 st(){
   ip_address=$1
   machine_name=$2
-  echo "$ip_address $machine_name" > /home/<user>/.config/bin/target
+  echo "$ip_address" > $HOME/.config/polybar/scripts/target.txt
 }
 
 ct(){
-  echo "" > /home/<user>/.config/bin/target
+  echo "" > $HOME/.config/polybar/scripts/target.txt
 }
 
 ep(){
@@ -399,31 +273,21 @@ ep(){
     cat extractPorts.tmp; rm extractPorts.tmp
 }
 
-# History
-HISTFILE=$HOME/.zsh_history
-HISTSIZE=10000
-SAVEHIST=10000
-setopt histignorealldups sharehistory
+hth() {
+  if [ -z "$1" ]; then
+    echo "Usage: hth <ntp-server>"
+    return 1
+  fi
 
-# bat
-alias cat='bat'
-alias catn='bat --style=plain'
-alias catnp='bat --style=plain --paging=never'
+  echo "[+] Disabling NTP and killing VBoxService..."
+  sudo timedatectl set-ntp off >/dev/null 2>&1
+  sudo pkill -f VBoxService >/dev/null 2>&1
 
-# ls
-alias ll='lsd -lh --group-dirs=first'
-alias la='lsd -a --group-dirs=first'
-alias l='lsd --group-dirs=first'
-alias lla='lsd -lha --group-dirs=first'
-alias ls='lsd --group-dirs=first'
-
-# burpsuite
-alias bs='/usr/bin/burpsuite 2>/dev/null & disown'
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+  echo "[+] Syncing time with: $1"
+  sudo ntpdate "$1"
+}
 ```
-
-Modificar el archivo `$HOME/.p10k.zsh` tanto para el usuario no privilegiado como para root comentando los plugins de la derecha de la zsh que no se quiere que aparezcan y agregar al lado izquierdo los que si se quiere que aparezcan
+### .p10k.zsh
 
 ```bash
 nano $HOME/.p10k.zsh
@@ -443,49 +307,7 @@ typeset -g POWERLEVEL9K_DIR_ANCHOR_BOLD=false
 typeset -g POWERLEVEL9K_OS_ICON_CONTENT_EXPANSION=''
 ```
 
-## Instalar picom
-
-[Repositorio de picom](https://github.com/yshui/picom)
-
-```bash
-sudo apt install libconfig-dev libdbus-1-dev libegl-dev libev-dev libgl-dev libepoxy-dev libpcre2-dev libpixman-1-dev libx11-xcb-dev libxcb1-dev libxcb-composite0-dev libxcb-damage0-dev libxcb-dpms0-dev libxcb-glx0-dev libxcb-image0-dev libxcb-present-dev libxcb-randr0-dev libxcb-render0-dev libxcb-render-util0-dev libxcb-shape0-dev libxcb-util-dev libxcb-xfixes0-dev libxext-dev meson ninja-build uthash-dev cmake -y
-git clone https://github.com/yshui/picom $HOME/Downloads/picom
-meson setup --buildtype=release $HOME/Downloads/picom/build $HOME/Downloads/picom
-ninja -C $HOME/Downloads/picom/build
-sudo ninja -C $HOME/Downloads/picom/build install
-rm -rf $HOME/Downloads/picom
-which picom
-mkdir $HOME/.config/picom
-touch $HOME/.config/picom/picom.conf
-```
-
-Copiar el contenido del archivo [picom.sample.conf](https://raw.githubusercontent.com/yshui/picom/next/picom.sample.conf) al archivo `$HOME/.config/picom/picom.conf`
-
-```bash
-nano $HOME/.config/picom/picom.conf
-```
-
-Modificar las siguientes líneas del archivo `$HOME/.config/picom/picom.conf`
-
-```bash
-backend = "xrender"
-detect-rounded-corners = false;
-detect-client-opacity = true;
-```
-
-Comentar sombras y blur para que la performance mejore
-
-Agregar al archivo `$HOME/.config/bspwm/bspwmrc` la línea `picom &`
-
-```bash
-nano $HOME/.config/bspwm/bspwmrc
-```
-
-```bash
-picom &
-```
-
-## Instalar batcat y lsd
+## batcat y lsd
 
 [Repositorio de batcat](https://github.com/sharkdp/bat)  
 [Repositorio de lsd](https://github.com/lsd-rs/lsd)
@@ -498,25 +320,13 @@ sudo dpkg -i $HOME/Downloads/lsd_1.1.5_amd64.deb
 rm $HOME/Downloads/bat_0.25.0_amd64.deb $HOME/Downloads/lsd_1.1.5_amd64.deb
 ```
 
-## Instalar feh
-
-[Repositorio de feh](https://github.com/derf/feh)
+## feh
 
 ```bash
 sudo apt install feh -y
 ```
 
-Editar el archivo `$HOME/.config/bspwm/bspwmrc`
-
-```bash
-nano $HOME/.config/bspwm/bspwmrc
-```
-
-```bash
-/usr/bin/feh --bg-center $HOME/Pictures/<wallpaper-name>.<extension>
-```
-
-## Instalar polybar
+## polybar
 
 [Repositorio de polybar](https://github.com/polybar/polybar)
 
