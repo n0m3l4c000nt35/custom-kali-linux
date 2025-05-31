@@ -23,6 +23,14 @@
 	- [kitty.conf](#kittyconf)
 - [Powerlevel10k](#powerlevel10k)
 	- [.p10k.zsh](#p10kzsh)
+- [zsh](#zsh)
+	- [.zshrc](#zshrc)
+	- [zsh-sudo](#zsh-sudo)
+- [batcat y lsd](#batcat-y-lsd)
+- [Polybar](#polybar)
+	- [launch.sh](#launchsh)
+	- [current.ini](#currentini)
+	- [ethernet_status.sh](#ethernetstatussh)
 
 ## Actualización
 
@@ -363,7 +371,7 @@ typeset -g POWERLEVEL9K_OS_ICON_CONTENT_EXPANSION=''
 
 ## zsh
 
-### zshrc
+### .zshrc
 
 ```bash
 nano $HOME/.zshrc
@@ -454,7 +462,7 @@ sudo dpkg -i $HOME/Downloads/lsd_1.1.5_amd64.deb
 rm $HOME/Downloads/bat_0.25.0_amd64.deb $HOME/Downloads/lsd_1.1.5_amd64.deb
 ```
 
-## polybar
+## Polybar
 
 [Repositorio de polybar](https://github.com/polybar/polybar)
 
