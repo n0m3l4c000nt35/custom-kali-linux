@@ -77,6 +77,8 @@ sudo mkdir /usr/share/zsh-sudo
 ```bash
 touch $HOME/.xinitrc
 touch $HOME/.Xresources
+touch $HOME/.config/bspwm/bspwmrc
+touch $HOME/.config/sxhkd/sxhkdrc
 touch $HOME/.config/polybar/scripts/{ethernet_status.sh,vpn_status.sh,target_to_hack.sh,copy_target.sh,target.txt}
 touch $HOME/.config/bspwm/scripts/bspwm_resize
 touch $HOME/.config/polybar/{launch.sh,config.ini}
