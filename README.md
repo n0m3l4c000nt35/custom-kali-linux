@@ -457,9 +457,9 @@ fi
 htb(){
     opt=$1
     case $opt in
-      a) sudo openvpn $HOME/<academy-vpn-file> ;;
-      m) sudo openvpn $HOME/<labs-vpn-file> ;;
-      c) sudo openvpn $HOME/<competitive-vpn-file> ;;
+      a) sudo openvpn $HOME/academyvpnfile ;;
+      m) sudo openvpn $HOME/labsvpnfile ;;
+      c) sudo openvpn $HOME/competitivevpnfile ;;
       *) echo "Uso: htb a | m | c"
     esac
 }
