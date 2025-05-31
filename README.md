@@ -67,9 +67,8 @@ sudo reboot
 ```
 
 > [!tip]
-> Después de actualizar, upgradear y reiniciar, ejecutá este comando para ahorrarte un poco de tiempo `wget https://raw.githubusercontent.com/n0m3l4c000nt35/custom-kali-linux/refs/heads/main/custom-kali.sh && chmod +x custom-kali.sh && ./custom-kali.sh`
-> Durante la ejecución del script se instala `fzf` y hay que presionar 3 veces `enter`.
-> Una vez finalizado el script ejecutar el comando `startx`.
+> Después de actualizar, upgradear y reiniciar, ejecutá este comando para ahorrarte un poco de tiempo `wget https://raw.githubusercontent.com/n0m3l4c000nt35/custom-kali-linux/refs/heads/main/custom-kali.sh && chmod +x custom-kali.sh && ./custom-kali.sh`  
+> Una vez finalizado el script ejecutar el comando `startx`  
 > 
 
 ## Instalación de paquetes
