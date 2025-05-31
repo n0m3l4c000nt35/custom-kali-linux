@@ -422,6 +422,7 @@ if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
     exec startx
 fi
 
+# Se conecta a la VPN de Hack The Box dependiendo si te conectás a la academia, a los laboratorios o estás haciendo las máquinas de la season. En este caso los archivos se guardan en el $HOME.
 htb(){
     opt=$1
     case $opt in
@@ -432,16 +433,17 @@ htb(){
     esac
 }
 
+# Muestra en la polybar la IP de la máquina que estás haciendo
 st(){
-    ip_address=$1
-    machine_name=$2
-    echo "$ip_address" > $HOME/.config/polybar/scripts/target.txt
+    echo "$1" > $HOME/.config/polybar/scripts/target.txt
 }
 
+# Elimina la IP de la máquina que estabas haciendo de la Polybar
 ct(){
     echo "" > $HOME/.config/polybar/scripts/target.txt
 }
 
+# Extrae los números de puertos del output guardado en un archivo en formato grepeable de un escaneo con nmap
 ep(){
     ports="$(/usr/bin/cat $1 | grep -oP '\d{1,5}/open' | awk '{print $1}' FS='/' | xargs | tr ' ' ',')"
     ip_address="$(/usr/bin/cat $1 | grep -oP '\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}' | sort -u | head -n 1)"
@@ -453,6 +455,7 @@ ep(){
     cat extractPorts.tmp; rm extractPorts.tmp
 }
 
+# Si le pasa una IP sincroniza la hora con la del servidor para trabajar en entornos que así lo requieren, si no se le pasa una IP sincroniza la hora con la local. Está creado específicamente para este entorno.
 hth(){
     if [ -z "$1" ]; then
       echo "[+] No NTP server provided. Syncing with host time (VBox)..."
@@ -469,6 +472,8 @@ hth(){
 ```
 
 ### zsh-sudo
+
+Plugin de la zsh que al presionar dos veces la tecla `esc` agrega `sudo` al principio de un comando que se está escribiendo
 
 ```bash
 sudo wget -P /usr/share/zsh-sudo/ https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/refs/heads/master/plugins/sudo/sudo.plugin.zsh
