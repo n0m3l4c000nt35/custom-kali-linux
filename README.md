@@ -1,117 +1,17 @@
-# Personalización de Linux
+<div align=center>
+	<h1>Instalación y personalización de Kali Linux</h1>
+</div>
 
-![cl](https://github.com/user-attachments/assets/fdfa3d8a-de11-4989-bce4-9cde8dc09bd9)
-
-- [Instalar dependencias](#Instalar-dependencias)
-- [Instalar bspwm](#Instalar-bspwm)
-- [Instalar sxhkd](#Instalar-sxhkd)
-- [Configuración de bspwm y sxhkd](#Configuracion-de-bspwm-y-sxhkd)
-- [Instalar kitty](#Instalar-kitty)
-- [Instalar zsh](#Instalar-zsh)
-- [Instalar fuentes](#Instalar-fuentes)
-- [Instalar powerlevel10k](#Instalar-powerlevel10k)
-- [Instalar picom](#Instalar-picom)
-- [Instalar batcat y lsd](#Instalar-batcat-y-lsd)
-- [Instalar feh](#Instalar-feh)
-- [Instalar polybar](#Instalar-polybar)
-- [Instalar imagemagick](#Instalar-imagemagick)
-- [Instalar nvim y nvchad](#Instalar-nvim-y-nvchad)
-- [Instalar fzf](#Instalar-fzf)
-- [Instalar i3lock](#Instalar-i3lock)
-- [Instalar locate](#Instalar-locate)
-- [Otras configuraciones](#Otras-configuraciones)
-
-## Instalar dependencias
+## bspwm
 
 ```bash
-sudo apt install git make build-essential p7zip-full libxcb-xinerama0-dev libxcb-icccm4-dev libxcb-randr0-dev libxcb-util0-dev libxcb-ewmh-dev libxcb-keysyms1-dev libxcb-shape0-dev -y
-```
-
-## Instalar bspwm
-
-[Repositorio de bspwm](https://github.com/baskerville/bspwm)
-
-```bash
-git clone https://github.com/baskerville/bspwm.git $HOME/Downloads/bspwm
-sudo make -C $HOME/Downloads/bspwm
-sudo make -C $HOME/Downloads/bspwm install
-```
-
-## Instalar sxhkd
-
-[Repositorio de sxhkd](https://github.com/baskerville/sxhkd)
-
-```bash
-git clone https://github.com/baskerville/sxhkd.git $HOME/Downloads/sxhkd
-sudo make -C $HOME/Downloads/sxhkd
-sudo make -C $HOME/Downloads/sxhkd install
-```
-
-## Configuracion de `bspwm` y `sxhkd`
-
-```bash
+sudo apt install bspwm
 mkdir $HOME/.config/{bspwm,sxhkd}
-cp $HOME/Downloads/bspwm/examples/bspwmrc $HOME/.config/bspwm/
+cp /usr/share/doc/bspwm/examples/bspwmrc $HOME/.config/bspwm/
 chmod u+x $HOME/.config/bspwm/bspwmrc
-cp $HOME/Downloads/bspwm/examples/sxhkdrc $HOME/.config/sxhkd/
-rm -rf $HOME/Downloads/{bspwm,sxhkd}
-```
-
-Modificar las siguientes líneas del archivo `$HOME/.config/sxhkd/sxhkdrc`
-
-```bash
-nano $HOME/.config/sxhkd/sxhkdrc
-```
-
-```bash
-# quit/restart bspwm
-super + shift + {q,r}
-  bspc {quit,wm -r}
-
-# focus the node in the given direction
-super + {_,shift + }{Left,Down,Up,Right}
-  bspc node -{f,s} {west,south,north,east}
-
-# preselect the direction
-super + ctrl + alt + {Left,Down,Up,Right}
-  bspc node -p {west,south,north,east}
-
-# move a floating window
-super + alt + shift + {Left,Down,Up,Right}
-  bspc node -v {-20 0,0 20,0 -20,20 0}
-
-# custom resize
-super + alt + {Left,Down,Up,Right}
-  $HOME/.config/bspwm/scripts/bspwm_resize {west,south,north,east}
-```
-
-Eliminar las siguientes líneas del archivo `~/.config/sxhkd/sxhkdrc`
-
-```bash
-nano ~/.config/sxhkd/sxhkdrc
-```
-
-```bash
-# expand a window by moving one of its side outward
-super + alt + {h,j,k,l}
-  bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
-
-# contract a window by moving one of its side inward
-super + alt + shift + {h,j,k,l}
-  bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
-```
-
-Crear el script `$HOME/.config/bspwm/scripts/bspwm_resize`
-
-```bash
-mkdir $HOME/.config/bspwm/scripts
+cp /usr/share/doc/bspwm/examples/sxhkdrc $HOME/.config/sxhkd/
 touch $HOME/.config/bspwm/scripts/bspwm_resize
 chmod +x $HOME/.config/bspwm/scripts/bspwm_resize
-```
-
-Agregarle el siguiente contenido al archivo `$HOME/.config/bspwm/scripts/bspwm_resize`
-
-```bash
 nano $HOME/.config/bspwm/scripts/bspwm_resize
 ```
 
@@ -134,14 +34,6 @@ esac
 bspc node -z "$dir" "$x" "$y" || bspc node -z "$falldir" "$x" "$y"
 ```
 
-Agregar la siguiente línea al archivo `$HOME/.config/bspwm/bspwmrc`
-
-Para poder copiar de manera bidireccional entre la máquina host y la máquina virtual, agregar la siguiente línea al archivo `$HOME/.config/bspwm/bspwmrc`
-
-```bash
-nano $HOME/.config/bspwm/bspwmrc
-```
-
 ```bash
 #!/bin/sh
 
@@ -149,27 +41,16 @@ pgrep -x sxhkd > /dev/null || sxhkd &
 
 bspc monitor -d I II III IV V VI VII VIII IX X
 
-bspc config borderless_monocle   true
-bspc config gapless_monocle      true
-
-bspc config split_ratio 0.5
-
-bspc config window_gap 4
-bspc config border_width 1
+bspc config border_width 2
 bspc config normal_border_color "#5d5d5d"
 bspc config focused_border_color "#1A7A14"
+bspc config window_gap 4
 
-vmware-user-suid-wrapper &
-```
+bspc config split_ratio 0.52
+bspc config borderless_monocle true
+bspc config gapless_monocle true
 
-Eliminar las siguientes líneas del archivo `$HOME/.config/bspwm/bspwmrc`
-
-```bash
-bspc rule -a Gimp desktop='^8' state=floating follow=on
-bspc rule -a Chromium desktop='^2'
-bspc rule -a mplayer2 state=floating
-bspc rule -a Kupfer.py focus=on
-bspc rule -a Screenkey manage=off
+$HOME/.config/polybar/launch.sh &
 ```
 
 Agregar lo siguiente al archivo `$HOME/.config/sxhkd/sxhkdrc` para abrir `firefox` y `chromium`
