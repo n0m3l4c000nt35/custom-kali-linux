@@ -605,9 +605,9 @@ nano $HOME/.config/polybar/scripts/ethernet_status.sh
 ETH=$(ip -4 a show eth0 | grep -oP '(?<=inet\s)\d+\.\d+\.\d+\.\d+')
 
 if [ -n "$ETH" ]; then
-  echo "%{T2}%{F#2494e7}<U+F0200>%{T-} %{F#fff}$(ip -4 a show eth0 | grep -oP '(?<=inet\s)\d+\.\d+\.\d+\.\d+')"
+  echo "%{T2}%{F#2494e7}󰈀%{T-} %{F#fff}$(ip -4 a show eth0 | grep -oP '(?<=inet\s)\d+\.\d+\.\d+\.\d+')"
 else
-  echo "%{T2}%{F#808080}<U+F0200>%{T-} %{F#fff} Ups!"
+  echo "%{T2}%{F#808080}󰈀%{T-} %{F#fff} Ups!"
 fi
 ```
 
@@ -623,7 +623,7 @@ nano $HOME/.config/polybar/scripts/vpn_status.sh
 IFACE=$(ip -o link show | awk -F': ' '/tun0/ {print $2}')
 
 if [ "$IFACE" = "tun0" ]; then
-  echo "%{T2}%{F#1bbf3e}<U+F01A7>%{T-} %{F#fff}$(ip a show tun0 | grep -oP '(?<=inet\s)\d+\.\d+\.\d+\.\d+')"
+  echo "%{T2}%{F#1bbf3e}󰈀%{T-} %{F#fff}$(ip a show tun0 | grep -oP '(?<=inet\s)\d+\.\d+\.\d+\.\d+')"
 else
   echo ""
 fi
@@ -641,7 +641,7 @@ nano $HOME/.config/polybar/scripts/target_to_hack.sh
 ip_address=$(/bin/cat $HOME/.config/polybar/scripts/target.txt)
 
 if [ -n "$ip_address" ]; then
-  echo "%{T2}%{F#ff0000}<U+F04FE>%{T-} %{F#fff}$ip_address"
+  echo "%{T2}%{F#ff0000}󰓾%{T-} %{F#fff}$ip_address"
 else
   echo ""
 fi
