@@ -12,7 +12,7 @@
 - [Creación de directorios](#creación-de-directorios)
 - [Creación de archvivos](#creación-de-archvivos)
 - [Permisos](#permisos)
-- [.xinitrc](#\.xinitrc)
+- [.xinitrc](#xinitrc)
 
 ## Actualización
 
