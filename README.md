@@ -58,6 +58,7 @@ sudo apt update && sudo apt upgrade -y
 
 ```bash
 sudo apt install -y xorg xinit xserver-xorg virtualbox-guest-x11 bspwm kitty feh polybar i3lock xclip firefox-esr ntpsec-ntpdate locate
+sudo updatedb
 ```
 
 ## Creación de directorios
@@ -84,7 +85,6 @@ touch $HOME/.config/polybar/launch.sh
 ## Permisos
 
 ```bash
-sudo updatedb
 chmod +x $HOME/.xinitrc
 chmod u+x $HOME/.config/bspwm/bspwmrc
 chmod +x $HOME/.config/polybar/scripts/{ethernet_status.sh,vpn_status.sh,target_to_hack.sh,copy_target.sh}
