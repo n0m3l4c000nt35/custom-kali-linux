@@ -752,7 +752,7 @@ git config --global alias.cm "commit -m"
 
 ## Docker
 
-[Descargar Docker](https://docs.docker.com/engine/install/ubuntu/)
+[Descargar Docker](https://docs.docker.com/engine/install/debian/)
 
 ## Python 2.7
 
