@@ -4,10 +4,14 @@
 
 ```bash
 sudo apt update && sudo apt upgrade -y
-sudo apt install -y xorg xinit xserver-xorg virtualbox-guest-x11
+sudo apt install -y xorg xinit xserver-xorg virtualbox-guest-x11 locate
+sudo updatedb
 mkdir -p $HOME/.config/{bspwm,sxhkd,kitty,polybar}
 mkdir $HOME/.config/bspwm/scripts
 mkdir $HOME/.config/polybar/scripts
+touch $HOME/.config/polybar/scripts/{ethernet_status.sh,vpn_status.sh,target_to_hack.sh,copy_target.sh,target.txt}
+chmod +x $HOME/.config/polybar/scripts/{ethernet_status.sh,vpn_status.sh,target_to_hack.sh,copy_target.sh}
+chmod +x $HOME/.config/polybar/launch.sh
 ```
 
 ## bspwm
@@ -59,6 +63,7 @@ bspc config gapless_monocle true
 
 /usr/bin/feh --bg-center $HOME/Pictures/<wallpaper-name>.<extension>
 
+wmname LG3D &
 $HOME/.config/polybar/launch.sh &
 ```
 
@@ -332,14 +337,9 @@ sudo apt install feh -y
 
 ```bash
 sudo apt install polybar -y
-echo '$HOME/.config/polybar/launch.sh &' >> $HOME/.config/bspwm/bspwmrc
 ```
 
-En el archivo `$HOME/.config/polybar/launch.sh` agregar las siguientes líneas
-
-```bash
-chmod +x $HOME/.config/polybar/launch.sh
-```
+### launch.sh
 
 ```bash
 nano $HOME/.config/polybar/launch.sh
@@ -353,12 +353,7 @@ killall -q polybar
 polybar main -c $HOME/.config/polybar/config.ini
 ```
 
-```bash
-touch $HOME/.config/polybar/scripts/{ethernet_status.sh,vpn_status.sh,target_to_hack.sh,copy_target.sh}
-chmod +x $HOME/.config/polybar/scripts/{ethernet_status.sh,vpn_status.sh,target_to_hack.sh,copy_target.sh}
-```
-
-Agregar al archivo `$HOME/.config/polybar/scripts/ethernet_status.sh` el siguiente contenido
+### ethernet_status.sh
 
 ```bash
 nano $HOME/.config/polybar/scripts/ethernet_status.sh
@@ -367,71 +362,64 @@ nano $HOME/.config/polybar/scripts/ethernet_status.sh
 ```bash
 #!/bin/sh
 
-ETH=$(/usr/sbin/ifconfig ens33 | grep "inet " | awk '{print $2}')
+ETH=$(ip -4 a show <interface> | grep -oP '(?<=inet\s)\d+\.\d+\.\d+\.\d+')
 
 if [ -n "$ETH" ]; then
-  echo "%{T2}%{F#2494e7}󰈀%{T-} %{F#fff}$(/usr/sbin/ifconfig ens33 | grep "inet " | awk '{print $2}')"
+  echo "%{T2}%{F#2494e7}<U+F0200>%{T-} %{F#fff}$(ip -4 a show <interface> | grep -oP '(?<=inet\s)\d+\.\d+\.\d+\.\d+')"
 else
-  echo "%{T2}%{F#808080}󰈀%{T-} %{F#fff} Ups!"
+  echo "%{T2}%{F#808080}<U+F0200>%{T-} %{F#fff} Ups!"
 fi
 ```
 
-Agregar al archivo `$HOME/.config/bspwm/scripts/vpn_status.sh` el siguiente contenido
+### vpn_status.sh
 
 ```bash
-nano $HOME/.config/bspwm/scripts/vpn_status.sh
+nano $HOME/.config/polybar/scripts/vpn_status.sh
 ```
 
 ```bash
 #!/bin/sh
 
-IFACE=$(/usr/sbin/ifconfig | grep tun0 | awk '{print $1}' | tr -d ':')
+IFACE=$(ip -o link show | awk -F': ' '/tun0/ {print $2}')
 
 if [ "$IFACE" = "tun0" ]; then
-  echo "%{T2}%{F#1bbf3e}󰆧%{T-} %{F#fff}$(/usr/sbin/ifconfig tun0 | grep 'inet ' | awk '{print $2}')"
+  echo "%{T2}%{F#1bbf3e}<U+F01A7>%{T-} %{F#fff}$(ip a show tun0 | grep -oP '(?<=inet\s)\d+\.\d+\.\d+\.\d+')"
 else
-  echo "%{T2}%{F#808080}󰆧%{T-} %{F#fff}Disconnected"
+  echo ""
 fi
 ```
 
-Agregar al archivo `$HOME/.config/bspwm/scripts/target_to_hack.sh` el siguiente contenido
+### target_to_hack.sh
 
 ```bash
-nano $HOME/.config/bspwm/scripts/target_to_hack.sh
+nano $HOME/.config/polybar/scripts/target_to_hack.sh
 ```
 
 ```bash
 #!/bin/bash
 
-ip_address=$(/bin/cat ~/.config/bin/target)
+ip_address=$(/bin/cat $HOME/.config/polybar/scripts/target.txt)
 
 if [ -n "$ip_address" ]; then
-  echo "%{T2}%{F#ff0000}󰓾%{T-} %{F#fff}$ip_address"
+  echo "%{T2}%{F#ff0000}<U+F04FE>%{T-} %{F#fff}$ip_address"
 else
-  echo "%{T2}%{F#808080}󰓾%{T-} %{F#fff}No target"
+  echo ""
 fi
 ```
 
-Agregar al archivo `$HOME/.config/bspwm/scripts/copy_target.sh` el siguiente contenido
+### copy_target.sh
 
 ```bash
-nano $HOME/.config/bspwm/scripts/copy_target.sh
+nano $HOME/.config/polybar/scripts/copy_target.sh
 ```
 
 ```bash
 #!/bin/bash
 
-echo -n "$(cat $HOME/.config/bin/target | awk '{print $1}')" | xclip -sel clip
+echo -n "$(cat $HOME/.config/polybar/scripts/target.txt)" | xclip -sel clip
 ```
 
-Crear el archivo `$HOME/.config/bin/target`
-
-```bash
-mkdir $HOME/.config/bin
-touch $HOME/.config/bin/target
-```
-
-Agregar al archivo `$HOME/.config/polybar/current.ini` las siguientes líneas
+### current.ini
 
 ```bash
 nano $HOME/.config/polybar/config.ini
@@ -497,25 +485,7 @@ interval = 2
 format = <label>
 ```
 
-## Instalar imagemagick
-
-[Repositorio de imagemagick](https://github.com/ImageMagick/ImageMagick)
-
-```bash
-sudo apt install imagemagick -y
-```
-
-Agregar al archivo `$HOME/.config/bspwm/bspwmrc` la siguiente línea para las aplicaciones JAVA
-
-```bash
-nano $HOME/.config/bspwm/bspwmrc
-```
-
-```bash
-wmname LG3D &
-```
-
-# Instalar nvim y nvchad
+# nvim y nvchad
 
 Chequear si `nvim` está instalado
 
@@ -536,12 +506,12 @@ sudo rm /usr/bin/nvim
 
 ```bash
 git clone https://github.com/NvChad/starter $HOME/.config/nvim
-wget -P $HOME/Downloads https://github.com/neovim/neovim/releases/download/v0.10.0/nvim-linux64.tar.gz
+wget -P $HOME/Downloads https://github.com/neovim/neovim/releases/download/v0.11.0/nvim-linux-x86_64.tar.gz
 sudo mkdir /opt/nvim
-sudo mv $HOME/Downloads/nvim-linux64.tar.gz /opt/nvim
-sudo tar -xf /opt/nvim/nvim-linux64.tar.gz -C /opt/nvim
-sudo rm /opt/nvim/nvim-linux64.tar.gz
-sudo ln -s /opt/nvim/nvim-linux64/bin/nvim /usr/bin/nvim
+sudo mv $HOME/Downloads/nvim-linux-x86_64.tar.gz /opt/nvim
+sudo tar -xf /opt/nvim/nvim-linux-x86_64.tar.gz -C /opt/nvim
+sudo rm /opt/nvim/nvim-linux-x86_64.tar.gz
+sudo ln -s /opt/nvim/nvim-linux-x86_64/bin/nvim /usr/bin/nvim
 ```
 
 Ejecutar los siguientes comandos para finalizar la instación de `nvim`
@@ -580,7 +550,7 @@ M.ui = {
 }
 ```
 
-Ejecutar el siguiente comando en nvim `:MasonInstallAll`
+Ejecutar el comando `:MasonInstallAll` en `nvim`
 
 ```bash
 nvim
@@ -590,38 +560,15 @@ nvim
 :MasonInstallAll
 ```
 
-Ejecutar los siguientes comandos para que el usuario `root` también tenga la misma configuración para `nvim`
-
-```bash
-sudo mkdir /root/.config/nvim
-sudo cp -r $HOME/.config/nvim/* /root/.config/nvim
-sudo su
-```
-
-```bash
-nvim
-```
-
-Ejecutar el siguiente comando como `root` en nvim `:MasonInstallAll`
-
-```bash
-nvim
-```
-
-```bash
-:MasonInstallAll
-```
-
-## Instalar fzf
+## fzf
 
 [Repositorio de fzf](https://github.com/junegunn/fzf)
-Instalar `fzf` tanto como usuario no privilegiado como `root`
 
 ```bash
 git clone --depth 1 https://github.com/junegunn/fzf.git $HOME/.fzf && $HOME/.fzf/install
 ```
 
-## Instalar i3lock
+## i3lock
 
 ```bash
 sudo apt install i3lock -y
@@ -641,27 +588,23 @@ super + shift + x
   /usr/bin/i3lock-fancy
 ```
 
-## Instalar locate
+## .xinitrc
 
 ```bash
-sudo apt install locate && sudo updatedb
-```
-
-## Otras configuraciones
-
-Para que Firefox resuelva los dominios de `hack the box` ingresar en la barra de navegación `about:config`, ingresar `browser.fixup.domainsuffixwhitelist.htb` y ponerlo en `true`
-
-Modificar el rate y delay del teclado
-
-```bash
-nano $HOME/.xprofile
+nano $HOME/.xinitrc
 ```
 
 ```
+#!/bin/bash
+
+VBoxClient --vmsvga -d &
+VBoxClient --clipboard -d &
 xset r rate 250 25
+setxkbmap latam
+exec bspwm
 ```
 
-Configurar Git
+## git
 
 ```bash
 git config --global user.name "<username>"
@@ -673,19 +616,15 @@ git config --global alias.br branch
 git config --global alias.cm "commit -m"
 ```
 
-Instalar **NVM**
-
-[Repositorio de Github](https://github.com/nvm-sh/nvm)
-
-Instalar **Node**
+## node
 
 [Descargar Node.js](https://nodejs.org/es/download)
 
-Instalar **Docker**
+## docker
 
 [Descargar Docker](https://docs.docker.com/engine/install/ubuntu/)
 
-Instalar Python2.7
+## python2.7
 
 ```bash
 sudo nano /etc/apt/sources.list
@@ -694,3 +633,7 @@ deb http://archive.debian.org/debian/ stretch contrib main non-free
 sudo apt-get update
 sudo apt-get install python2.7
 ```
+
+## Otras configuraciones
+
+Para que Firefox resuelva los dominios de `hack the box` ingresar en la barra de navegación `about:config`, ingresar `browser.fixup.domainsuffixwhitelist.htb` y ponerlo en `true`
