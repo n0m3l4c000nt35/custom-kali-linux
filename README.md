@@ -4,6 +4,9 @@
 
 <br>
 
+> [!NOTE]
+> En Virtual Box
+
 ```bash
 sudo apt update && sudo apt upgrade -y
 sudo apt install -y xorg xinit xserver-xorg virtualbox-guest-x11 bspwm kitty feh polybar i3lock xclip firefox-esr ntpsec-ntpdate locate
@@ -13,9 +16,11 @@ mkdir $HOME/.config/bspwm/scripts
 mkdir $HOME/.config/polybar/scripts
 sudo mkdir /opt/nvim
 sudo mkdir /usr/share/fonts/truetype/hacknerd
+touch $HOME/.xinitrc
 touch $HOME/.config/polybar/scripts/{ethernet_status.sh,vpn_status.sh,target_to_hack.sh,copy_target.sh,target.txt}
 touch $HOME/.config/bspwm/scripts/bspwm_resize
 touch $HOME/.config/polybar/launch.sh
+chmod +x $HOME/.xinitrc
 chmod u+x $HOME/.config/bspwm/bspwmrc
 chmod +x $HOME/.config/polybar/scripts/{ethernet_status.sh,vpn_status.sh,target_to_hack.sh,copy_target.sh}
 chmod +x $HOME/.config/polybar/launch.sh
