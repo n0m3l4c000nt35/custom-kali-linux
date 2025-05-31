@@ -292,15 +292,19 @@ super + alt + shift + {Left,Down,Up,Right}
 
 # firefox
 super + alt + shift + f
-  /usr/bin/firefox
+	/usr/bin/firefox
 
 # chromium
 super + alt + shift + g
 	/usr/bin/chromium
 
 # copy target
-super + shift + alt + t
-  $HOME/.config/polybar/scripts/copy_target.sh
+super + alt + shift + t
+	$HOME/.config/polybar/scripts/copy_target.sh
+
+# i3lock-fancy
+super + alt + shift + x
+	/usr/bin/i3lock-fancy
 ```
 
 ## kitty
@@ -723,18 +727,6 @@ git clone --depth 1 https://github.com/junegunn/fzf.git $HOME/.fzf && $HOME/.fzf
 ```bash
 sudo git clone https://github.com/meskarune/i3lock-fancy.git /opt/i3lock-fancy
 sudo make -C /opt/i3lock-fancy install
-```
-
-Agregar las siguientes líneas al archivo `$HOME/.config/sxhkd/sxhkdrc`
-
-```bash
-nano $HOME/.config/sxhkd/sxhkdrc
-```
-
-```bash
-# i3lock-fancy
-super + shift + x
-  /usr/bin/i3lock-fancy
 ```
 
 ## Configurar git
