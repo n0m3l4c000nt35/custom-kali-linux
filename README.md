@@ -2,7 +2,7 @@
 	<h1>Instalación y personalización de Kali Linux</h1>
 </div>
 
-<br>
+![Kali Linux](https://www.kali.org/wallpapers/images/2024/kali-ferrofluid.jpg)
 
 > [!NOTE]
 > En Virtual Box
