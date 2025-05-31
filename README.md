@@ -800,7 +800,14 @@ Para que Firefox resuelva los dominios de `hack the box` ingresar en la barra de
 Navegador predeterminado
 
 ```bash
-xdg-settings set default-web-browser firefox-esr.desktop
+nano $HOME/.config/mimeapps.list
+```
+
+```bash
+[Default Applications]
+x-scheme-handler/http=firefox-esr.desktop
+x-scheme-handler/https=firefox-esr.desktop
+text/html=firefox-esr.desktop
 ```
 
 ![kali-linux](https://github.com/user-attachments/assets/0288c44f-293a-49ea-9f6d-9e25832791f5)
