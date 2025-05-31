@@ -416,23 +416,23 @@ if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
 fi
 
 htb(){
-  opt=$1
-  case $opt in
-    a) sudo openvpn $HOME/academy-regular.ovpn ;;
-    m) sudo openvpn $HOME/lab_n0m3l4c000nt35.ovpn ;;
-    c) sudo openvpn $HOME/competitive_n0m3l4c000nt35.ovpn ;;
-    *) echo "Uso: htb a | m | c"
-  esac
+    opt=$1
+    case $opt in
+      a) sudo openvpn $HOME/academy-regular.ovpn ;;
+      m) sudo openvpn $HOME/lab_n0m3l4c000nt35.ovpn ;;
+      c) sudo openvpn $HOME/competitive_n0m3l4c000nt35.ovpn ;;
+      *) echo "Uso: htb a | m | c"
+    esac
 }
 
 st(){
-  ip_address=$1
-  machine_name=$2
-  echo "$ip_address" > $HOME/.config/polybar/scripts/target.txt
+    ip_address=$1
+    machine_name=$2
+    echo "$ip_address" > $HOME/.config/polybar/scripts/target.txt
 }
 
 ct(){
-  echo "" > $HOME/.config/polybar/scripts/target.txt
+    echo "" > $HOME/.config/polybar/scripts/target.txt
 }
 
 ep(){
@@ -446,18 +446,18 @@ ep(){
     cat extractPorts.tmp; rm extractPorts.tmp
 }
 
-hth() {
-  if [ -z "$1" ]; then
-    echo "Usage: hth <ntp-server>"
-    return 1
-  fi
-
-  echo "[+] Disabling NTP and killing VBoxService..."
-  sudo timedatectl set-ntp off >/dev/null 2>&1
-  sudo pkill -f VBoxService >/dev/null 2>&1
-
-  echo "[+] Syncing time with: $1"
-  sudo ntpdate "$1"
+hth(){
+    if [ -z "$1" ]; then
+      echo "[+] No NTP server provided. Syncing with host time (VBox)..."
+      sudo timedatectl set-ntp off > /dev/null 2>&1
+      sudo systemctl restart VBoxService > /dev/null 2>&1
+    else
+      echo "[+] Disabling NTP and killing VBoxService..."
+      sudo timedatectl set-ntp off > /dev/null 2>&1
+      sudo pkill -f VBoxService > /dev/null 2>&1
+      echo "[+] Syncing time with: $1"
+      sudo ntpdate "$1"
+    fi
 }
 ```
 
