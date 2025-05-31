@@ -7,6 +7,17 @@
 > [!NOTE]
 > En Virtual Box
 
+## Configuración de la máquina virtual
+
+![vm-general](https://github.com/user-attachments/assets/9cb614b8-18d3-4e4d-bb10-df72d16744e2)  
+El portapapeles compartido bidireccional
+
+![vm-audio](https://github.com/user-attachments/assets/0d313a83-7558-4782-bf3b-943dfe756dc1)  
+El audio deshabilitado ya que no lo uso para nada
+
+![vm-red](https://github.com/user-attachments/assets/e67c4f68-5f86-438e-9c1d-04f5e6a80a0a)  
+Adaptador puente habilitado
+
 > [!warning]
 > No seleccionar ningún software a instalar
 
@@ -18,7 +29,7 @@
 - [Creación de archvivos](#creación-de-archvivos)
 - [Permisos](#permisos)
 - [.xinitrc](#xinitrc)
-- [.Xresources](#Xresources)
+- [.Xresources](#xresources)
 - [Fuentes](#fuentes)
 - [bspwm](#bspwm)
 	- [bspwmrc](#bspwmrc)
