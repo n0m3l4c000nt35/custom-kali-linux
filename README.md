@@ -67,7 +67,8 @@ sudo reboot
 ```
 
 > [!tip]
-> Después de actualizar, upgradear y reiniciar, ejecutá este comando para ahorrarte un poco de tiempo `wget https://raw.githubusercontent.com/n0m3l4c000nt35/custom-kali-linux/refs/heads/main/custom-kali.sh && chmod +x custom-kali.sh && ./custom-kali.sh`
+> Después de actualizar, upgradear y reiniciar, ejecutá este comando para ahorrarte un poco de tiempo  
+> `wget https://raw.githubusercontent.com/n0m3l4c000nt35/custom-kali-linux/refs/heads/main/custom-kali.sh && chmod +x custom-kali.sh && ./custom-kali.sh`
 
 1. Una vez finalizado el script ejecutá el comando `startx`para iniciar `bspwm`, vas a ver la pantalla negra con la polybar
 2. Presioná las teclas `super` + `enter` para abrir la kitty. Lo primero que se va a ejecutar es la configuración de la `powerlevel10k`, configurala a gusto
