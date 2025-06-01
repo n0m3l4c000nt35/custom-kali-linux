@@ -73,7 +73,7 @@ sudo reboot
 wget https://raw.githubusercontent.com/n0m3l4c000nt35/custom-kali-linux/refs/heads/main/custom-kali.sh && chmod +x custom-kali.sh && ./custom-kali.sh
 ```
 
-1. Una vez finalizado el script ejecutá el comando `startx`para iniciar `bspwm`, vas a ver la pantalla negra con la polybar
+1. Una vez que el script finalice, ejecutá el comando `startx`para iniciar `bspwm`, vas a ver la pantalla negra con la polybar
 2. Presioná las teclas `super` + `enter` para abrir la kitty. Lo primero que se va a ejecutar es la configuración de la `powerlevel10k`, configurala a gusto
 3. Una vez terminás de configurar la `powerlevel10k` ejecutá el comando `kitten themes` y seleccioná el theme `Box`, luego seleccioná la opción `Place the theme file in /home/kali/.config/kitty but do not modify kitty.conf`
 4. Modificá el archivo `.p10k.zsh` con las indicaciones del README
