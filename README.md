@@ -74,10 +74,9 @@ wget https://raw.githubusercontent.com/n0m3l4c000nt35/custom-kali-linux/refs/hea
 ```
 
 1. Una vez que el script finalice vas a ver la pantalla negra con la polybar, presioná las teclas `super` + `enter` para abrir la kitty. Lo primero que se va a ejecutar es la configuración de la `powerlevel10k`, configurala a gusto
-2. Una vez terminás de configurar la `powerlevel10k` ejecutá el comando `kitten themes` y seleccioná el theme `Box`, luego seleccioná la opción `Place the theme file in /home/kali/.config/kitty but do not modify kitty.conf`
-3. Modificá el archivo `.p10k.zsh` con las indicaciones del README
-4. Agregá las líneas faltantes al archivo `.zshrc` del README
-5. Chequeá que todo lo demás esté instalado y personalizado
+2. Modificá el archivo `.p10k.zsh` con las indicaciones del README
+3. Agregá las líneas faltantes al archivo `.zshrc` del README
+4. Chequeá que todo lo demás esté instalado y personalizado
 
 ✅ [DONE!](#debería-quedarte-así)
 
