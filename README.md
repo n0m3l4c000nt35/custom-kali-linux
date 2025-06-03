@@ -522,6 +522,14 @@ sudo wget -P /usr/share/zsh-sudo/ https://raw.githubusercontent.com/ohmyzsh/ohmy
 [Repositorio de batcat](https://github.com/sharkdp/bat)  
 [Repositorio de lsd](https://github.com/lsd-rs/lsd)
 
+```bash
+wget -P $HOME/Downloads https://github.com/sharkdp/bat/releases/download/v0.25.0/bat_0.25.0_amd64.deb
+wget -P $HOME/Downloads https://github.com/lsd-rs/lsd/releases/download/v1.1.5/lsd_1.1.5_amd64.deb
+sudo dpkg -i $HOME/Downloads/bat_0.25.0_amd64.deb
+sudo dpkg -i $HOME/Downloads/lsd_1.1.5_amd64.deb
+rm $HOME/Downloads/bat_0.25.0_amd64.deb $HOME/Downloads/lsd_1.1.5_amd64.deb
+```
+
 ## Rofi
 
 ### config.rasi
@@ -658,14 +666,6 @@ button selected {
     background-color: #9fef0033;
     text-color: #9fef00;
 }
-```
-
-```bash
-wget -P $HOME/Downloads https://github.com/sharkdp/bat/releases/download/v0.25.0/bat_0.25.0_amd64.deb
-wget -P $HOME/Downloads https://github.com/lsd-rs/lsd/releases/download/v1.1.5/lsd_1.1.5_amd64.deb
-sudo dpkg -i $HOME/Downloads/bat_0.25.0_amd64.deb
-sudo dpkg -i $HOME/Downloads/lsd_1.1.5_amd64.deb
-rm $HOME/Downloads/bat_0.25.0_amd64.deb $HOME/Downloads/lsd_1.1.5_amd64.deb
 ```
 
 ## Polybar
