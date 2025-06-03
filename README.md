@@ -43,6 +43,9 @@ Adaptador puente habilitado
 	- [.zshrc](#zshrc)
 	- [zsh-sudo](#zsh-sudo)
 - [batcat y lsd](#batcat-y-lsd)
+- [Rofi](#rofi)
+	- [config.rasi](#configrasi)
+	- [box-theme.rasi](#box-themerasi)
 - [Polybar](#polybar)
 	- [launch.sh](#launchsh)
 	- [config.ini](#configini)
@@ -518,6 +521,144 @@ sudo wget -P /usr/share/zsh-sudo/ https://raw.githubusercontent.com/ohmyzsh/ohmy
 
 [Repositorio de batcat](https://github.com/sharkdp/bat)  
 [Repositorio de lsd](https://github.com/lsd-rs/lsd)
+
+## Rofi
+
+### config.rasi
+
+```bash
+configuration {
+    modi: "drun";
+    
+    font: "Hack Nerd Font 12";
+    show-icons: true;
+    case-sensitive: false;
+    
+    terminal: "kitty";
+    
+    matching: "fuzzy";
+    sort: true;
+    hide-scrollbar: true;
+    fixed-num-lines: true;
+    
+    fake-transparency: true;
+    
+    location: 0;
+    
+    drun-display-format: "{icon} {name}";
+    
+    kb-row-up: "Up";
+    kb-row-down: "Down";  
+    kb-page-prev: "Page_Up";
+    kb-page-next: "Page_Down";
+    kb-remove-char-back: "BackSpace";
+    kb-remove-char-forward: "Delete";
+    kb-accept-entry: "Return";
+    kb-cancel: "Escape";
+    
+    display-drun: "";
+    threads: 0;
+    scroll-method: 0;
+    disable-history: false;
+}
+
+@theme "box-theme.rasi"
+```
+
+### box-theme.rasi
+
+```bash
+* {
+    background-color: transparent;
+    text-color: #9fef00;
+    font: "Hack Nerd Font 12";
+}
+
+window {
+    background-color: #141d2bcc;
+    border: 2px;
+    border-color: #9fef00;
+    padding: 10px;
+    width: 600px;
+}
+
+mainbox {
+    background-color: transparent;
+    children: [ inputbar, listview ];
+    spacing: 10px;
+}
+
+inputbar {
+    background-color: #141d2b80;
+    children: [ prompt, textbox-prompt-colon, entry ];
+    text-color: #9fef00;
+    padding: 8px;
+    border: 1px;
+    border-color: #a4b1cd;
+}
+
+prompt {
+    background-color: transparent;
+    text-color: #9fef00;
+}
+
+textbox-prompt-colon {
+    background-color: transparent;
+    text-color: #9fef00;
+    expand: false;
+    str: ":";
+}
+
+entry {
+    background-color: transparent;
+    text-color: #9fef00;
+    cursor: #9fef00;
+}
+
+listview {
+    background-color: transparent;
+    padding: 5px;
+    scrollbar: false;
+    lines: 8;
+}
+
+element {
+    background-color: transparent;
+    text-color: #a4b1cd;
+    padding: 8px;
+}
+
+element selected {
+    background-color: #9fef0033;
+    text-color: #9fef00;
+}
+
+element alternate {
+    background-color: transparent;
+}
+
+scrollbar {
+    background-color: #a4b1cd;
+    handle-color: #9fef00;
+    handle-width: 8px;
+}
+
+mode-switcher {
+    background-color: transparent;
+    text-color: #9fef00;
+}
+
+button {
+    background-color: transparent;
+    text-color: #a4b1cd;
+    padding: 5px;
+}
+
+button selected {
+    background-color: #9fef0033;
+    text-color: #9fef00;
+}
+```
 
 ```bash
 wget -P $HOME/Downloads https://github.com/sharkdp/bat/releases/download/v0.25.0/bat_0.25.0_amd64.deb
