@@ -33,7 +33,7 @@ Adaptador puente habilitado
 - [Fuentes](#fuentes)
 - [bspwm](#bspwm)
 	- [bspwmrc](#bspwmrc)
-	- [bspwm_resize](#bspwm_resize)
+	 [bspwm_resize](#bspwm_resize)
 	- [sxhkdrc](#sxhkdrc)
 - [Kitty](#kitty)
 	- [kitty.conf](#kittyconf)
@@ -322,6 +322,10 @@ super + ctrl + shift + space
 # move a floating window
 super + alt + shift + {Left,Down,Up,Right}
 	bspc node -v {-20 0,0 20,0 -20,20 0}
+
+# custom resizeMore actions
+super + alt + {Left,Down,Up,Right}
+	$HOME/.config/bspwm/scripts/bspwm_resize {west,south,north,east}
 
 # firefox
 super + alt + shift + f
