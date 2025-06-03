@@ -86,7 +86,7 @@ wget https://raw.githubusercontent.com/n0m3l4c000nt35/custom-kali-linux/refs/hea
 ## Instalación de paquetes
 
 ```bash
-sudo apt install -y virtualbox-guest-x11 linux-headers-$(uname-r) xorg dkms build-essential bspwm kitty feh polybar i3lock xclip firefox-esr ntpsec-ntpdate locate unzip openvpn
+sudo apt install -y virtualbox-guest-x11 linux-headers-$(uname-r) xorg dkms build-essential bspwm kitty feh polybar rofi i3lock xclip firefox-esr ntpsec-ntpdate locate unzip openvpn
 sudo updatedb
 ```
 
