@@ -96,7 +96,7 @@ sudo updatedb
 ## Creación de directorios
 
 ```bash
-mkdir -p $HOME/.config/{bspwm,sxhkd,kitty,polybar}
+mkdir -p $HOME/.config/{bspwm,sxhkd,kitty,polybar,rofi}
 mkdir $HOME/.config/bspwm/scripts
 mkdir $HOME/.config/polybar/scripts
 sudo mkdir /opt/nvim
