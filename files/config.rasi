@@ -1,0 +1,36 @@
+configuration {
+    modi: "drun";
+    
+    font: "Hack Nerd Font 12";
+    show-icons: true;
+    case-sensitive: false;
+    
+    terminal: "kitty";
+    
+    matching: "fuzzy";
+    sort: true;
+    hide-scrollbar: true;
+    fixed-num-lines: true;
+    
+    fake-transparency: true;
+    
+    location: 0;
+    
+    drun-display-format: "{icon} {name}";
+    
+    kb-row-up: "Up";
+    kb-row-down: "Down";  
+    kb-page-prev: "Page_Up";
+    kb-page-next: "Page_Down";
+    kb-remove-char-back: "BackSpace";
+    kb-remove-char-forward: "Delete";
+    kb-accept-entry: "Return";
+    kb-cancel: "Escape";
+    
+    display-drun: "";
+    threads: 0;
+    scroll-method: 0;
+    disable-history: false;
+}
+
+@theme "box-theme.rasi"
