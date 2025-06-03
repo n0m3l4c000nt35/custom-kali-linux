@@ -354,6 +354,7 @@ nano $HOME/.config/kitty/kitty.conf
 ```bash
 include Box.conf
 
+font_family "Hack Nerd Font"
 cursor_shape beam
 
 window_margin_width 2 4
