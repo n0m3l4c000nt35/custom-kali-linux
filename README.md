@@ -239,7 +239,7 @@ super + Return
 
 # program launcher
 super + @space
-	dmenu_run
+	/usr/bin/rofi -show drun
 
 # make sxhkd reload its configuration files:
 super + Escape
