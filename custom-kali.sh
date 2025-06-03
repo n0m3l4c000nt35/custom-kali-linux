@@ -1,9 +1,9 @@
 #!/bin/bash
 
-sudo apt install -y virtualbox-guest-x11 linux-headers-$(uname -r) xorg dkms build-essential bspwm kitty feh polybar i3lock xclip firefox-esr ntpsec-ntpdate locate unzip openvpn
+sudo apt install -y virtualbox-guest-x11 linux-headers-$(uname -r) xorg dkms build-essential bspwm kitty feh polybar rofi i3lock xclip firefox-esr ntpsec-ntpdate locate unzip openvpn
 sudo updatedb
 
-mkdir -p $HOME/.config/{bspwm,sxhkd,kitty,polybar}
+mkdir -p $HOME/.config/{bspwm,sxhkd,kitty,polybar,rofi}
 mkdir $HOME/.config/bspwm/scripts
 mkdir $HOME/.config/polybar/scripts
 sudo mkdir /opt/nvim
@@ -23,6 +23,9 @@ wget -P $HOME/.config/polybar/ https://raw.githubusercontent.com/n0m3l4c000nt35/
 wget -P $HOME/.config/polybar/ https://raw.githubusercontent.com/n0m3l4c000nt35/custom-kali-linux/refs/heads/main/files/config.ini
 wget -P $HOME/.config/kitty/ https://raw.githubusercontent.com/n0m3l4c000nt35/custom-kali-linux/refs/heads/main/files/kitty.conf
 wget -P $HOME/.config/kitty/ https://raw.githubusercontent.com/n0m3l4c000nt35/custom-kali-linux/refs/heads/main/files/Box.conf
+wget -P $HOME/.config/rofi/ https://raw.githubusercontent.com/n0m3l4c000nt35/custom-kali-linux/refs/heads/main/files/config.rasi
+wget -P $HOME/.config/rofi/ https://raw.githubusercontent.com/n0m3l4c000nt35/custom-kali-linux/refs/heads/main/files/box-theme.rasi
+
 wget -qO- https://raw.githubusercontent.com/n0m3l4c000nt35/custom-kali-linux/refs/heads/main/files/.zshrc >> $HOME/.zshrc
 
 touch $HOME/.config/polybar/scripts/target.txt
