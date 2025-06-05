@@ -393,6 +393,7 @@ map f9 copy_to_buffer e
 map f10 paste_from_buffer e
 
 enable_audio_bell no
+allow_remote_control yes
 ```
 
 ## powerlevel10k
