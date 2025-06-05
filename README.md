@@ -916,7 +916,7 @@ MasonInstallAll
 > [!WARNING]
 > Es necesario instalar `node` antes
 
-[Markdown Preview for (Neo)vim](https://github.com/iamcco/markdown-preview.nvim)
+[Repositorio de Markdown Preview for (Neo)vim](https://github.com/iamcco/markdown-preview.nvim)
 
 Copiar las siguientes líneas en el archivo `$HOME/.config/nvim/lua/plugins/init.lua`
 
