@@ -54,6 +54,7 @@ Adaptador puente habilitado
 	- [target_to_hack.sh](#target_to_hacksh)
 	- [copy_target.sh](#copy_targetsh)
 - [nvim y nvchad](#nvim-y-nvchad)
+	- [Markdown Preview Plugin](#markdown-preview-plugin)
 - [fzf](#fzf)
 - [i3lock](#i3lock)
 - [Configurar git](#configurar-git)
