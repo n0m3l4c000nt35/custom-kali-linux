@@ -910,6 +910,33 @@ Presionar `shift` + `:` e ingresar
 MasonInstallAll
 ```
 
+### Markdown Preview Plugin
+
+> [!WARNING]
+> Es necesario instalar `node` antes
+
+[Markdown Preview for (Neo)vim](https://github.com/iamcco/markdown-preview.nvim)
+
+Copiar las siguientes líneas en el archivo `$HOME/.config/nvim/lua/plugins/init.lua`
+
+```bash
+nvim $HOME/.config/nvim/lua/plugins/init.lua
+```
+
+```bash
+{
+  "iamcco/markdown-preview.nvim",
+  cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+  build = "cd app && npm install",
+  init = function()
+    vim.g.mkdp_filetypes = { "markdown" }
+  end,
+  ft = { "markdown" },
+},
+```
+
+Salir de `nvim` y al volver a entrar se va a instalar el plugin. Probar abrir un archivo `.md` y ejecutar el comando `MarkdownPreview` dentro de `nvim` presionando las teclas `shift` + `:` e ingresar el comando `MarkdownPreview` y presionar `enter`.
+
 ## fzf
 
 [Repositorio de fzf](https://github.com/junegunn/fzf)
