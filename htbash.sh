@@ -2,11 +2,11 @@
 
 GREEN='\033[0;32m'
 RED='\033[0;31m'
-YELLOW="\e[33m"
-GRAY="\e[90m"
-BLUE="\e[34m"
-MAGENTA="\e[35m"
-CYAN="\e[36m"
+YELLOW='\e[33m'
+GRAY='\e[90m'
+BLUE='\e[34m'
+MAGENTA='\e[35m'
+CYAN='\e[36m'
 RESET='\033[0m'
 
 API_URL="https://labs.hackthebox.com/api/v4"
@@ -46,33 +46,27 @@ fetch_retired_machines() {
 }
 
 get_all_machines(){
-  local active_machines retired_machines all_machines
+  local active_machines retired_machines all_machines active_count retired_count total_count
 
   active_machines=$(fetch_active_machines)
   retired_machines=$(fetch_retired_machines)
 
   all_machines=$(jq -s 'add' <(echo "$active_machines") <(echo "$retired_machines"))
-}
 
-update_machines() {
-    local active_count retired_count total_count
+  echo "$all_machines" > "$MACHINES_JSON"
 
-    all_machines=$(get_all_machines)
-    
-    active_count=$(echo "$active_machines" | jq 'length')
-    retired_count=$(echo "$retired_machines" | jq 'length')
-    total_count=$(echo "$all_machines" | jq 'length')
+  active_count=$(echo "$active_machines" | jq 'length')
+  retired_count=$(echo "$retired_machines" | jq 'length')
+  total_count=$(echo "$all_machines" | jq 'length')
 
-    echo "$all_machines" > "$MACHINES_JSON"
-
-    echo
-    echo -e "[${GREEN}MACHINES UPDATED${RESET}]"
-    echo
-    echo -e "[${YELLOW}TOTAL ACTIVE MACHINES${RESET}] $active_count"
-    echo -e "[${YELLOW}TOTAL RETIRED MACHINES${RESET}] $retired_count"
-    echo -e "[${YELLOW}TOTAL MACHINES SAVED${RESET}] $total_count"
-    echo
-    echo -e "[${YELLOW}DATA SAVED TO${RESET}] $MACHINES_JSON"
+  echo
+  echo -e "[${GREEN}MACHINES UPDATED${RESET}]"
+  echo
+  echo -e "[${YELLOW}TOTAL ACTIVE MACHINES${RESET}] $active_count"
+  echo -e "[${YELLOW}TOTAL RETIRED MACHINES${RESET}] $retired_count"
+  echo -e "[${YELLOW}TOTAL MACHINES SAVED${RESET}] $total_count"
+  echo
+  echo -e "[${YELLOW}DATA SAVED TO${RESET}] $MACHINES_JSON"
 }
 
 list_machines(){
@@ -109,7 +103,6 @@ list_machines(){
 
   title="Hack The Box Machines"
   title_length=${#title}
-  echo $title_length
 
   total_width=1
   for w in "${col_widths[@]}"; do
@@ -159,16 +152,16 @@ get_machine_info(){
 
 if [ $# -eq 0 ]; then
   echo
-  echo -e "[${GREEN}?${NC}] Help panel"
+  echo -e "[${GREEN}?${RESET}] Help panel"
   exit 0
 fi
 
 while getopts "uli:" opt 2>/dev/null; do
   case $opt in
-    u) update_machines;;
+    u) get_all_machines;;
     l) list_machines;;
     i) get_machine_info "$OPTARG";;
-    \?) echo -e "\n[${@:OPTIND-1:1}] ${GREEN}Help panel${RESET}";;
+    \?) echo -e "\n[${GREEN}${@:OPTIND-1:1}${RESET}] Help panel";;
   esac
 done
 
