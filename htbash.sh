@@ -70,10 +70,14 @@ get_all_machines(){
 }
 
 list_machines(){
+  local os="$1"
+  local difficulty="$2"
+  local status="$2"
+
   echo
   headers=("Name" "OS" "Free" "Difficulty")
 
-  mapfile -t rows < <(jq -r --arg os "" --arg difficulty "" '.[] | select(($os == "" or ($os | ascii_downcase) == (.os | ascii_downcase)) and ($difficulty == "" or ($difficulty | ascii_downcase) == (.difficultyText | ascii_downcase))) | [.name, .os, (.free | tostring), .difficultyText] | @tsv' "$MACHINES_JSON")
+  mapfile -t rows < <(jq -r --arg os "$os" --arg difficulty "$difficulty" '.[] | select(($os == "" or ($os | ascii_downcase) == (.os | ascii_downcase)) and ($difficulty == "" or ($difficulty | ascii_downcase) == (.difficultyText | ascii_downcase))) | [.name, .os, (.free | tostring), .difficultyText] | @tsv' "$MACHINES_JSON")
 
   col_widths=()
   for i in "${!headers[@]}"; do
@@ -134,7 +138,7 @@ list_machines(){
 }
 
 get_machine_info(){
-  machine_name=$1
+  local machine_name=$1
   response=$(curl -s "$API_URL/machine/profile/$machine_name" -H "Authorization: Bearer $APP_TOKEN" | jq '.info')
   echo
   echo -e "${GREEN}Machine name${RESET}:" $(echo "$response" | jq -r '.name')
@@ -156,21 +160,110 @@ if [ $# -eq 0 ]; then
   exit 0
 fi
 
-while getopts "uli:" opt 2>/dev/null; do
-  case $opt in
-    u)
-      get_all_machines
+flag_u=0
+flag_l=0
+flag_i=0
+
+machine_name=""
+os_filter=""
+difficulty_filter=""
+
+valid_os=("linux" "windows")
+valid_difficulties=("easy" "medium" "hard" "insane")
+
+errors=()
+
+is_valid_value() {
+  local value="$1"
+  shift
+  local list=("$@")
+  for item in "${list[@]}"; do
+    [[ "$item" == "$value" ]] && return 0
+  done
+  return 1
+}
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    -u)
+      flag_u=1
+      shift
       ;;
-    l)
-      list_machines
+    -l)
+      flag_l=1
+      shift
       ;;
-    i)
-      get_machine_info "$OPTARG"
+    -i)
+      if [[ -n "$2" && "$2" != -* ]]; then
+        flag_i=1
+        machine_name="$2"
+        shift 2
+      else
+        echo -e "\n[${RED}!${RESET}] Missing machine name after -i"
+        exit 1
+      fi
       ;;
-    \?)
+    --os)
+      if [[ -n "$2" && "$2" != -* ]]; then
+        value=$(echo "$2" | tr '[:upper:]' '[:lower:]')
+        if is_valid_value "$value" "${valid_os[@]}"; then
+          os_filter="$value"
+          shift 2
+        else
+          errors+=("[${RED}!${RESET}] Invalid OS: ${RED}$2${RESET}. Valid values are: ${BLUE}${valid_os[*]}${RESET}")
+          shift 2
+        fi
+      else
+        errors+=("[${RED}!${RESET}] Missing OS after --os")
+        shift
+      fi
+      ;;
+    --difficulty)
+      if [[ -n "$2" && "$2" != -* ]]; then
+        value=$(echo "$2" | tr '[:upper:]' '[:lower:]')
+        if is_valid_value "$value" "${valid_difficulties[@]}"; then
+          difficulty_filter="$value"
+          shift 2
+        else
+          errors+=("[${RED}!${RESET}] Invalid difficulty: ${RED}$2${RESET}. Valid values are: ${BLUE}${valid_difficulties[*]}${RESET}")
+        fi
+        shift 2
+      else
+        errors+=("[${RED}!${RESET}] Missing difficulty after --difficulty")
+        shift
+      fi
+      ;;
+    *)
       echo -e "\n[${GREEN}${@:OPTIND-1:1}${RESET}] Help panel"
+      exit 1
       ;;
   esac
 done
+
+if (( ${#errors[@]} > 0 )); then
+  printf "\n"
+  for err in "${errors[@]}"; do
+    echo -e "${err}"
+  done
+  exit 1
+fi
+
+if (( flag_u + flag_l + flag_i > 1 )); then
+  echo -e "\n[${RED}!${RESET}] Help panel"
+  exit 1
+fi
+
+if (( flag_l == 0 )) && { [[ -n "$os_filter" ]] || [[ -n "$difficulty_filter" ]]; }; then
+  echo -e "\n[${RED}!${RESET}] Help panel"
+  exit 1
+fi
+
+if [ $flag_u -eq 1 ]; then
+  get_all_machines
+elif [ $flag_l -eq 1 ]; then
+  list_machines "$os_filter" "$difficulty_filter"
+elif [ $flag_i -eq 1 ] && [ -n "$machine_name" ];then
+  get_machine_info "$machine_name"
+fi
 
 exit 0
