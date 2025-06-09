@@ -62,6 +62,7 @@ Adaptador puente habilitado
 - [Docker](#docker)
 - [Python 2.7](#python-27)
 - [Otras configuraciones](#otras-configuraciones)
+- [htbash](#htbash)
 
 ## Actualización
 
@@ -1009,3 +1010,21 @@ text/html=firefox-esr.desktop
 <div align=center>
 	💡 <a href="https://www.linkedin.com/in/esteban-zarate/">Ideas?</a> ✅ <a href="https://www.linkedin.com/in/esteban-zarate/">Sugerencias?</a> ✅ <a href="https://www.linkedin.com/in/esteban-zarate/">Errores?</a> ✅ <a href="https://www.linkedin.com/in/esteban-zarate/">Mejoras?</a> 💡
 </div>
+
+## htbash
+
+> Script para listar máquinas de Hack The Box, ver información de una máquina en particular y creando un pequeño entorno para jugar a una máquina seleccionada
+
+### Obtener API
+
+[https://app.hackthebox.com/profile/settings](https://app.hackthebox.com/profile/settings)  
+Ingresar al profile
+
+![create_app_token](https://github.com/user-attachments/assets/dde17259-e2e9-46c9-a1b6-b0b7c78ccc84)  
+Hacer click en CREATE APP TOKEN
+
+![create](https://github.com/user-attachments/assets/23311420-54c3-4b47-9bf3-8810edeef0ab)  
+Modificar el TOKEN NAME, seleccionar EXPIRES IN 1 Year
+
+![copy_token](https://github.com/user-attachments/assets/a564be50-a441-4f07-86a2-9a4f060bc04d)  
+Copiar el token y guardarlo en el archivo $HOME/.config/htb/machines
