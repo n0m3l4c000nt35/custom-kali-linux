@@ -158,10 +158,18 @@ fi
 
 while getopts "uli:" opt 2>/dev/null; do
   case $opt in
-    u) get_all_machines;;
-    l) list_machines;;
-    i) get_machine_info "$OPTARG";;
-    \?) echo -e "\n[${GREEN}${@:OPTIND-1:1}${RESET}] Help panel";;
+    u)
+      get_all_machines
+      ;;
+    l)
+      list_machines
+      ;;
+    i)
+      get_machine_info "$OPTARG"
+      ;;
+    \?)
+      echo -e "\n[${GREEN}${@:OPTIND-1:1}${RESET}] Help panel"
+      ;;
   esac
 done
 
