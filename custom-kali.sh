@@ -3,9 +3,11 @@
 sudo apt install -y virtualbox-guest-x11 linux-headers-$(uname -r) xorg dkms build-essential bspwm kitty feh polybar rofi i3lock xclip firefox-esr ntpsec-ntpdate locate unzip openvpn
 sudo updatedb
 
-mkdir -p $HOME/.config/{bspwm,sxhkd,kitty,polybar,rofi}
+mkdir -p $HOME/.config/{bspwm,sxhkd,kitty,polybar,rofi,htb}
 mkdir $HOME/.config/bspwm/scripts
 mkdir $HOME/.config/polybar/scripts
+mkdir $HOME/.config/htb/{vpn,machines}
+mkdir $HOME/htb/machines
 sudo mkdir /opt/nvim
 sudo mkdir /usr/share/fonts/truetype/hacknerd
 sudo mkdir /usr/share/zsh-sudo
@@ -27,13 +29,16 @@ wget -P $HOME/.config/rofi/ https://raw.githubusercontent.com/n0m3l4c000nt35/cus
 wget -P $HOME/.config/rofi/ https://raw.githubusercontent.com/n0m3l4c000nt35/custom-kali-linux/refs/heads/main/files/box-theme.rasi
 
 wget -qO- https://raw.githubusercontent.com/n0m3l4c000nt35/custom-kali-linux/refs/heads/main/files/.zshrc >> $HOME/.zshrc
+sudo wget https://raw.githubusercontent.com/n0m3l4c000nt35/custom-kali-linux/main/htbash.sh -O /usr/bin/htbash
 
 touch $HOME/.config/polybar/scripts/target.txt
+touch $HOME/.config/htb/htbash.conf
 
 chmod u+x $HOME/.config/bspwm/bspwmrc
 chmod +x $HOME/.config/polybar/scripts/{ethernet_status.sh,vpn_status.sh,target_to_hack.sh,copy_target.sh}
 chmod +x $HOME/.config/bspwm/scripts/bspwm_resize
 chmod +x $HOME/.config/polybar/launch.sh
+sudo chmod +x /usr/bin/htbash
 
 sudo wget -P /usr/share/fonts/truetype/hacknerd https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/Hack.zip
 sudo unzip /usr/share/fonts/truetype/hacknerd/Hack.zip -d /usr/share/fonts/truetype/hacknerd
