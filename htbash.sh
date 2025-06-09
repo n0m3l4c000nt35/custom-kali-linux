@@ -13,7 +13,7 @@ API_URL="https://labs.hackthebox.com/api/v4"
 APP_TOKEN=$(cat $HOME/.config/htb/htbash.conf)
 HTB_MACHINES_DIR="$HOME/htb/machines"
 MACHINES_JSON="$HOME/.config/htb/machines/machines.json"
-VPN_CONFIG="$HOME/.config/htb/vpn"
+VPN_CONFIG="$HOME/.config/htb/vpn/competitive_n0m3l4c000nt35.ovpn"
 
 fetch_active_machines() {
     local base_url="$API_URL/machine/paginated?retired=0&page="
@@ -138,26 +138,133 @@ list_machines(){
 }
 
 get_machine_info(){
-  local machine_name=$1
-  response=$(curl -s "$API_URL/machine/profile/$machine_name" -H "Authorization: Bearer $APP_TOKEN" | jq '.info')
+  local machine machine_name
+  machine_name=$1
+  machine=$(curl -s "$API_URL/machine/profile/$machine_name" -H "Authorization: Bearer $APP_TOKEN" | jq '.info')
+
+  echo "$machine"
+}
+
+print_machine(){
+  local machine_name machine
+  machine_name=$1
+  machine=$(get_machine_info $machine_name)
+
   echo
-  echo -e "${GREEN}Machine name${RESET}:" $(echo "$response" | jq -r '.name')
-  echo -e "${GREEN}OS${RESET}:" $(echo "$response" | jq -r '.os')
-  echo -e "${GREEN}Status${RESET}:" $(echo "$response" | jq -r 'if .active then "Active" else "Retired" end')
-  echo -e "${GREEN}Release date${RESET}:" $(echo "$response" | jq -r '.release | sub("\\.\\d{3}Z$"; "Z") | fromdate | strftime("%d-%m-%Y")')
-  echo -e "${GREEN}Points${RESET}:" $(echo "$response" | jq -r '.points')
-  echo -e "${GREEN}User Owns${RESET}:" $(echo "$response" | jq -r '.user_owns_count')
-  echo -e "${GREEN}Root Owns${RESET}:" $(echo "$response" | jq -r '.root_owns_count')
-  echo -e "${GREEN}Stars${RESET}:" $(echo "$response" | jq -r '.stars')
-  echo -e "${GREEN}Avatar${RESET}: https://www.hackthebox.com"$(echo "$response" | jq -r '.avatar')
-  echo -e "${GREEN}Difficulty${RESET}:" $(echo "$response" | jq -r '.difficultyText')
-  echo -e "${GREEN}Synopsis${RESET}:" $(echo "$response" | jq -r '.synopsis')
+  echo -e "${GREEN}Machine name${RESET}:" $(echo "$machine" | jq -r '.name')
+  echo -e "${GREEN}OS${RESET}:" $(echo "$machine" | jq -r '.os')
+  echo -e "${GREEN}Status${RESET}:" $(echo "$machine" | jq -r 'if .active then "Active" else "Retired" end')
+  echo -e "${GREEN}Release date${RESET}:" $(echo "$machine" | jq -r '.release | sub("\\.[0-9]{3,6}Z$"; "Z") | fromdate | strftime("%d-%m-%Y")')
+  echo -e "${GREEN}Points${RESET}:" $(echo "$machine" | jq -r '.points')
+  echo -e "${GREEN}User Owns${RESET}:" $(echo "$machine" | jq -r '.user_owns_count')
+  echo -e "${GREEN}Root Owns${RESET}:" $(echo "$machine" | jq -r '.root_owns_count')
+  echo -e "${GREEN}Stars${RESET}:" $(echo "$machine" | jq -r '.stars')
+  echo -e "${GREEN}Avatar${RESET}: https://www.hackthebox.com"$(echo "$machine" | jq -r '.avatar')
+  echo -e "${GREEN}Difficulty${RESET}:" $(echo "$machine" | jq -r '.difficultyText')
+  if [[ $(echo "$machine" | jq -r '.synopsis != null') == "true" ]]; then
+    echo -e "${GREEN}Synopsis${RESET}:" $(echo "$machine" | jq -r '.synopsis')
+  fi
+}
+
+create_writeup() {
+  local machine_dir machine_name machine_data name os release status user_owns root_owns stars avatar difficulty synopsis
+
+  machine_dir="$1"
+  machine_name="$2"
+
+  machine_data=$(get_machine_info $machine_name)
+
+  name=$(echo "${machine_data}" | jq -r '.name')
+  os=$(echo "${machine_data}" | jq -r '.os')
+  release=$(echo "${machine_data}" | jq -r '.release | sub("\\.[0-9]{3,6}Z$"; "Z") | fromdate | strftime("%d-%m-%Y")')
+  status=$(echo "${machine_data}" | jq -r 'if .active then "Active" else "Retired" end')
+  user_owns=$(echo "${machine_data}" | jq -r '.user_owns_count')
+  root_owns=$(echo "${machine_data}" | jq -r '.root_owns_count')
+  star=$(echo "${machine_data}" | jq -r '.stars')
+  avatar=$(echo "${machine_data}" | jq -r '.avatar')
+  difficulty=$(echo "${machine_data}" | jq -r '.difficultyText')
+  synopsis=$(echo "${machine_data}" | jq -r '.synopsis')
+  synopsis_line=""
+  if [[ "$synopsis" != "null" ]]; then
+    synopsis_line="- **Synopsis**: ${synopsis}"
+  fi
+
+  cat << EOF > "${machine_dir}/writeup.md"
+# Hack The Box - ${name} Writeup
+
+<div align="center">
+  <img src="https://www.hackthebox.com${avatar}" alt="${name}" width="250" height="250">
+</div>
+
+## Machine Information
+- **Name**: ${name}
+- **OS**: ${os}
+- **Difficulty**: ${difficulty}
+- **Status**: ${status}
+- **Release**: ${release}
+- **Stars**: ${star}
+- **User Owns**: ${user_owns}
+- **Root Owns**: ${root_owns}
+${synopsis_line}
+
+## Reconnaissance
+
+## Enumeration
+
+## Exploitation
+
+## Post-Exploitation
+
+## Autopwn
+EOF
 }
 
 play_machine(){
   local machine_name="$1"
+  local machine_data machine_dir current_tab_id current_tab_title open_tab_titles
   echo
-  echo -e "[${GREEN}Playing Machine${RESET}] $machine_name"
+
+  machine_data=$(jq --arg name "$machine_name" '.[] | select((.name | ascii_downcase) == ($name | ascii_downcase ))' "$MACHINES_JSON")
+  machine_dir="$HTB_MACHINES_DIR/$machine_name"
+
+  current_tab_id=$(kitten @ ls | jq -r '.[] | .tabs[] | select(.is_active == true) | .id' 2>/dev/null)
+  current_tab_title=$(kitten @ ls | jq -r '.[] | .tabs[] | select(.is_active == true) | .title' 2>/dev/null)
+
+  if [[ -d "$machine_dir" ]]; then
+    if ip a | grep -q "tun0"; then
+      pkill -f "openvpn.*${VPN_CONFIG}" 2>/dev/null
+    fi
+  fi
+
+  open_tab_titles=($(kitten @ ls | jq -r '.[] | .tabs[] | .title' 2>/dev/null))
+
+  local tab_titles=("vpn" "writeup" "recon" "exploits" "loot" "scripts" "$machine_name")
+
+  for title in "${open_tab_titles[@]}"; do
+    if [[ " ${fixed_tab_titles[*]} " =~ " ${title} " || "${title,,}" != "${machine_name,,}" ]]; then
+      kitten @ close-tab --match "title:$title and not id:$current_tab_id" 2>/dev/null
+    fi
+  done
+
+  if [[ ! -d "${machine_dir}" ]]; then
+    mkdir -p "${machine_dir}/recon" "${machine_dir}/exploits" "${machine_dir}/loot" "${machine_dir}/scripts"
+    create_writeup "${machine_dir}" "${machine_name}"
+    touch "${machine_dir}/users.txt" "${machine_dir}/passwords.txt"
+  fi
+ 
+  kitten @ launch --type=tab --no-response --tab-title "vpn" bash -c "sudo /usr/sbin/openvpn ${VPN_CONFIG}"
+  kitten @ launch --type=tab --no-response --tab-title "${machine_name}" --cwd "${machine_dir}"
+  kitten @ launch --type=tab --no-response --tab-title "writeup" --cwd "${machine_dir}" bash -c "nvim writeup.md -c MarkdownPreview"
+  kitten @ launch --type=tab --no-response --tab-title "recon" --cwd "${machine_dir}/recon"
+  kitten @ launch --type=tab --no-response --tab-title "exploits" --cwd "${machine_dir}/exploits"
+  kitten @ launch --type=tab --no-response --tab-title "loot" --cwd "${machine_dir}/loot"
+  kitten @ launch --type=tab --no-response --tab-title "scripts" --cwd "${machine_dir}/scripts"
+  kitten @ focus-tab --match "title:${machine_name}" 2>/dev/null
+
+  local created_tab_titles=("${fixed_tab_titles[@]}" "$machine_name")
+  if [[ ! " ${created_tab_titles[*]} " =~ " ${current_tab_title} " ]]; then
+    kitten @ close-tab --match "id:${current_tab_id}" 2>/dev/null
+  fi
 }
 
 if [ $# -eq 0 ]; then
@@ -251,7 +358,7 @@ while [[ $# -gt 0 ]]; do
       fi
       ;;
     *)
-      echo -e "\n[${GREEN}${@:OPTIND-1:1}${RESET}] Help panel"
+      echo -e "\n[${RED}!${RESET}] Help panel"
       exit 1
       ;;
   esac
@@ -280,7 +387,7 @@ if [ $flag_u -eq 1 ]; then
 elif [ $flag_l -eq 1 ]; then
   list_machines "$os_filter" "$difficulty_filter"
 elif [ $flag_i -eq 1 ] && [ -n "$machine_name" ];then
-  get_machine_info "$machine_name"
+  print_machine "$machine_name"
 elif [ $flag_p -eq 1 ] && [ -n "$machine_name" ]; then
   if jq -e --arg name "$machine_name" '.[] | select(($name | ascii_downcase) == (.name | ascii_downcase))' "$MACHINES_JSON" > /dev/null; then
     play_machine "$machine_name"
