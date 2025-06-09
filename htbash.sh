@@ -23,7 +23,7 @@ fetch_active_machines() {
 
     for (( page=1; page<=last_page; page++ )); do
         local page_data
-        page_data=$(curl -s "${base_url}${page}" -H "Authorization: Bearer $APP_TOKEN" | jq -r '.data')
+        page_data=$(curl -s "${base_url}${page}" -H "Authorization: Bearer $APP_TOKEN" | jq '.data | map(.status = "active")')
         all_data=$(jq -s 'add' <(echo "$all_data") <(echo "$page_data"))
     done
 
@@ -38,14 +38,14 @@ fetch_retired_machines() {
 
     for (( page=1; page<=last_page; page++ )); do
         local page_data
-        page_data=$(curl -s "${base_url}${page}" -H "Authorization: Bearer $APP_TOKEN" | jq -r '.data')
+        page_data=$(curl -s "${base_url}${page}" -H "Authorization: Bearer $APP_TOKEN" | jq '.data | map(.status = "retired")')
         all_data=$(jq -s 'add' <(echo "$all_data") <(echo "$page_data"))
     done
 
     echo "$all_data"
 }
 
-get_all_machines(){
+update_machines(){
   local active_machines retired_machines all_machines active_count retired_count total_count
 
   active_machines=$(fetch_active_machines)
@@ -154,6 +154,12 @@ get_machine_info(){
   echo -e "${GREEN}Synopsis${RESET}:" $(echo "$response" | jq -r '.synopsis')
 }
 
+play_machine(){
+  local machine_name="$1"
+  echo
+  echo -e "[${GREEN}Playing Machine${RESET}] $machine_name"
+}
+
 if [ $# -eq 0 ]; then
   echo
   echo -e "[${GREEN}?${RESET}] Help panel"
@@ -163,6 +169,7 @@ fi
 flag_u=0
 flag_l=0
 flag_i=0
+flag_p=0
 
 machine_name=""
 os_filter=""
@@ -233,6 +240,16 @@ while [[ $# -gt 0 ]]; do
         shift
       fi
       ;;
+    -p)
+      if [[ -n "$2" && "$2" != -* ]]; then
+        flag_p=1
+        machine_name="$2"
+        shift 2
+      else
+        echo -e "\n[${RED}!${RESET}] Missing machine name after -p"
+        exit 1
+      fi
+      ;;
     *)
       echo -e "\n[${GREEN}${@:OPTIND-1:1}${RESET}] Help panel"
       exit 1
@@ -248,7 +265,7 @@ if (( ${#errors[@]} > 0 )); then
   exit 1
 fi
 
-if (( flag_u + flag_l + flag_i > 1 )); then
+if (( flag_u + flag_l + flag_i + flag_p > 1 )); then
   echo -e "\n[${RED}!${RESET}] Help panel"
   exit 1
 fi
@@ -259,11 +276,18 @@ if (( flag_l == 0 )) && { [[ -n "$os_filter" ]] || [[ -n "$difficulty_filter" ]]
 fi
 
 if [ $flag_u -eq 1 ]; then
-  get_all_machines
+  update_machines
 elif [ $flag_l -eq 1 ]; then
   list_machines "$os_filter" "$difficulty_filter"
 elif [ $flag_i -eq 1 ] && [ -n "$machine_name" ];then
   get_machine_info "$machine_name"
+elif [ $flag_p -eq 1 ] && [ -n "$machine_name" ]; then
+  if jq -e --arg name "$machine_name" '.[] | select(($name | ascii_downcase) == (.name | ascii_downcase))' "$MACHINES_JSON" > /dev/null; then
+    play_machine "$machine_name"
+  else
+    echo -e "\n[${RED}!${RESET}] Machine ${RED}$machine_name${RESET} not exists."
+    exit 1
+  fi
 fi
 
 exit 0
