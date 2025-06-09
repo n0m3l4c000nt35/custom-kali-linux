@@ -1013,7 +1013,7 @@ text/html=firefox-esr.desktop
 
 ## htbash
 
-> Script para listar máquinas de Hack The Box, ver información de una máquina en particular y creando un pequeño entorno para jugar a una máquina seleccionada
+> Script para listar máquinas de Hack The Box, ver información de una máquina en particular y crear un pequeño entorno para jugar a una máquina seleccionada
 
 ### Obtener API
 
