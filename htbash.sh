@@ -16,7 +16,7 @@ MACHINES_JSON="$HOME/.config/htb/machines/machines.json"
 VPN_CONFIG="$HOME/.config/htb/vpn/competitive_n0m3l4c000nt35.ovpn"
 
 show_help() {
-  echo -e "\n${GREEN}=== htbash Help ===${RESET}\n"
+  echo -e "\n${GREEN} 󰆧${RESET} htbash Help ${GREEN}󰆧 ${RESET}\n"
   echo -e "${YELLOW}Description:${RESET} Manage Hack The Box machines via API.\n"
   echo -e "${YELLOW}Usage:${RESET} htbash [OPTIONS]\n"
   echo -e "${YELLOW}Options:${RESET}"
@@ -35,7 +35,7 @@ show_help() {
   echo -e "  - Requires HTB API token in ${BLUE}\$HOME/.config/htb/htbash.conf${RESET}"
   echo -e "  - Flags ${BLUE}-u${RESET}, ${BLUE}-l${RESET}, ${BLUE}-i${RESET}, ${BLUE}-p${RESET} are exclusive"
   echo -e "  - Use ${BLUE}--os${RESET} or ${BLUE}--difficulty${RESET} only with ${BLUE}-l${RESET}\n"
-  echo -e "${GREEN}=== Happy Hacking! ===${RESET}\n"
+  echo -e "${GREEN}=== Happy Hacking! ===${RESET}"
 }
 
 fetch_active_machines() {
@@ -71,23 +71,41 @@ fetch_retired_machines() {
 update_machines(){
   local active_machines retired_machines all_machines active_count retired_count total_count
 
-  active_machines=$(fetch_active_machines)
-  retired_machines=$(fetch_retired_machines)
+  show_spinner() {
+    local pid=$1
+    local delay=0.1
+    local spinstr='|/-\'
+    tput civis
+    echo
+    while kill -0 $pid 2>/dev/null; do
+      for char in $(echo "$spinstr" | grep -o .); do
+        printf "\r[${BLUE}%s${RESET}] Updating machines..." "$char"
+        sleep $delay
+        kill -0 $pid 2>/dev/null || break
+      done
+    done
+    printf "\r\033[K"
+    tput cnorm
+  }
 
-  all_machines=$(jq -s 'add' <(echo "$active_machines") <(echo "$retired_machines"))
+  {
+    active_machines=$(fetch_active_machines)
+    retired_machines=$(fetch_retired_machines)
+    all_machines=$(jq -s 'add' <(echo "$active_machines") <(echo "$retired_machines"))
+    echo "$all_machines" > "$MACHINES_JSON"
+  } &
 
-  echo "$all_machines" > "$MACHINES_JSON"
+  show_spinner $!
 
-  active_count=$(echo "$active_machines" | jq 'length')
-  retired_count=$(echo "$retired_machines" | jq 'length')
-  total_count=$(echo "$all_machines" | jq 'length')
+  active_count=$(jq '[.[] | select(.status == "active")] | length' "$MACHINES_JSON")
+  retired_count=$(jq '[.[] | select(.status == "retired")] | length' "$MACHINES_JSON")
+  total_count=$(jq 'length' "$MACHINES_JSON")
 
+  echo -e "[${GREEN}Machines updated${RESET}]"
   echo
-  echo -e "[${GREEN}MACHINES UPDATED${RESET}]"
-  echo
-  echo -e "[${YELLOW}TOTAL ACTIVE MACHINES${RESET}] $active_count"
-  echo -e "[${YELLOW}TOTAL RETIRED MACHINES${RESET}] $retired_count"
-  echo -e "[${YELLOW}TOTAL MACHINES SAVED${RESET}] $total_count"
+  echo -e "[${YELLOW}Total active machines${RESET}] $active_count"
+  echo -e "[${YELLOW}Total retired machines${RESET}] $retired_count"
+  echo -e "[${YELLOW}Total machines saved${RESET}] $total_count"
   echo
   echo -e "[${YELLOW}DATA SAVED TO${RESET}] $MACHINES_JSON"
 }
@@ -327,7 +345,7 @@ while [[ $# -gt 0 ]]; do
         machine_name="$2"
         shift 2
       else
-        echo -e "\n[${RED}!${RESET}] Missing machine name after -i"
+        echo -e "\n[${RED}!${RESET}] Missing machine name after ${GREEN}-i${RESET}"
         exit 1
       fi
       ;;
@@ -342,7 +360,7 @@ while [[ $# -gt 0 ]]; do
           shift 2
         fi
       else
-        errors+=("[${RED}!${RESET}] Missing OS after --os")
+        errors+=("[${RED}!${RESET}] Missing OS after ${GREEN}--os${RESET}")
         shift
       fi
       ;;
@@ -354,9 +372,10 @@ while [[ $# -gt 0 ]]; do
           shift 2
         else
           errors+=("[${RED}!${RESET}] Invalid difficulty: ${RED}$2${RESET}. Valid values are: ${BLUE}${valid_difficulties[*]}${RESET}")
+          shift 2
         fi
       else
-        errors+=("[${RED}!${RESET}] Missing difficulty after --difficulty")
+        errors+=("[${RED}!${RESET}] Missing difficulty after ${GREEN}--difficulty${RESET}")
         shift
       fi
       ;;
@@ -366,26 +385,18 @@ while [[ $# -gt 0 ]]; do
         machine_name="$2"
         shift 2
       else
-        echo -e "\n[${RED}!${RESET}] Missing machine name after -p"
+        echo -e "\n[${RED}!${RESET}] Missing machine name after ${GREEN}-p${RESET}"
         show_help
         exit 1
       fi
       ;;
     *)
-      show_help
+      echo
+      echo -e "[${RED}Say what?${RESET}]"
       exit 1
       ;;
   esac
 done
-
-if (( ${#errors[@]} > 0 )); then
-  printf "\n"
-  for err in "${errors[@]}"; do
-    echo -e "${err}"
-  done
-  show_help
-  exit 1
-fi
 
 if (( flag_u + flag_l + flag_i + flag_p > 1 )); then
   show_help
@@ -393,6 +404,25 @@ if (( flag_u + flag_l + flag_i + flag_p > 1 )); then
 fi
 
 if (( flag_l == 0 )) && { [[ -n "$os_filter" ]] || [[ -n "$difficulty_filter" ]]; }; then
+  if [[ -n "$os_filter" ]] && [[ -n "$difficulty_filter" ]]; then
+    echo
+    echo -e "[${RED}!${RESET}] The flags ${BLUE}--os${RESET} and ${BLUE}--difficulty${RESET} can only be used with the ${BLUE}-l${RESET} flag to list machines."
+  elif [[ -n "$os_filter" ]]; then
+    echo
+    echo -e "[${RED}!${RESET}] The flag ${BLUE}--os${RESET} can only be used with the ${BLUE}-l${RESET} flag to list machines."
+  elif [[ -n "$difficulty_filter" ]]; then
+    echo
+    echo -e "[${RED}!${RESET}] The flag ${BLUE}--difficulty${RESET} can only be used with the ${BLUE}-l${RESET} flag to list machines."
+  fi
+  show_help
+  exit 1
+fi
+
+if (( ${#errors[@]} > 0 )); then
+  printf "\n"
+  for err in "${errors[@]}"; do
+    echo -e "${err}"
+  done
   show_help
   exit 1
 fi
