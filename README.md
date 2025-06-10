@@ -1009,10 +1009,6 @@ text/html=firefox-esr.desktop
 
 ![kali-linux](https://github.com/user-attachments/assets/0288c44f-293a-49ea-9f6d-9e25832791f5)
 
-<div align=center>
-	💡 <a href="https://www.linkedin.com/in/esteban-zarate/">Ideas?</a> ✅ <a href="https://www.linkedin.com/in/esteban-zarate/">Sugerencias?</a> ✅ <a href="https://www.linkedin.com/in/esteban-zarate/">Errores?</a> ✅ <a href="https://www.linkedin.com/in/esteban-zarate/">Mejoras?</a> 💡
-</div>
-
 ## htbash
 
 > Script para listar máquinas de Hack The Box, ver información de una máquina en particular y crear un pequeño entorno para jugar a una máquina seleccionada
@@ -1061,3 +1057,7 @@ Notes:
 ```
 
 https://github.com/user-attachments/assets/1600216f-8ca3-4128-bd9c-c8a42faa65e2
+
+<div align=center>
+	💡 <a href="https://www.linkedin.com/in/esteban-zarate/">Ideas?</a> ✅ <a href="https://www.linkedin.com/in/esteban-zarate/">Sugerencias?</a> ✅ <a href="https://www.linkedin.com/in/esteban-zarate/">Errores?</a> ✅ <a href="https://www.linkedin.com/in/esteban-zarate/">Mejoras?</a> 💡
+</div>
