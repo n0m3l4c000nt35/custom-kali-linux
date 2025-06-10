@@ -181,6 +181,12 @@ print_machine(){
   machine_name=$1
   machine=$(get_machine_info $machine_name)
 
+  if [[ "$machine" == "null" ]]; then
+    echo
+    echo -e "[${RED}!${RESET}] Machine ${RED}$machine_name${RESET} not found."
+    exit 1
+  fi
+
   echo
   echo -e "${GREEN}Machine name${RESET}:" $(echo "$machine" | jq -r '.name')
   echo -e "${GREEN}OS${RESET}:" $(echo "$machine" | jq -r '.os')
@@ -248,6 +254,7 @@ ${synopsis_line}
 
 ## Autopwn
 \`\`\`python
+#!/usr/bin/env python3
 \`\`\`
 EOF
 }
@@ -346,6 +353,7 @@ while [[ $# -gt 0 ]]; do
         shift 2
       else
         echo -e "\n[${RED}!${RESET}] Missing machine name after ${GREEN}-i${RESET}"
+        show_help
         exit 1
       fi
       ;;
