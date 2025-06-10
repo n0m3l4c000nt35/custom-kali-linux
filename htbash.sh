@@ -22,8 +22,8 @@ show_help() {
   echo -e "${YELLOW}Options:${RESET}"
   echo -e "  ${BLUE}-u${RESET}\t\t\tUpdate machine list from HTB API"
   echo -e "  ${BLUE}-l${RESET}\t\t\tList machines (filter with --os or --difficulty)"
-  echo -e "  ${BLUE}--os${RESET}\t<linux|windows> Filter by OS"
-  echo -e "  ${BLUE}--difficulty${RESET} <easy|medium|hard|insane> Filter by difficulty"
+  echo -e "  ${BLUE}--os${RESET}\t<${GREEN}linux${RESET}|${GREEN}windows${RESET}> Filter by OS"
+  echo -e "  ${BLUE}--difficulty${RESET} <${GREEN}easy${RESET}|${GREEN}medium${RESET}|${GREEN}hard${RESET}|${GREEN}insane${RESET}> Filter by difficulty"
   echo -e "  ${BLUE}-i${RESET} <machine>\t\tShow machine details"
   echo -e "  ${BLUE}-p${RESET} <machine>\t\tSetup workspace and VPN for machine\n"
   echo -e "${YELLOW}Examples:${RESET}"
@@ -39,33 +39,33 @@ show_help() {
 }
 
 fetch_active_machines() {
-    local base_url="$API_URL/machine/paginated?retired=0&page="
-    local all_data="[]"
-    local last_page
-    last_page=$(curl -s "${base_url}1" -H "Authorization: Bearer $APP_TOKEN" | jq -r '.meta.last_page')
+  local base_url="$API_URL/machine/paginated?retired=0&page="
+  local all_data="[]"
+  local last_page
+  last_page=$(curl -s "${base_url}1" -H "Authorization: Bearer $APP_TOKEN" | jq -r '.meta.last_page')
 
-    for (( page=1; page<=last_page; page++ )); do
-        local page_data
-        page_data=$(curl -s "${base_url}${page}" -H "Authorization: Bearer $APP_TOKEN" | jq '.data | map(.status = "active")')
-        all_data=$(jq -s 'add' <(echo "$all_data") <(echo "$page_data"))
-    done
+  for (( page=1; page<=last_page; page++ )); do
+      local page_data
+      page_data=$(curl -s "${base_url}${page}" -H "Authorization: Bearer $APP_TOKEN" | jq '.data | map(.status = "active")')
+      all_data=$(jq -s 'add' <(echo "$all_data") <(echo "$page_data"))
+  done
 
-    echo "$all_data"
+  echo "$all_data"
 }
 
 fetch_retired_machines() {
-    local base_url="$API_URL/machine/list/retired/paginated?page="
-    local all_data="[]"
-    local last_page
-    last_page=$(curl -s "${base_url}1" -H "Authorization: Bearer $APP_TOKEN" | jq -r '.meta.last_page')
+  local base_url="$API_URL/machine/list/retired/paginated?page="
+  local all_data="[]"
+  local last_page
+  last_page=$(curl -s "${base_url}1" -H "Authorization: Bearer $APP_TOKEN" | jq -r '.meta.last_page')
 
-    for (( page=1; page<=last_page; page++ )); do
-        local page_data
-        page_data=$(curl -s "${base_url}${page}" -H "Authorization: Bearer $APP_TOKEN" | jq '.data | map(.status = "retired")')
-        all_data=$(jq -s 'add' <(echo "$all_data") <(echo "$page_data"))
-    done
+  for (( page=1; page<=last_page; page++ )); do
+      local page_data
+      page_data=$(curl -s "${base_url}${page}" -H "Authorization: Bearer $APP_TOKEN" | jq '.data | map(.status = "retired")')
+      all_data=$(jq -s 'add' <(echo "$all_data") <(echo "$page_data"))
+  done
 
-    echo "$all_data"
+  echo "$all_data"
 }
 
 update_machines(){
@@ -95,18 +95,14 @@ update_machines(){
 list_machines(){
   local os="$1"
   local difficulty="$2"
-  local status="$2"
-
+  local status="$3"
   echo
   headers=("Name" "OS" "Free" "Difficulty")
-
   mapfile -t rows < <(jq -r --arg os "$os" --arg difficulty "$difficulty" '.[] | select(($os == "" or ($os | ascii_downcase) == (.os | ascii_downcase)) and ($difficulty == "" or ($difficulty | ascii_downcase) == (.difficultyText | ascii_downcase))) | [.name, .os, (.free | tostring), .difficultyText] | @tsv' "$MACHINES_JSON")
-
   col_widths=()
   for i in "${!headers[@]}"; do
     col_widths[i]=${#headers[i]}
   done
-
   for row in "${rows[@]}"; do
   IFS=$'\t' read -r col1 col2 col3 col4 <<< "$row"
     [[ ${#col1} -gt ${col_widths[0]} ]] && col_widths[0]=${#col1}
@@ -114,40 +110,35 @@ list_machines(){
     [[ ${#col3} -gt ${col_widths[2]} ]] && col_widths[2]=${#col3}
     [[ ${#col4} -gt ${col_widths[3]} ]] && col_widths[3]=${#col4}
   done
-
   center_text() {
     local text="$1"
     local width="$2"
     local pad=$(( (width - ${#text}) / 2 ))
     printf "%*s%s%*s" $pad "" "$text" $((width - pad - ${#text})) ""
   }
-
   separator="+"
   for w in "${col_widths[@]}"; do
     separator+=$(printf '%0.s-' $(seq 1 $((w + 2))))
     separator+="+"
   done
-
   title="Hack The Box Machines"
+  
+  total_width=${#separator}
+  available_width=$((total_width - 4))
   title_length=${#title}
-
-  total_width=1
-  for w in "${col_widths[@]}"; do
-    total_width=$((total_width + w + 3))
-  done
-
+  
+  left_padding=$(( (available_width - title_length) / 2 ))
+  right_padding=$(( available_width - title_length - left_padding ))
+  
   echo "$separator"
-  printf "| %*s%*s|\n" $(( (total_width - 2 + title_length) / 2 )) "$title" $(( (total_width - 2 - title_length) / 2 )) ""
-
+  printf "| %*s%s%*s |\n" $left_padding "" "$title" $right_padding ""
   echo "$separator"
   printf "|"
   for i in "${!headers[@]}"; do
     printf " %s |" "$(center_text "${headers[i]}" "${col_widths[i]}")"
   done
-
   echo
   echo "$separator"
-
   for row in "${rows[@]}"; do
   IFS=$'\t' read -r col1 col2 col3 col4 <<< "$row"
   printf "| %-*s | %-*s | %-*s | %-*s |\n" \
@@ -156,7 +147,6 @@ list_machines(){
     "${col_widths[2]}" "$col3" \
     "${col_widths[3]}" "$col4"
   done
-
   echo "$separator"
 }
 
@@ -239,6 +229,8 @@ ${synopsis_line}
 ## Post-Exploitation
 
 ## Autopwn
+\`\`\`python
+\`\`\`
 EOF
 }
 
@@ -291,8 +283,7 @@ play_machine(){
 }
 
 if [ $# -eq 0 ]; then
-  echo
-  echo -e "[${GREEN}?${RESET}] Help panel"
+  show_help
   exit 0
 fi
 
@@ -364,7 +355,6 @@ while [[ $# -gt 0 ]]; do
         else
           errors+=("[${RED}!${RESET}] Invalid difficulty: ${RED}$2${RESET}. Valid values are: ${BLUE}${valid_difficulties[*]}${RESET}")
         fi
-        shift 2
       else
         errors+=("[${RED}!${RESET}] Missing difficulty after --difficulty")
         shift
@@ -377,11 +367,12 @@ while [[ $# -gt 0 ]]; do
         shift 2
       else
         echo -e "\n[${RED}!${RESET}] Missing machine name after -p"
+        show_help
         exit 1
       fi
       ;;
     *)
-      echo -e "\n[${RED}!${RESET}] Help panel"
+      show_help
       exit 1
       ;;
   esac
@@ -392,16 +383,17 @@ if (( ${#errors[@]} > 0 )); then
   for err in "${errors[@]}"; do
     echo -e "${err}"
   done
+  show_help
   exit 1
 fi
 
 if (( flag_u + flag_l + flag_i + flag_p > 1 )); then
-  echo -e "\n[${RED}!${RESET}] Help panel"
+  show_help
   exit 1
 fi
 
 if (( flag_l == 0 )) && { [[ -n "$os_filter" ]] || [[ -n "$difficulty_filter" ]]; }; then
-  echo -e "\n[${RED}!${RESET}] Help panel"
+  show_help
   exit 1
 fi
 
