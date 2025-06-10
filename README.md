@@ -1056,6 +1056,16 @@ Notes:
 === Happy Hacking! ===
 ```
 
+Guardar en el archivo `/etc/environment` tu nombre de usuario en Hack The Box
+
+```bash
+nano /etc/environment
+```
+
+```bash
+HTB_USER="u53rn4m3"
+```
+
 https://github.com/user-attachments/assets/1600216f-8ca3-4128-bd9c-c8a42faa65e2
 
 <div align=center>
