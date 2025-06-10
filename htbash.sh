@@ -6,36 +6,38 @@ YELLOW='\e[33m'
 GRAY='\e[90m'
 BLUE='\e[34m'
 MAGENTA='\e[35m'
-CYAN='\e[36m'
 RESET='\033[0m'
 
 API_URL="https://labs.hackthebox.com/api/v4"
 APP_TOKEN=$(cat $HOME/.config/htb/htbash.conf)
 HTB_MACHINES_DIR="$HOME/htb/machines"
 MACHINES_JSON="$HOME/.config/htb/machines/machines.json"
-VPN_CONFIG="$HOME/.config/htb/vpn/competitive_n0m3l4c000nt35.ovpn"
+VPN_CONFIG="$HOME/.config/htb/vpn"
 
 show_help() {
-  echo -e "\n${GREEN} 󰆧${RESET} htbash Help ${GREEN}󰆧 ${RESET}\n"
-  echo -e "${YELLOW}Description:${RESET} Manage Hack The Box machines via API.\n"
-  echo -e "${YELLOW}Usage:${RESET} htbash [OPTIONS]\n"
-  echo -e "${YELLOW}Options:${RESET}"
-  echo -e "  ${BLUE}-u${RESET}\t\t\tUpdate machine list from HTB API"
-  echo -e "  ${BLUE}-l${RESET}\t\t\tList machines (filter with --os or --difficulty)"
-  echo -e "  ${BLUE}--os${RESET}\t<${GREEN}linux${RESET}|${GREEN}windows${RESET}> Filter by OS"
-  echo -e "  ${BLUE}--difficulty${RESET} <${GREEN}easy${RESET}|${GREEN}medium${RESET}|${GREEN}hard${RESET}|${GREEN}insane${RESET}> Filter by difficulty"
-  echo -e "  ${BLUE}-i${RESET} <machine>\t\tShow machine details"
-  echo -e "  ${BLUE}-p${RESET} <machine>\t\tSetup workspace and VPN for machine\n"
-  echo -e "${YELLOW}Examples:${RESET}"
-  echo -e "  ${BLUE}htbash -u${RESET}\t\t# Update machine list"
-  echo -e "  ${BLUE}htbash -l --os linux${RESET}\t# List Linux machines"
-  echo -e "  ${BLUE}htbash -i Lame${RESET}\t# Show Lame machine info"
-  echo -e "  ${BLUE}htbash -p Lame${RESET}\t# Setup workspace for Lame\n"
-  echo -e "${YELLOW}Notes:${RESET}"
-  echo -e "  - Requires HTB API token in ${BLUE}\$HOME/.config/htb/htbash.conf${RESET}"
-  echo -e "  - Flags ${BLUE}-u${RESET}, ${BLUE}-l${RESET}, ${BLUE}-i${RESET}, ${BLUE}-p${RESET} are exclusive"
-  echo -e "  - Use ${BLUE}--os${RESET} or ${BLUE}--difficulty${RESET} only with ${BLUE}-l${RESET}\n"
-  echo -e "${GREEN}=== Happy Hacking! ===${RESET}"
+ echo -e "\n${GREEN} 󰆧${RESET} htbash Help ${GREEN}󰆧 ${RESET}\n"
+ echo -e "${YELLOW}Description:${RESET} Manage Hack The Box machines via API.\n"
+ echo -e "${YELLOW}Usage:${RESET} htbash [OPTIONS]\n"
+ echo -e "${YELLOW}Options:${RESET}"
+ echo -e "  ${BLUE}-u${RESET}\t\t\tUpdate machine list from HTB API"
+ echo -e "  ${BLUE}-l${RESET}\t\t\tList machines (filter with --os or --difficulty)"
+ echo -e "  ${BLUE}--os${RESET}\t<${GREEN}linux${RESET}|${GREEN}windows${RESET}> Filter by OS"
+ echo -e "  ${BLUE}--difficulty${RESET} <${GREEN}easy${RESET}|${GREEN}medium${RESET}|${GREEN}hard${RESET}|${GREEN}insane${RESET}> Filter by difficulty"
+ echo -e "  ${BLUE}-i${RESET} <machine>\t\tShow machine details"
+ echo -e "  ${BLUE}-p${RESET} <machine>\t\tSetup workspace and VPN for machine"
+ echo -e "  ${BLUE}--vpn${RESET}\t<${GREEN}opt1${RESET}|${GREEN}opt2${RESET}|${GREEN}opt3${RESET}> Select VPN configuration (use with -p)\n"
+ echo -e "${YELLOW}Examples:${RESET}"
+ echo -e "  ${BLUE}htbash -u${RESET}\t\t# Update machine list"
+ echo -e "  ${BLUE}htbash -l --os linux${RESET}\t# List Linux machines"
+ echo -e "  ${BLUE}htbash -i Lame${RESET}\t# Show Lame machine info"
+ echo -e "  ${BLUE}htbash -p Lame${RESET}\t# Setup workspace for Lame"
+ echo -e "  ${BLUE}htbash -p Lame --vpn opt2${RESET}\t# Setup workspace with specific VPN\n"
+ echo -e "${YELLOW}Notes:${RESET}"
+ echo -e "  - Requires HTB API token in ${BLUE}\$HOME/.config/htb/htbash.conf${RESET}"
+ echo -e "  - Flags ${BLUE}-u${RESET}, ${BLUE}-l${RESET}, ${BLUE}-i${RESET}, ${BLUE}-p${RESET} are exclusive"
+ echo -e "  - Use ${BLUE}--os${RESET} or ${BLUE}--difficulty${RESET} only with ${BLUE}-l${RESET}"
+ echo -e "  - Use ${BLUE}--vpn${RESET} only with ${BLUE}-p${RESET}\n"
+ echo -e "${GREEN}=== Happy Hacking! ===${RESET}"
 }
 
 fetch_active_machines() {
@@ -261,7 +263,9 @@ EOF
 
 play_machine(){
   local machine_name="$1"
+  local vpn_type="$2"
   local machine_data machine_dir current_tab_id current_tab_title open_tab_titles
+  local vpn_file="${VPN_CONFIG}/${vpn_type}$HTB_USER.ovpn"
   echo
 
   machine_data=$(jq --arg name "$machine_name" '.[] | select((.name | ascii_downcase) == ($name | ascii_downcase ))' "$MACHINES_JSON")
@@ -292,7 +296,7 @@ play_machine(){
     touch "${machine_dir}/users.txt" "${machine_dir}/passwords.txt"
   fi
  
-  kitten @ launch --type=tab --no-response --tab-title "vpn" bash -c "sudo /usr/sbin/openvpn ${VPN_CONFIG}"
+  kitten @ launch --type=tab --no-response --tab-title "vpn" bash -c "sudo /usr/sbin/openvpn ${vpn_file}"
   kitten @ launch --type=tab --no-response --tab-title "${machine_name}" --cwd "${machine_dir}"
   kitten @ launch --type=tab --no-response --tab-title "writeup" --cwd "${machine_dir}" bash -c "nvim writeup.md -c MarkdownPreview"
   kitten @ launch --type=tab --no-response --tab-title "recon" --cwd "${machine_dir}/recon"
@@ -320,9 +324,11 @@ flag_p=0
 machine_name=""
 os_filter=""
 difficulty_filter=""
+vpn_type=""
 
 valid_os=("linux" "windows")
 valid_difficulties=("easy" "medium" "hard" "insane")
+valid_vpn_types=("opt1" "opt2" "opt3")
 
 errors=()
 
@@ -398,6 +404,21 @@ while [[ $# -gt 0 ]]; do
         exit 1
       fi
       ;;
+    --vpn)
+      if [[ -n "$2" && "$2" != -* ]]; then
+        value=$(echo "$2" | tr '[:upper:]' '[:lower:]')
+        if is_valid_value "$value" "${valid_vpn_types[@]}"; then
+          vpn_type="$value"
+          shift 2
+        else
+          errors+=("[${RED}!${RESET}] Invalid VPN type: ${RED}$2${RESET}. Valid values are: ${BLUE}${valid_vpn_types[*]}${RESET}")
+          shift 2
+        fi
+      else
+        errors+=("[${RED}!${RESET}] Missing VPN type after ${GREEN}--vpn${RESET}")
+        shift
+      fi
+      ;;
     *)
       echo
       echo -e "[${RED}Say what?${RESET}]"
@@ -426,6 +447,13 @@ if (( flag_l == 0 )) && { [[ -n "$os_filter" ]] || [[ -n "$difficulty_filter" ]]
   exit 1
 fi
 
+if (( flag_p == 0 )) && [[ -n "$vpn_type" ]]; then
+  echo
+  echo -e "[${RED}!${RESET}] The flag ${BLUE}--vpn${RESET} can only be used with the ${BLUE}-p${RESET} flag to play machines."
+  show_help
+  exit 1
+fi
+
 if (( ${#errors[@]} > 0 )); then
   printf "\n"
   for err in "${errors[@]}"; do
@@ -443,6 +471,9 @@ elif [ $flag_i -eq 1 ] && [ -n "$machine_name" ];then
   print_machine "$machine_name"
 elif [ $flag_p -eq 1 ] && [ -n "$machine_name" ]; then
   if jq -e --arg name "$machine_name" '.[] | select(($name | ascii_downcase) == (.name | ascii_downcase))' "$MACHINES_JSON" > /dev/null; then
+    if [[ -z "$vpn_type" ]]; then
+      vpn_type="opt1"  # valor por defecto
+    fi
     play_machine "$machine_name"
   else
     echo -e "\n[${RED}!${RESET}] Machine ${RED}$machine_name${RESET} not exists."
