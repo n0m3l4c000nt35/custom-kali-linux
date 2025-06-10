@@ -1028,7 +1028,7 @@ Modificar el TOKEN NAME, seleccionar EXPIRES IN 1 Year
 Copiar el token y guardarlo en el archivo $HOME/.config/htb/machines
 
 ```bash
-  htbash Help 
+   htbash Help
 
 Description: Manage Hack The Box machines via API.
 
@@ -1041,17 +1041,20 @@ Options:
   --difficulty <easy|medium|hard|insane> Filter by difficulty
   -i <machine>		Show machine details
   -p <machine>		Setup workspace and VPN for machine
+  --vpn	<opt1|opt2|opt3> Select VPN configuration (use with -p)
 
 Examples:
   htbash -u		# Update machine list
   htbash -l --os linux	# List Linux machines
   htbash -i Lame	# Show Lame machine info
   htbash -p Lame	# Setup workspace for Lame
+  htbash -p Lame --vpn opt2	# Setup workspace with specific VPN
 
 Notes:
   - Requires HTB API token in $HOME/.config/htb/htbash.conf
   - Flags -u, -l, -i, -p are exclusive
   - Use --os or --difficulty only with -l
+  - Use --vpn only with -p
 
 === Happy Hacking! ===
 ```
