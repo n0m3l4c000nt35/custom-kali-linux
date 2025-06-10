@@ -1025,7 +1025,7 @@ Hacer click en CREATE APP TOKEN
 Modificar el TOKEN NAME, seleccionar EXPIRES IN 1 Year
 
 ![copy_token](https://github.com/user-attachments/assets/a564be50-a441-4f07-86a2-9a4f060bc04d)  
-Copiar el token y guardarlo en el archivo $HOME/.config/htb/machines/htbash.conf
+Copiar el token y guardarlo en el archivo `$HOME/.config/htb/machines/htbash.conf`
 
 ```bash
    htbash Help
