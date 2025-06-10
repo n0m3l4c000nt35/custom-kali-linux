@@ -5,7 +5,6 @@ RED='\033[0;31m'
 YELLOW='\e[33m'
 GRAY='\e[90m'
 BLUE='\e[34m'
-MAGENTA='\e[35m'
 RESET='\033[0m'
 
 API_URL="https://labs.hackthebox.com/api/v4"
@@ -25,7 +24,7 @@ show_help() {
   echo -e "  ${BLUE}--difficulty${RESET} <${GREEN}easy${RESET}|${GREEN}medium${RESET}|${GREEN}hard${RESET}|${GREEN}insane${RESET}> Filter by difficulty"
   echo -e "  ${BLUE}-i${RESET} <machine>\t\tShow machine details"
   echo -e "  ${BLUE}-p${RESET} <machine>\t\tSetup workspace and VPN for machine"
-  echo -e "  ${BLUE}--vpn${RESET}\t<${GREEN}comp${RESET}|${GREEN}lab${RESET}|${GREEN}pro${RESET}|${GREEN}fort${RESET}|${GREEN}start${RESET}> Select VPN configuration (use with -p)\n"
+  echo -e "  ${BLUE}--vpn${RESET}\t<${GREEN}comp${RESET}|${GREEN}lab${RESET}|${GREEN}pro${RESET}> Select VPN configuration (use with -p)\n"
   echo -e "${YELLOW}Examples:${RESET}"
   echo -e "  ${BLUE}htbash -u${RESET}\t\t# Update machine list"
   echo -e "  ${BLUE}htbash -l --os linux${RESET}\t# List Linux machines"
@@ -277,12 +276,6 @@ play_machine(){
     "pro")
       vpn_file="${VPN_CONFIG}/pro_labs_$HTB_USER.ovpn"
       ;;
-    "fort")
-      vpn_file="${VPN_CONFIG}/fortresses_$HTB_USER.ovpn"
-      ;;
-    "start")
-      vpn_file="${VPN_CONFIG}/starting_point_$HTB_USER.ovpn"
-      ;;
     *)
       vpn_file="${VPN_CONFIG}/lab_$HTB_USER.ovpn"
       ;;
@@ -349,7 +342,7 @@ vpn_type=""
 
 valid_os=("linux" "windows")
 valid_difficulties=("easy" "medium" "hard" "insane")
-valid_vpn_types=("comp" "lab" "pro" "fort" "start")
+valid_vpn_types=("comp" "lab" "pro")
 
 errors=()
 
