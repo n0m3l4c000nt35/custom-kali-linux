@@ -1069,6 +1069,16 @@ nano $HOME/.zshrc
 export HTB_USER="u53rn4m3"
 ```
 
+Agregar la siguiente línea al archivo `/etc/sudoers` para que al ejecutar el script y conectarse a la VPN no te pida contraseña.
+
+```bash
+sudo visudo
+```
+
+```bash
+<tu-usuario>	ALL=(ALL:ALL) NOPASSWD: /usr/sbin/openvpn /home/kali/.config/htb/vpn/*.ovpn
+```
+
 https://github.com/user-attachments/assets/1600216f-8ca3-4128-bd9c-c8a42faa65e2
 
 <div align=center>
