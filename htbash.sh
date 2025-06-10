@@ -257,6 +257,7 @@ ${synopsis_line}
 ## Autopwn
 \`\`\`python
 #!/usr/bin/env python3
+
 \`\`\`
 EOF
 }
@@ -265,9 +266,29 @@ play_machine(){
   local machine_name="$1"
   local vpn_type="$2"
   local machine_data machine_dir current_tab_id current_tab_title open_tab_titles
-  local vpn_file="${VPN_CONFIG}/${vpn_type}$HTB_USER.ovpn"
-  echo
 
+  case "$vpn_type" in
+    "comp")
+      vpn_file="${VPN_CONFIG}/competitive_$HTB_USER.ovpn"
+      ;;
+    "lab")
+      vpn_file="${VPN_CONFIG}/lab_$HTB_USER.ovpn"
+      ;;
+    "pro")
+      vpn_file="${VPN_CONFIG}/pro_labs_$HTB_USER.ovpn"
+      ;;
+    "fort")
+      vpn_file="${VPN_CONFIG}/fortresses_$HTB_USER.ovpn"
+      ;;
+    "start")
+      vpn_file="${VPN_CONFIG}/starting_point_$HTB_USER.ovpn"
+      ;;
+    *)
+      vpn_file="${VPN_CONFIG}/lab_$HTB_USER.ovpn"
+      ;;
+  esac
+
+  echo
   machine_data=$(jq --arg name "$machine_name" '.[] | select((.name | ascii_downcase) == ($name | ascii_downcase ))' "$MACHINES_JSON")
   machine_dir="$HTB_MACHINES_DIR/$machine_name"
 
@@ -328,7 +349,7 @@ vpn_type=""
 
 valid_os=("linux" "windows")
 valid_difficulties=("easy" "medium" "hard" "insane")
-valid_vpn_types=("opt1" "opt2" "opt3")
+valid_vpn_types=("comp" "lab" "pro" "fort" "start")
 
 errors=()
 
@@ -472,7 +493,7 @@ elif [ $flag_i -eq 1 ] && [ -n "$machine_name" ];then
 elif [ $flag_p -eq 1 ] && [ -n "$machine_name" ]; then
   if jq -e --arg name "$machine_name" '.[] | select(($name | ascii_downcase) == (.name | ascii_downcase))' "$MACHINES_JSON" > /dev/null; then
     if [[ -z "$vpn_type" ]]; then
-      vpn_type="opt1"  # valor por defecto
+      vpn_type="comp"
     fi
     play_machine "$machine_name"
   else
