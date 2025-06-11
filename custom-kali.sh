@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sudo apt install -y virtualbox-guest-x11 linux-headers-$(uname -r) xorg dkms build-essential bspwm kitty feh polybar rofi i3lock xclip firefox-esr ntpsec-ntpdate locate unzip openvpn
+sudo apt install -y virtualbox-guest-x11 linux-headers-$(uname -r) xorg dkms build-essential bspwm kitty feh polybar rofi i3lock flameshot xclip firefox-esr ntpsec-ntpdate locate unzip openvpn
 sudo updatedb
 
 mkdir -p $HOME/.config/{bspwm,sxhkd,kitty,polybar,rofi,htb}
