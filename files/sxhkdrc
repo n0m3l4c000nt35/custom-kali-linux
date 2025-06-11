@@ -100,6 +100,10 @@ super + alt + shift + f
 super + alt + shift + g
 	/usr/bin/chromium
 
+# flameshot
+super + alt + shift + s
+  /usr/bin/flameshot gui
+
 # copy target
 super + alt + shift + t
 	$HOME/.config/polybar/scripts/copy_target.sh
