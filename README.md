@@ -1041,7 +1041,7 @@ Options:
   --difficulty <easy|medium|hard|insane> Filter by difficulty
   -i <machine>		Show machine details
   -p <machine>		Setup workspace and VPN for machine
-  --vpn	<comp|lab|pro> Select VPN configuration (use with -p)
+  --vpn	<comp|lab> Select VPN configuration (use with -p)
 
 Examples:
   htbash -u		# Update machine list
