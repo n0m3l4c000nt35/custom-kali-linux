@@ -23,6 +23,7 @@ show_help() {
   echo -e "  ${BLUE}--os${RESET}\t<${GREEN}linux${RESET}|${GREEN}windows${RESET}> Filter by OS"
   echo -e "  ${BLUE}--difficulty${RESET} <${GREEN}easy${RESET}|${GREEN}medium${RESET}|${GREEN}hard${RESET}|${GREEN}insane${RESET}> Filter by difficulty"
   echo -e "  ${BLUE}--free${RESET}\t\tFilter to show only free machines"
+  echo -e "  ${BLUE}--owned${RESET}\t<${GREEN}y${RESET}|${GREEN}n${RESET}>\tFilter by owned status (y=owned, n=not owned)"
   echo -e "  ${BLUE}-i${RESET} <machine>\t\tShow machine details"
   echo -e "  ${BLUE}-p${RESET} <machine>\t\tSetup workspace and VPN for machine"
   echo -e "  ${BLUE}--vpn${RESET}\t<${GREEN}comp${RESET}|${GREEN}lab${RESET}|${GREEN}pro${RESET}> Select VPN configuration (use with -p)\n"
@@ -30,13 +31,14 @@ show_help() {
   echo -e "  ${BLUE}htbash -u${RESET}\t\t# Update machine list"
   echo -e "  ${BLUE}htbash -l --os linux${RESET}\t# List Linux machines"
   echo -e "  ${BLUE}htbash -l --free${RESET}\t\t# List only free machines"
+  echo -e "  ${BLUE}htbash -l --owned y${RESET}\t\t# List only owned machines"
   echo -e "  ${BLUE}htbash -i Lame${RESET}\t\t# Show Lame machine info"
   echo -e "  ${BLUE}htbash -p Lame${RESET}\t\t# Setup workspace for Lame"
   echo -e "  ${BLUE}htbash -p Lame --vpn comp${RESET}\t# Setup workspace with competitive VPN\n"
   echo -e "${YELLOW}Notes:${RESET}"
   echo -e "  - Requires HTB API token in ${BLUE}\$HOME/.config/htb/htbash.conf${RESET}"
   echo -e "  - Flags ${BLUE}-u${RESET}, ${BLUE}-l${RESET}, ${BLUE}-i${RESET}, ${BLUE}-p${RESET} are exclusive"
-  echo -e "  - Use ${BLUE}--os${RESET}, ${BLUE}--difficulty${RESET}, or ${BLUE}--free${RESET} only with ${BLUE}-l${RESET}"
+  echo -e "  - Use ${BLUE}--os${RESET}, ${BLUE}--difficulty${RESET}, or ${BLUE}--owned${RESET} ${BLUE}--free${RESET} only with ${BLUE}-l${RESET}"
   echo -e "  - Use ${BLUE}--vpn${RESET} only with ${BLUE}-p${RESET}\n"
   echo -e "${GREEN}=== Happy Hacking! ===${RESET}"
 }
@@ -117,9 +119,10 @@ list_machines(){
   local os="$1"
   local difficulty="$2"
   local free="$3"
+  local owned="$4"
   echo
   headers=("Name" "OS" "Free" "Difficulty" "Owned")
-  mapfile -t rows < <(jq -r --arg os "$os" --arg difficulty "$difficulty" --arg free "$free" '.[] | select(($os == "" or ($os | ascii_downcase) == (.os | ascii_downcase)) and ($difficulty == "" or ($difficulty | ascii_downcase) == (.difficultyText | ascii_downcase)) and ($free == "0" or .free == true)) | [.name, .os, (if .free then "True" else "False" end), .difficultyText, (if .authUserInUserOwns then "Y" else "N" end)] | @tsv' "$MACHINES_JSON")
+  mapfile -t rows < <(jq -r --arg os "$os" --arg difficulty "$difficulty" --arg free "$free" --arg owned "$owned" '.[] | select(($os == "" or ($os | ascii_downcase) == (.os | ascii_downcase)) and ($difficulty == "" or ($difficulty | ascii_downcase) == (.difficultyText | ascii_downcase)) and ($free == "0" or .free == true) and ($owned == "" or ($owned == "y" and .authUserInUserOwns == true) or ($owned == "n" and .authUserInUserOwns == false))) | [.name, .os, (if .free then "True" else "False" end), .difficultyText, (if .authUserInUserOwns then "Y" else "N" end)] | @tsv' "$MACHINES_JSON")
   total_machines=${#rows[@]}
   col_widths=()
   for i in "${!headers[@]}"; do
@@ -362,10 +365,12 @@ machine_name=""
 os_filter=""
 difficulty_filter=""
 vpn_type=""
+owned_filter=""
 
 valid_os=("linux" "windows")
 valid_difficulties=("easy" "medium" "hard" "insane")
 valid_vpn_types=("comp" "lab" "pro")
+valid_owned=("y" "n")
 
 errors=()
 
@@ -434,6 +439,21 @@ while [[ $# -gt 0 ]]; do
         flag_free=1
         shift
       ;;
+    --owned)
+      if [[ -n "$2" && "$2" != -* ]]; then
+        value=$(echo "$2" | tr '[:upper:]' '[:lower:]')
+        if is_valid_value "$value" "${valid_owned[@]}"; then
+          owned_filter="$value"
+          shift 2
+        else
+          errors+=("[${RED}!${RESET}] Invalid owned value: ${RED}$2${RESET}. Valid values are: ${BLUE}${valid_owned[*]}${RESET}")
+          shift 2
+        fi
+      else
+        errors+=("[${RED}!${RESET}] Missing owned value after ${GREEN}--owned${RESET}")
+        shift
+      fi
+      ;;
     -p)
       if [[ -n "$2" && "$2" != -* ]]; then
         flag_p=1
@@ -473,8 +493,8 @@ if (( flag_u + flag_l + flag_i + flag_p > 1 )); then
   exit 1
 fi
 
-if (( flag_l == 0 )) && { [[ -n "$os_filter" ]] || [[ -n "$difficulty_filter" ]] || [[ "$flag_free" -eq 1 ]]; }; then
-  if [[ -n "$os_filter" ]] && [[ -n "$difficulty_filter" ]] && [[ -n "$free_filter" ]]; then
+if (( flag_l == 0 )) && { [[ -n "$os_filter" ]] || [[ -n "$difficulty_filter" ]] || [[ "$flag_free" -eq 1 ]] || [[ -n "$owned_filter" ]]; }; then
+  if [[ -n "$os_filter" ]] && [[ -n "$difficulty_filter" ]] && [[ -n "$free_filter" ]] && [[ -n "$owned_filter" ]]; then
     echo
     echo -e "[${RED}!${RESET}] The flags ${BLUE}--os${RESET}, ${BLUE}--difficulty${RESET} and ${BLUE}--free${RESET} can only be used with the ${BLUE}-l${RESET} flag to list machines."
   elif [[ -n "$os_filter" ]]; then
@@ -486,6 +506,9 @@ if (( flag_l == 0 )) && { [[ -n "$os_filter" ]] || [[ -n "$difficulty_filter" ]]
   elif [[ "$flag_free" -eq 1 ]]; then
     echo
     echo -e "[${RED}!${RESET}] The flag ${BLUE}--free${RESET} can only be used with the ${BLUE}-l${RESET} flag to list machines."
+  elif [[ "$owned_filter" -eq 1 ]]; then
+    echo
+    echo -e "[${RED}!${RESET}] The flag ${BLUE}--owned${RESET} can only be used with the ${BLUE}-l${RESET} flag to list machines."
   fi
   show_help
   exit 1
@@ -510,7 +533,7 @@ fi
 if [ $flag_u -eq 1 ]; then
   update_machines
 elif [ $flag_l -eq 1 ]; then
-  list_machines "$os_filter" "$difficulty_filter" "$flag_free"
+  list_machines "$os_filter" "$difficulty_filter" "$flag_free" "$owned_filter"
 elif [ $flag_i -eq 1 ] && [ -n "$machine_name" ];then
   print_machine "$machine_name"
 elif [ $flag_p -eq 1 ] && [ -n "$machine_name" ]; then
