@@ -114,10 +114,11 @@ update_machines(){
 list_machines(){
   local os="$1"
   local difficulty="$2"
-  local status="$3"
+  local free="$3"
   echo
   headers=("Name" "OS" "Free" "Difficulty")
-  mapfile -t rows < <(jq -r --arg os "$os" --arg difficulty "$difficulty" '.[] | select(($os == "" or ($os | ascii_downcase) == (.os | ascii_downcase)) and ($difficulty == "" or ($difficulty | ascii_downcase) == (.difficultyText | ascii_downcase))) | [.name, .os, (.free | tostring), .difficultyText] | @tsv' "$MACHINES_JSON")
+  mapfile -t rows < <(jq -r --arg os "$os" --arg difficulty "$difficulty" --arg free "$free" '.[] | select(($os == "" or ($os | ascii_downcase) == (.os | ascii_downcase)) and ($difficulty == "" or ($difficulty | ascii_downcase) == (.difficultyText | ascii_downcase)) and ($free == "0" or .free == true)) | [.name, .os, (if .free then "True" else "False" end), .difficultyText] | @tsv' "$MACHINES_JSON")
+  total_machines=${#rows[@]}
   col_widths=()
   for i in "${!headers[@]}"; do
     col_widths[i]=${#headers[i]}
@@ -166,6 +167,12 @@ list_machines(){
     "${col_widths[2]}" "$col3" \
     "${col_widths[3]}" "$col4"
   done
+  echo "$separator"
+  footer_text="TOTAL: $total_machines"
+  footer_length=${#footer_text}
+  footer_left_padding=$(( (available_width - footer_length) / 2 ))
+  footer_right_padding=$(( available_width - footer_length - footer_left_padding ))
+  printf "| %*s%s%*s |\n" $footer_left_padding "" "$footer_text" $footer_right_padding ""
   echo "$separator"
 }
 
@@ -273,9 +280,6 @@ play_machine(){
     "lab")
       vpn_file="${VPN_CONFIG}/lab_$HTB_USER.ovpn"
       ;;
-    "pro")
-      vpn_file="${VPN_CONFIG}/pro_labs_$HTB_USER.ovpn"
-      ;;
     *)
       vpn_file="${VPN_CONFIG}/lab_$HTB_USER.ovpn"
       ;;
@@ -334,6 +338,7 @@ flag_u=0
 flag_l=0
 flag_i=0
 flag_p=0
+flag_free=0
 
 machine_name=""
 os_filter=""
@@ -407,6 +412,10 @@ while [[ $# -gt 0 ]]; do
         shift
       fi
       ;;
+    --free)
+        flag_free=1
+        shift
+      ;;
     -p)
       if [[ -n "$2" && "$2" != -* ]]; then
         flag_p=1
@@ -446,16 +455,19 @@ if (( flag_u + flag_l + flag_i + flag_p > 1 )); then
   exit 1
 fi
 
-if (( flag_l == 0 )) && { [[ -n "$os_filter" ]] || [[ -n "$difficulty_filter" ]]; }; then
-  if [[ -n "$os_filter" ]] && [[ -n "$difficulty_filter" ]]; then
+if (( flag_l == 0 )) && { [[ -n "$os_filter" ]] || [[ -n "$difficulty_filter" ]] || [[ "$flag_free" -eq 1 ]]; }; then
+  if [[ -n "$os_filter" ]] && [[ -n "$difficulty_filter" ]] && [[ -n "$free_filter" ]]; then
     echo
-    echo -e "[${RED}!${RESET}] The flags ${BLUE}--os${RESET} and ${BLUE}--difficulty${RESET} can only be used with the ${BLUE}-l${RESET} flag to list machines."
+    echo -e "[${RED}!${RESET}] The flags ${BLUE}--os${RESET}, ${BLUE}--difficulty${RESET} and ${BLUE}--free${RESET} can only be used with the ${BLUE}-l${RESET} flag to list machines."
   elif [[ -n "$os_filter" ]]; then
     echo
     echo -e "[${RED}!${RESET}] The flag ${BLUE}--os${RESET} can only be used with the ${BLUE}-l${RESET} flag to list machines."
   elif [[ -n "$difficulty_filter" ]]; then
     echo
     echo -e "[${RED}!${RESET}] The flag ${BLUE}--difficulty${RESET} can only be used with the ${BLUE}-l${RESET} flag to list machines."
+  elif [[ "$flag_free" -eq 1 ]]; then
+    echo
+    echo -e "[${RED}!${RESET}] The flag ${BLUE}--free${RESET} can only be used with the ${BLUE}-l${RESET} flag to list machines."
   fi
   show_help
   exit 1
@@ -480,7 +492,7 @@ fi
 if [ $flag_u -eq 1 ]; then
   update_machines
 elif [ $flag_l -eq 1 ]; then
-  list_machines "$os_filter" "$difficulty_filter"
+  list_machines "$os_filter" "$difficulty_filter" "$flag_free"
 elif [ $flag_i -eq 1 ] && [ -n "$machine_name" ];then
   print_machine "$machine_name"
 elif [ $flag_p -eq 1 ] && [ -n "$machine_name" ]; then
