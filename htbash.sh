@@ -118,25 +118,33 @@ list_machines(){
   local difficulty="$2"
   local free="$3"
   echo
-  headers=("Name" "OS" "Free" "Difficulty")
-  mapfile -t rows < <(jq -r --arg os "$os" --arg difficulty "$difficulty" --arg free "$free" '.[] | select(($os == "" or ($os | ascii_downcase) == (.os | ascii_downcase)) and ($difficulty == "" or ($difficulty | ascii_downcase) == (.difficultyText | ascii_downcase)) and ($free == "0" or .free == true)) | [.name, .os, (if .free then "True" else "False" end), .difficultyText] | @tsv' "$MACHINES_JSON")
+  headers=("Name" "OS" "Free" "Difficulty" "Owned")
+  mapfile -t rows < <(jq -r --arg os "$os" --arg difficulty "$difficulty" --arg free "$free" '.[] | select(($os == "" or ($os | ascii_downcase) == (.os | ascii_downcase)) and ($difficulty == "" or ($difficulty | ascii_downcase) == (.difficultyText | ascii_downcase)) and ($free == "0" or .free == true)) | [.name, .os, (if .free then "True" else "False" end), .difficultyText, (if .authUserInUserOwns then "Y" else "N" end)] | @tsv' "$MACHINES_JSON")
   total_machines=${#rows[@]}
   col_widths=()
   for i in "${!headers[@]}"; do
     col_widths[i]=${#headers[i]}
   done
   for row in "${rows[@]}"; do
-  IFS=$'\t' read -r col1 col2 col3 col4 <<< "$row"
+  IFS=$'\t' read -r col1 col2 col3 col4 col5 <<< "$row"
     [[ ${#col1} -gt ${col_widths[0]} ]] && col_widths[0]=${#col1}
     [[ ${#col2} -gt ${col_widths[1]} ]] && col_widths[1]=${#col2}
     [[ ${#col3} -gt ${col_widths[2]} ]] && col_widths[2]=${#col3}
     [[ ${#col4} -gt ${col_widths[3]} ]] && col_widths[3]=${#col4}
+    [[ ${#col5} -gt ${col_widths[4]} ]] && col_widths[4]=${#col5}
   done
-  center_text() {
+  center_text(){
     local text="$1"
     local width="$2"
     local pad=$(( (width - ${#text}) / 2 ))
     printf "%*s%s%*s" $pad "" "$text" $((width - pad - ${#text})) ""
+  }
+  center_text_colored(){
+    local text="$1"
+    local width="$2"
+    local color="$3"
+    local pad=$(( (width - ${#text}) / 2 ))
+    printf "%*s${color}%s${RESET}%*s" $pad "" "$text" $((width - pad - ${#text})) ""
   }
   separator="+"
   for w in "${col_widths[@]}"; do
@@ -153,7 +161,7 @@ list_machines(){
   right_padding=$(( available_width - title_length - left_padding ))
   
   echo "$separator"
-  printf "| %*s%s%*s |\n" $left_padding "" "$title" $right_padding ""
+  printf "| %*s${GREEN}%s${RESET}%*s |\n" $left_padding "" "$title" $right_padding ""
   echo "$separator"
   printf "|"
   for i in "${!headers[@]}"; do
@@ -162,19 +170,27 @@ list_machines(){
   echo
   echo "$separator"
   for row in "${rows[@]}"; do
-  IFS=$'\t' read -r col1 col2 col3 col4 <<< "$row"
-  printf "| %-*s | %-*s | %-*s | %-*s |\n" \
+  IFS=$'\t' read -r col1 col2 col3 col4 col5 <<< "$row"
+    if [[ "$col5" == "Y" ]]; then
+      colored_col5="$(center_text_colored "$col5" "${col_widths[4]}" "$GREEN")"
+    elif [[ "$col5" == "N" ]]; then
+      colored_col5="$(center_text_colored "$col5" "${col_widths[4]}" "$GRAY")"
+    else
+      colored_col5="$(center_text "$col5" "${col_widths[4]}")"
+    fi
+  printf "| %-*s | %-*s | %-*s | %-*s | %s |\n" \
     "${col_widths[0]}" "$col1" \
     "${col_widths[1]}" "$col2" \
     "${col_widths[2]}" "$col3" \
-    "${col_widths[3]}" "$col4"
+    "${col_widths[3]}" "$col4" \
+    "$colored_col5"
   done
   echo "$separator"
-  footer_text="TOTAL: $total_machines"
+  footer_text="$total_machines"
   footer_length=${#footer_text}
   footer_left_padding=$(( (available_width - footer_length) / 2 ))
   footer_right_padding=$(( available_width - footer_length - footer_left_padding ))
-  printf "| %*s%s%*s |\n" $footer_left_padding "" "$footer_text" $footer_right_padding ""
+  printf "| %*s${GREEN}%s${RESET}%*s |\n" $footer_left_padding "" "$footer_text" $footer_right_padding ""
   echo "$separator"
 }
 
