@@ -520,6 +520,51 @@ hth(){
       sudo ntpdate "$1"
     fi
 }
+
+# Oculta una flag por si la querés usar en un writeup
+hflag() {
+  if [[ $# -eq 0 ]]; then
+      echo "Usage: hflag <flag>"
+      echo "Example: hflag c2244cc01f0d0ad967f32fb15a5ebeca"
+      exit 1
+  fi
+  
+  local flag="$1"
+  local flag_length=${#flag}
+  
+  local show_start=0
+  local show_end=0
+  
+  if [[ $flag_length -le 8 ]]; then
+      show_start=1
+      show_end=1
+  elif [[ $flag_length -le 16 ]]; then
+      show_start=2
+      show_end=2
+  elif [[ $flag_length -le 24 ]]; then
+      show_start=3
+      show_end=3
+  else
+      show_start=4
+      show_end=4
+  fi
+  
+  if [[ $((show_start + show_end)) -ge $flag_length ]]; then
+      show_start=1
+      show_end=1
+  fi
+  
+  local start_part="${flag:0:$show_start}"
+  local end_part="${flag: -$show_end}"
+  local hidden_length=$((flag_length - show_start - show_end))
+  
+  local asterisks=""
+  for ((i=0; i<hidden_length; i++)); do
+      asterisks+="*"
+  done
+  
+  echo "${start_part}${asterisks}${end_part}"
+}
 ```
 
 ### zsh-sudo
