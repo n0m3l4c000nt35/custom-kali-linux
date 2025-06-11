@@ -7,6 +7,7 @@ if [ -f /usr/share/zsh-sudo/sudo.plugin.zsh ]; then
     . /usr/share/zsh-sudo/sudo.plugin.zsh
 fi
 
+export HTB_USER="htbu53r"
 export _JAVA_AWT_WM_NONREPARENTING=1
 
 alias cat='bat'
