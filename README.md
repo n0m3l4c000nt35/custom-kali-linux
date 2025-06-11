@@ -1079,6 +1079,11 @@ sudo visudo
 <tu-usuario>	ALL=(ALL:ALL) NOPASSWD: /usr/sbin/openvpn /home/kali/.config/htb/vpn/*.ovpn
 ```
 
+Descargar los siguientes archivos para conectarte a la VPN de Hack The Box y guardarlos en el directorio `$HOME/.config/htb/vpn`
+
+- competitive_\<tu-usuario\>.ovpn
+- lab_\<tu-usuario\>.ovpn
+
 https://github.com/user-attachments/assets/1600216f-8ca3-4128-bd9c-c8a42faa65e2
 
 <div align=center>
