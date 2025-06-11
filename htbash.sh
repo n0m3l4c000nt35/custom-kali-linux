@@ -24,7 +24,7 @@ show_help() {
   echo -e "  ${BLUE}--difficulty${RESET} <${GREEN}easy${RESET}|${GREEN}medium${RESET}|${GREEN}hard${RESET}|${GREEN}insane${RESET}> Filter by difficulty"
   echo -e "  ${BLUE}-i${RESET} <machine>\t\tShow machine details"
   echo -e "  ${BLUE}-p${RESET} <machine>\t\tSetup workspace and VPN for machine"
-  echo -e "  ${BLUE}--vpn${RESET}\t<${GREEN}comp${RESET}|${GREEN}lab${RESET}|${GREEN}pro${RESET}> Select VPN configuration (use with -p)\n"
+  echo -e "  ${BLUE}--vpn${RESET}\t<${GREEN}comp${RESET}|${GREEN}lab${RESET}> Select VPN configuration (use with -p)\n"
   echo -e "${YELLOW}Examples:${RESET}"
   echo -e "  ${BLUE}htbash -u${RESET}\t\t# Update machine list"
   echo -e "  ${BLUE}htbash -l --os linux${RESET}\t# List Linux machines"
