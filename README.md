@@ -33,8 +33,10 @@ Adaptador puente habilitado
 - [Fuentes](#fuentes)
 - [bspwm](#bspwm)
 	- [bspwmrc](#bspwmrc)
-	 [bspwm_resize](#bspwm_resize)
+	- [bspwm_resize](#bspwm_resize)
 	- [sxhkdrc](#sxhkdrc)
+- [Picom](#picom)
+	- [picom.conf](#picomconf)
 - [Kitty](#kitty)
 	- [kitty.conf](#kittyconf)
 - [Powerlevel10k](#powerlevel10k)
@@ -353,6 +355,34 @@ super + alt + shift + t
 # i3lock-fancy
 super + alt + shift + x
 	/usr/bin/i3lock-fancy
+```
+
+## picom
+
+### picom.conf
+
+```bash
+nano $HOME/.config/picom/picom.conf
+```
+
+```bash
+backend = "xrender";
+vsync = false;
+active-opacity = 0.9;
+inactive-opacity = 0.5;
+fading = true;
+frame-opacity = 1.0;
+
+rules = (
+  {
+    match = "class_g = 'firefox-esr'";
+    opacity = 1;
+  },
+  {
+    match = "class_g = 'burp-StartBurp'";
+    opacity = 1;
+  }
+)
 ```
 
 ## kitty
