@@ -405,6 +405,8 @@ map f10 paste_from_buffer e
 
 enable_audio_bell no
 allow_remote_control yes
+
+background_opacity 0.75
 ```
 
 ## powerlevel10k
