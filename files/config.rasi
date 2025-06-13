@@ -16,10 +16,11 @@ configuration {
     
     location: 0;
     
-    drun-display-format: "{icon} {name}";
+    drun-display-format: "{icon}\n{name}";
     
     kb-row-up: "Up";
     kb-row-down: "Down";  
+
     kb-page-prev: "Page_Up";
     kb-page-next: "Page_Down";
     kb-remove-char-back: "BackSpace";
@@ -27,10 +28,16 @@ configuration {
     kb-accept-entry: "Return";
     kb-cancel: "Escape";
     
-    display-drun: "";
+    display-drun: " ";
     threads: 0;
     scroll-method: 0;
     disable-history: false;
+    
+    cycle: true;
+    eh: 1;
+    auto-select: false;
+    parse-hosts: true;
+    parse-known-hosts: true;
 }
 
 @theme "box-theme.rasi"
