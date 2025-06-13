@@ -767,6 +767,7 @@ padding-right = 2
 modules-left = date ethernet vpn
 modules-center = workspaces
 modules-right = target
+background = #BF141d2b
 font-0 = "Hack Nerd Font Mono:style=regular:size=10;1"
 font-1 = "Hack Nerd Font Mono:style=regular:size=16;2"
 font-2 = "Hack Nerd Font Mono:style=regular:size=18;2"
