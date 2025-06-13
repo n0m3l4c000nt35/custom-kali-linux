@@ -429,6 +429,11 @@ map ctrl+right neighboring_window right
 map ctrl+up neighboring_window up
 map ctrl+down neighboring_window down
 
+map ctrl+shift+home scroll_home
+map ctrl+shift+end scroll_end
+map ctrl+shift+page_up scroll_page_up
+map ctrl+shift+page_down scroll_page_down
+
 map ctrl+shift+z toggle_layout stack
 
 map f1 copy_to_buffer a
