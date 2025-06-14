@@ -30,14 +30,19 @@ htb(){
     esac
 }
 
-# Muestra en la polybar la IP de la máquina que estás haciendo
-st(){
-    echo "$1" > $HOME/.config/polybar/scripts/target.txt
-}
-
-# Elimina la IP de la máquina que estabas haciendo de la Polybar
-ct(){
-    echo "" > $HOME/.config/polybar/scripts/target.txt
+# Si se le pasa una IP la muestra en la Polybar, si no se le pasa una IP elimina la que está establecida y no se muestra nada
+target () {
+	local target_file="$HOME/.config/polybar/scripts/target.txt" 
+	if [[ $# -eq 0 ]]
+	then
+		echo "" > "$target_file"
+	elif [[ $1 =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]
+	then
+		echo "$1" > "$target_file"
+	else
+		echo
+		echo "[${RED}!${RESET}] Invalid IP format"
+	fi
 }
 
 # Extrae los números de puertos del output guardado en un archivo en formato grepeable de un escaneo con nmap
