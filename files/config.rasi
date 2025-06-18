@@ -1,43 +1,30 @@
 configuration {
-    modi: "drun";
-    
-    font: "Hack Nerd Font 12";
-    show-icons: true;
     case-sensitive: false;
-    
-    terminal: "kitty";
-    
-    matching: "fuzzy";
-    sort: true;
-    hide-scrollbar: true;
-    fixed-num-lines: true;
-    
-    fake-transparency: true;
-    
-    location: 0;
-    
+    combi-modes: "window,drun,run";
+    display-combi: " ";
+    disable-history: false;
+    drun {
+      fallback-icon: "application-x-addon";
+      scan-desktop: true;
+    }
+    run {
+      fallback-icon: "application-x-addon";
+    }
     drun-display-format: "{icon}\n{name}";
-    
-    kb-row-up: "Up";
-    kb-row-down: "Down";  
-
-    kb-page-prev: "Page_Up";
-    kb-page-next: "Page_Down";
-    kb-remove-char-back: "BackSpace";
-    kb-remove-char-forward: "Delete";
+    font: "Hack Nerd Font 12";
     kb-accept-entry: "Return";
     kb-cancel: "Escape";
-    
-    display-drun: " ";
-    threads: 0;
-    scroll-method: 0;
-    disable-history: false;
-    
-    cycle: true;
-    eh: 1;
-    auto-select: false;
-    parse-hosts: true;
-    parse-known-hosts: true;
+    kb-page-next: "Page_Down";
+    kb-page-prev: "Page_Up";
+    kb-row-down: "Down";  
+    kb-row-up: "Up";
+    kb-remove-char-back: "BackSpace";
+    kb-remove-char-forward: "Delete";
+    matching: "fuzzy";
+    modes: "combi";
+    show-icons: true;
+    sort: true;
+    terminal: "kitty";
 }
 
 @theme "box-theme.rasi"
