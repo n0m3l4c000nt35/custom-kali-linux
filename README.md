@@ -516,7 +516,15 @@ text/html=firefox-esr.desktop
 	<h2>Debería quedarte así</h2>
 </div>
 
-![kali-linux](https://github.com/user-attachments/assets/0288c44f-293a-49ea-9f6d-9e25832791f5)
+![kitty](https://github.com/user-attachments/assets/02cb3a86-0716-4109-9788-d0614dd22096)
+
+![firefox](https://github.com/user-attachments/assets/ceb846b0-5ffc-4553-9848-cc1ec14692b6)
+
+![help](https://github.com/user-attachments/assets/ffdf93f2-5e61-47bd-abd4-91535bf7f4d4)
+
+![rofi](https://github.com/user-attachments/assets/1a53b916-d588-4756-a119-579a6c3efd73)
+
+![htbash](https://github.com/user-attachments/assets/31a261ba-41ce-4bd8-9c45-826addcfe3d3)
 
 ## htbash
 
@@ -564,8 +572,6 @@ Descargar los siguientes archivos para conectarte a la VPN de Hack The Box y gua
 
 - competitive_\<tu-usuario\>.ovpn
 - lab_\<tu-usuario\>.ovpn
-
-https://github.com/user-attachments/assets/1600216f-8ca3-4128-bd9c-c8a42faa65e2
 
 <div align=center>
 	💡 <a href="https://www.linkedin.com/in/esteban-zarate/">Ideas?</a> ✅ <a href="https://www.linkedin.com/in/esteban-zarate/">Sugerencias?</a> ✅ <a href="https://www.linkedin.com/in/esteban-zarate/">Errores?</a> ✅ <a href="https://www.linkedin.com/in/esteban-zarate/">Mejoras?</a> 💡
