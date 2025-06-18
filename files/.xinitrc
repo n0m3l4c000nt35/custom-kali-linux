@@ -1,5 +1,8 @@
 #!/bin/bash
 
+VBoxClient --vmsvga -d &
+VBoxClient --clipboard -d &
+
 xset r rate 250 25
 setxkbmap latam
 
