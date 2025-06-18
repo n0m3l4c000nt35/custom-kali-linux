@@ -302,13 +302,7 @@ rm $HOME/Downloads/bat_0.25.0_amd64.deb $HOME/Downloads/lsd_1.1.5_amd64.deb
 nano $HOME/.config/polybar/launch.sh
 ```
 
-```bash
-#!/bin/bash
-
-killall -q polybar
-
-polybar main -c $HOME/.config/polybar/config.ini
-```
+[launch.sh](/files/launch.sh)
 
 ### config.ini
 
@@ -316,74 +310,7 @@ polybar main -c $HOME/.config/polybar/config.ini
 nano $HOME/.config/polybar/config.ini
 ```
 
-```bash
-[bar/main]
-width = 99.5%
-height = 40
-offset-x = 0.25%
-offset-y = 1%
-module-margin = 7pt
-padding-left = 2
-padding-right = 2
-modules-left = date ethernet vpn
-modules-center = workspaces
-modules-right = target
-background = #BF141d2b
-font-0 = "Hack Nerd Font Mono:style=regular:size=10;1"
-font-1 = "Hack Nerd Font Mono:style=regular:size=16;2"
-font-2 = "Hack Nerd Font Mono:style=regular:size=18;2"
-font-3 = "Hack Nerd Font Mono:style=regular:size=20;4"
-
-[module/date]
-type = internal/date
-interval = 1.0
-date = %d/%m/%Y%
-time = %H:%M:%S
-format = <label>
-format-foreground = #fff
-label = %date% %{T2}%{F#ff1493}%{F-}%{T-} %time%
-
-[module/ethernet]
-type = custom/script
-exec = $HOME/.config/polybar/scripts/ethernet_status.sh
-interval = 2
-format = <label>
-
-[module/vpn]
-type = custom/script
-exec = $HOME/.config/polybar/scripts/vpn_status.sh
-click-left = echo -n "$(ip a show tun0 | grep -oP '(?<=inet\s)\d+\.\d+\.\d+\.\d+')" | xclip -sel clip
-interval = 2
-format = <label>
-
-[module/workspaces]
-type = internal/xworkspaces
-icon-default = 
-format = <label-state>
-format-font = 3
-label-active = 󱓇
-label-active-foreground = #39ff14
-label-active-padding = 5px
-label-active-font = 4
-label-occupied = %icon%
-label-occupied-foreground = #4439ff14
-label-occupied-padding = 5px
-label-occupied-font = 2
-label-urgent = %icon%
-label-urgent-foreground = #e51d0b
-label-urgent-padding = 5px
-label-empty = %icon%
-label-empty-foreground = #6a6a6a
-label-empty-padding = 5px
-label-empty-font = 2
-
-[module/target]
-type = custom/script
-exec = $HOME/.config/polybar/scripts/target_to_hack.sh
-click-left = echo -n "$(cat $HOME/.config/polybar/scripts/target.txt)" | xclip -sel clip
-interval = 2
-format = <label>
-```
+[config.ini](/files/config.ini)
 
 ### ethernet_status.sh
 
@@ -391,17 +318,7 @@ format = <label>
 nano $HOME/.config/polybar/scripts/ethernet_status.sh
 ```
 
-```bash
-#!/bin/sh
-
-ETH=$(ip -4 a show eth0 | grep -oP '(?<=inet\s)\d+\.\d+\.\d+\.\d+')
-
-if [ -n "$ETH" ]; then
-  echo "%{T2}%{F#2494e7}󰈀%{T-} %{F#fff}$(ip -4 a show eth0 | grep -oP '(?<=inet\s)\d+\.\d+\.\d+\.\d+')"
-else
-  echo "%{T2}%{F#808080}󰈀%{T-} %{F#fff} Ups!"
-fi
-```
+[ethernet_status](/files/ethernet_status.sh)
 
 ### vpn_status.sh
 
@@ -409,17 +326,7 @@ fi
 nano $HOME/.config/polybar/scripts/vpn_status.sh
 ```
 
-```bash
-#!/bin/sh
-
-IFACE=$(ip -o link show | awk -F': ' '/tun0/ {print $2}')
-
-if [ "$IFACE" = "tun0" ]; then
-  echo "%{T2}%{F#1bbf3e}󰈀%{T-} %{F#fff}$(ip a show tun0 | grep -oP '(?<=inet\s)\d+\.\d+\.\d+\.\d+')"
-else
-  echo ""
-fi
-```
+[vpn_status](/files/vpn_status.sh)
 
 ### target_to_hack.sh
 
@@ -427,17 +334,7 @@ fi
 nano $HOME/.config/polybar/scripts/target_to_hack.sh
 ```
 
-```bash
-#!/bin/bash
-
-ip_address=$(/bin/cat $HOME/.config/polybar/scripts/target.txt)
-
-if [ -n "$ip_address" ]; then
-  echo "%{T2}%{F#ff0000}󰓾%{T-} %{F#fff}$ip_address"
-else
-  echo ""
-fi
-```
+[target_to_hack.sh](/files/target_to_hack.sh)
 
 ### copy_target.sh
 
@@ -445,11 +342,7 @@ fi
 nano $HOME/.config/polybar/scripts/copy_target.sh
 ```
 
-```bash
-#!/bin/bash
-
-echo -n "$(cat $HOME/.config/polybar/scripts/target.txt)" | xclip -sel clip
-```
+[copy_target.sh](/files/copy_target.sh)
 
 > [!tip]
 > Antes de instalar `nvim` se recomienda instalar `node` porque hay algunos plugins de `nvim` que dependen de `node` si no, después de instalar `node` hay que volver a ejecutar el comando `MasonInstallAll` dentro de `nvim`
