@@ -1,13 +1,8 @@
-
 if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
     exec startx
 fi
 
-if [ -f /usr/share/zsh-sudo/sudo.plugin.zsh ]; then
-    . /usr/share/zsh-sudo/sudo.plugin.zsh
-fi
-
-export HTB_USER="htbu53r"
+export HTB_USER="<hacktheboxusername>"
 export _JAVA_AWT_WM_NONREPARENTING=1
 
 alias cat='bat'
@@ -19,33 +14,64 @@ alias l='lsd --group-dirs=first'
 alias lla='lsd -lha --group-dirs=first'
 alias ls='lsd --group-dirs=first'
 
-# Se conecta a la VPN de Hack The Box dependiendo si te conectás a la academia, a los laboratorios o estás haciendo las máquinas de la season. En este caso los archivos se guardan en el $HOME.
+# enable auto-suggestions based on the history
+if [ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
+    . /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+    # change suggestion color
+    ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#999'
+fi
+
+# ZSH Sudo plugin
+if [ -f /usr/share/zsh-sudo/sudo.plugin.zsh ]; then
+    . /usr/share/zsh-sudo/sudo.plugin.zsh
+fi
+
+# enable command-not-found if installed
+if [ -f /etc/zsh_command_not_found ]; then
+    . /etc/zsh_command_not_found
+fi
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# Para Ctrl+T (archivos)
+export FZF_CTRL_T_OPTS="--preview 'bat --style=full --color=always {}'"
+# Para Alt+C (directorios)
+export FZF_ALT_C_OPTS="--preview 'tree -C {}'"
+
+source ~/powerlevel10k/powerlevel10k.zsh-theme
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+RED='\033[0;31m'
+RESET='\033[0m'
+
 htb(){
     opt=$1
     case $opt in
-      a) sudo openvpn $HOME/academyvpnfile ;;
-      m) sudo openvpn $HOME/labsvpnfile ;;
-      c) sudo openvpn $HOME/competitivevpnfile ;;
-      *) echo "Uso: htb a | m | c"
+      a) openvpn $HOME/.config/htb/academy-regular.ovpn ;;
+      m) openvpn $HOME/.config/htb/lab_n0m3l4c000nt35.ovpn ;;
+      c) openvpn $HOME/.config/htb/competitive_n0m3l4c000nt35.ovpn ;;
+      *)
+        echo
+        echo "Usage: htb <a|m|c>"
     esac
 }
 
-# Si se le pasa una IP la muestra en la Polybar, si no se le pasa una IP elimina la que está establecida y no se muestra nada
-target () {
-	local target_file="$HOME/.config/polybar/scripts/target.txt" 
-	if [[ $# -eq 0 ]]
-	then
-		echo "" > "$target_file"
-	elif [[ $1 =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]
-	then
-		echo "$1" > "$target_file"
-	else
-		echo
-		echo "[${RED}!${RESET}] Invalid IP format"
-	fi
+target() {
+    local target_file="$HOME/.config/polybar/scripts/target.txt"
+    
+    if [[ $# -eq 0 ]]; then
+      echo "" > "$target_file"
+    elif [[ $1 =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]; then
+      echo "$1" > "$target_file"
+    else
+      echo
+      echo "[${RED}!${RESET}] Invalid IP format"
+    fi
 }
 
-# Extrae los números de puertos del output guardado en un archivo en formato grepeable de un escaneo con nmap
 ep(){
     ports="$(/usr/bin/cat $1 | grep -oP '\d{1,5}/open' | awk '{print $1}' FS='/' | xargs | tr ' ' ',')"
     ip_address="$(/usr/bin/cat $1 | grep -oP '\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}' | sort -u | head -n 1)"
@@ -57,7 +83,6 @@ ep(){
     cat extractPorts.tmp; rm extractPorts.tmp
 }
 
-# Si le pasa una IP sincroniza la hora con la del servidor para trabajar en entornos que así lo requieren, si no se le pasa una IP sincroniza la hora con la local. Está creado específicamente para este entorno.
 hth(){
     if [ -z "$1" ]; then
       echo "[+] No NTP server provided. Syncing with host time (VBox)..."
@@ -72,7 +97,6 @@ hth(){
     fi
 }
 
-# Oculta una flag por si la querés usar en un writeup
 hflag() {
   if [[ $# -eq 0 ]]; then
       echo "Usage: hflag <flag>"
