@@ -208,50 +208,7 @@ kitten themes
 nano $HOME/.config/kitty/kitty.conf
 ```
 
-```bash
-include Box.conf
-
-font_family "Hack Nerd Font"
-cursor_shape beam
-
-window_margin_width 2 4
-window_padding_width 5
-
-window_border_width 1
-active_border_color #1A7A14
-inactive_border_color #5d5d5d
-
-map ctrl+shift+enter new_window_with_cwd
-map ctrl+shift+t new_tab_with_cwd
-
-map ctrl+left neighboring_window left
-map ctrl+right neighboring_window right
-map ctrl+up neighboring_window up
-map ctrl+down neighboring_window down
-
-map ctrl+shift+home scroll_home
-map ctrl+shift+end scroll_end
-map ctrl+shift+page_up scroll_page_up
-map ctrl+shift+page_down scroll_page_down
-
-map ctrl+shift+z toggle_layout stack
-
-map f1 copy_to_buffer a
-map f2 paste_from_buffer a
-map f3 copy_to_buffer b
-map f4 paste_from_buffer b
-map f5 copy_to_buffer c
-map f6 paste_from_buffer c
-map f7 copy_to_buffer d
-map f8 paste_from_buffer d
-map f9 copy_to_buffer e
-map f10 paste_from_buffer e
-
-enable_audio_bell no
-allow_remote_control yes
-
-background_opacity 0.75
-```
+[kitty.conf](/files/kitty.conf)
 
 ## powerlevel10k
 
