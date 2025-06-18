@@ -166,27 +166,7 @@ sudo rm /usr/share/fonts/truetype/hacknerd/LICENSE.md /usr/share/fonts/truetype/
 nano $HOME/.config/bspwm/bspwmrc
 ```
 
-```bash
-#!/bin/sh
-
-pgrep -x sxhkd > /dev/null || sxhkd &
-
-bspc monitor -d I II III IV V VI VII VIII IX X
-
-bspc config window_gap 10
-bspc config border_width 0
-
-bspc config split_ratio 0.52
-bspc config borderless_monocle true
-bspc config gapless_monocle true
-
-wmname LG3D &
-
-/usr/bin/picom &
-$HOME/.config/polybar/launch.sh &
-/usr/bin/feh --bg-fill $HOME/Images/wallpaper.jpg
-/usr/bin/dunst &
-```
+[bspwmrc](/files/bspwmrc)
 
 ### bspwm_resize
 
