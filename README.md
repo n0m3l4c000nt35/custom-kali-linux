@@ -148,10 +148,7 @@ Modifica el cursor
 nano $HOME/.Xresources
 ```
 
-```bash
-Xcursor.theme: Adwaita
-Xcursor.size: 24
-```
+[.Xresources](/files/.Xresources)
 
 ## Fuentes
 
