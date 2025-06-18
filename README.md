@@ -192,34 +192,7 @@ nano $HOME/.config/sxhkd/sxhkdrc
 nano $HOME/.config/picom/picom.conf
 ```
 
-```bash
-backend = "xrender";
-vsync = false;
-active-opacity = 0.98;
-inactive-opacity = 0.5;
-fading = true;
-frame-opacity = 1.0;
-use-damage = false;
-
-rules = (
-  {
-    match = "class_g = 'firefox-esr'";
-    opacity = 1;
-  },
-  {
-    match = "class_g = 'burp-StartBurp'";
-    opacity = 1;
-  },
-  {
-    match = "class_g = 'kitty' && focused";
-    opacity = 0.95;
-  },
-  {
-    match = "class_g = 'kitty' && !focused";
-    opacity = 0.5;
-  }
-)
-```
+[picom.conf](/files/picom.conf)
 
 ## kitty
 
