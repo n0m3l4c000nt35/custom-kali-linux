@@ -8,7 +8,7 @@ window {
     background-color: #141d2bcc;
     border: 2px;
     border-color: #9fef00;
-    padding: 20px;
+    padding: 20px 20px 0 20px;
     width: 800px;
     height: 600px;
 }
@@ -26,7 +26,6 @@ inputbar {
     padding: 10px;
     border: 1px;
     border-color: #a4b1cd;
-    margin: 0px 0px 10px 0px;
 }
 
 prompt {
@@ -49,10 +48,10 @@ entry {
 
 listview {
     background-color: transparent;
-    padding: 10px;
     scrollbar: false;
     lines: 3;
     columns: 5;
+    padding: 10px 0 0 0;
     flow: horizontal;
     fixed-height: true;
     fixed-columns: true;
@@ -65,7 +64,6 @@ element {
     padding: 15px;
     border: 2px;
     border-color: #a4b1cd40;
-    border-radius: 10px;
     orientation: vertical;
     cursor: pointer;
     width: 120px;
