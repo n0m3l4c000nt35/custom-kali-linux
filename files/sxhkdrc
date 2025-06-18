@@ -4,7 +4,7 @@ super + Return
 
 # program launcher
 super + @space
-	/usr/bin/rofi -show drun
+	/usr/bin/rofi -show combi
 
 # make sxhkd reload its configuration files:
 super + Escape
@@ -94,7 +94,7 @@ super + alt + {Left,Down,Up,Right}
 
 # firefox
 super + alt + shift + f
-	/usr/bin/firefox
+  /usr/bin/firefox
 
 # chromium
 super + alt + shift + g
@@ -105,9 +105,21 @@ super + alt + shift + s
   /usr/bin/flameshot gui
 
 # copy target
-super + alt + shift + t
-	$HOME/.config/polybar/scripts/copy_target.sh
+super + shift + alt + t
+  $HOME/.config/polybar/scripts/copy_target.sh
 
-# i3lock-fancy
-super + alt + shift + x
-	/usr/bin/i3lock-fancy
+# open cheatsheet
+super + alt + shift + h
+	/usr/bin/eww open csheet
+
+# close cheatsheet
+alt + F1
+  /usr/bin/eww close csheet
+
+# open bar
+super + shift + alt + b
+  /usr/bin/eww open bar
+
+# close bar
+alt + F2
+  /usr/bin/eww close bar
