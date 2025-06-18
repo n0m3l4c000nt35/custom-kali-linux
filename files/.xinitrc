@@ -12,7 +12,5 @@ xsetroot -cursor_name left_ptr &
 
 [ -f ~/.Xresources ] && xrdb -merge ~/.Xresources
 
-$HOME/.config/polybar/launch.sh &
-wmname LG3D &
-
+/usr/bin/picom &
 exec bspwm
