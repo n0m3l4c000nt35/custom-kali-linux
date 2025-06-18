@@ -290,7 +290,7 @@ rm $HOME/Downloads/bat_0.25.0_amd64.deb $HOME/Downloads/lsd_1.1.5_amd64.deb
 
 ### box-theme.rasi
 
-[config.rasi](/files/config.rasi)
+[config.rasi](/files/box-theme.rasi)
 
 ## Polybar
 
