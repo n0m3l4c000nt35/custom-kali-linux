@@ -1,0 +1,40 @@
+(defwindow bar
+  :geometry (
+    geometry
+      :x "0"
+      :y "0"
+      :width "45px"
+      :height "100%"
+      :anchor "bottom right"
+    )
+  :monitor 0
+  :wm-ignore false
+  :stacking "fg"
+  :hexpand "false"
+  :vexpand "false"
+  (barcontent)
+)
+
+(defwidget barcontent []
+  (box :class "barcontent" :orientation "v" :vexpand "false" :hexpand "false"
+    (top)
+    (bottom)
+  )
+)
+
+(defwidget top []
+  (box :orientation "v" :space-evenly "false" :valign "start" :class "top"
+    (button :class "btn" :tooltip "Firefox" :onclick "/usr/bin/firefox" "")
+    (button :class "btn" :tooltip "Chromium" :onclick "/usr/bin/chromium" "")
+    (button :class "btn" :tooltip "Burpsuite" :onclick "/usr/bin/burpsuite" "")
+    (button :class "btn" :tooltip "Wireshark" :onclick "/usr/bin/wireshark" "󱢺")
+  )
+)
+
+(defwidget bottom []
+  (box	:orientation "v" :space-evenly "false" :valign "end" :class "bottom"
+    (button :class "btn" :tooltip "Quit" :onclick "bspc quit" "")
+    (button :class "btn" :tooltip "Reboot" :onclick "reboot" "")
+    (button :class "btn" :tooltip "Shutdown" :onclick "shutdown now" "")
+  )
+)
