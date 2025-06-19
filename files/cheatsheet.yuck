@@ -1,0 +1,141 @@
+(defwindow csheet
+    :geometry (geometry :x "0%"
+                        :y "0%"
+                        :width "75%"
+                        :height "75%"
+                        :anchor "center")
+    :wm-ignore false
+    (cheatsheet)
+)
+
+(defwidget cheatsheet []
+  (box :class "cheatsheet" :orientation "v" :space-evenly "false" :halign "center"
+    (content)
+  )
+)
+
+(defwidget content []
+  (box :class "content" :orientation "h" :spacing 30 :space-evenly "false"
+    (box :orientation "v" :spacing 20 :space-evenly "false" :valign "start"
+      ;; Bspwm
+      (box :orientation "v" :space-evenly "false" :spacing 1 :class "cat"
+        (box :orientation "h" :halign "fill"
+          (label :class "cattitle" :text "Bspwm"))
+        (box :orientation "v" :class "shorts" :spacing 4
+          (box :orientation "h" :halign "fill"
+            (label :class "desc" :halign "start" :text "Open Kitty")
+            (label :class "bind" :halign "end" :text "super + return"))
+          (box :orientation "h" :halign "fill"
+            (label :class "desc" :halign "start" :text "Open Rofi")
+            (label :class "bind" :halign "end" :text "super + space"))
+          (box :orientation "h" :halign "fill"
+            (label :class "desc" :halign "start" :text "Reload sxhkd config")
+            (label :class "bind" :halign "end" :text "super + escape"))
+          (box :orientation "h" :halign "fill"
+            (label :class "desc" :halign "start" :text "Quit/restart bspwm")
+            (label :class "bind" :halign "end" :text "super + shift + {q,r}"))
+          (box :orientation "h" :halign "fill"
+            (label :class "desc" :halign "start" :text "Close and kill")
+            (label :class "bind" :halign "end" :text "super + {_,shift + }w"))
+          (box :orientation "h" :halign "fill"
+            (label :class "desc" :halign "start" :text "Toggle monocle layout")
+            (label :class "bind" :halign "end" :text "super + m"))
+          (box :orientation "h" :halign "fill"
+            (label :class "desc" :halign "start" :text "Send marked to preselected")
+            (label :class "bind" :halign "end" :text "super + y"))
+          (box :orientation "h" :halign "fill"
+            (label :class "desc" :halign "start" :text "Swap with biggest window")
+            (label :class "bind" :halign "end" :text "super + g"))
+        )
+      )
+
+      ;; Apps
+      (box :orientation "v" :space-evenly "false" :spacing 1 :class "cat" :valign "start"
+        (box :orientation "h" :halign "fill"
+          (label :class "cattitle" :text "Apps"))
+        (box :orientation "v" :class "shorts" :spacing 4
+          (box :orientation "h" :halign "fill"
+            (label :class "desc" :halign "start" :text "Firefox")
+            (label :class "bind" :halign "end" :text "super + alt + shift + f"))
+          (box :orientation "h" :halign "fill"
+            (label :class "desc" :halign "start" :text "Chromium")
+            (label :class "bind" :halign "end" :text "super + alt + shift + g"))
+          (box :orientation "h" :halign "fill"
+            (label :class "desc" :halign "start" :text "Flameshot")
+            (label :class "bind" :halign "end" :text "super + alt + shift + s"))
+          (box :orientation "h" :halign "fill"
+            (label :class "desc" :halign "start" :text "Open cheatsheet")
+            (label :class "bind" :halign "end" :text "super + alt + shift + h"))
+          (box :orientation "h" :halign "fill"
+            (label :class "desc" :halign "start" :text "Close cheatsheet")
+            (label :class "bind" :halign "end" :text "alt + f1"))
+        )
+      )
+    )
+
+    ; Kitty
+    (box :orientation "v" :space-evenly "false" :spacing 1 :class "cat"
+      (box :orientation "h" :halign "fill"
+        (label :class "cattitle" :text "Kitty"))
+      (box :orientation "v" :class "shorts" :spacing 4
+        (box :orientation "h" :halign "fill"
+          (label :class "desc" :halign "start" :text "New window (same dir)")
+          (label :class "bind" :halign "end" :text "ctrl + shift + enter"))
+        (box :orientation "h" :halign "fill"
+          (label :class "desc" :halign "start" :text "New tab (same dir)")
+          (label :class "bind" :halign "end" :text "ctrl + shift + t"))
+        (box :orientation "h" :halign "fill"
+          (label :class "desc" :halign "start" :text "Neighbor window left")
+          (label :class "bind" :halign "end" :text "ctrl + ←"))
+        (box :orientation "h" :halign "fill"
+          (label :class "desc" :halign "start" :text "Neighbor window right")
+          (label :class "bind" :halign "end" :text "ctrl + →"))
+        (box :orientation "h" :halign "fill"
+          (label :class "desc" :halign "start" :text "Neighbot window up")
+          (label :class "bind" :halign "end" :text "ctrl + ↑"))
+        (box :orientation "h" :halign "fill"
+          (label :class "desc" :halign "start" :text "Neighbor window down")
+          (label :class "bind" :halign "end" :text "ctrl + ↓"))
+        (box :orientation "h" :halign "fill"
+          (label :class "desc" :halign "start" :text "Scroll home")
+          (label :class "bind" :halign "end" :text "ctrl + shift + home"))
+        (box :orientation "h" :halign "fill"
+          (label :class "desc" :halign "start" :text "Scroll end")
+          (label :class "bind" :halign "end" :text "ctrl + shift + end"))
+        (box :orientation "h" :halign "fill"
+          (label :class "desc" :halign "start" :text "Scroll page up")
+          (label :class "bind" :halign "end" :text "ctrl + shift + pageup"))
+        (box :orientation "h" :halign "fill"
+          (label :class "desc" :halign "start" :text "Scroll page down")
+          (label :class "bind" :halign "end" :text "ctrl + shift + pagedown"))
+        (box :orientation "h" :halign "fill"
+          (label :class "desc" :halign "start" :text "Toggle layout stack")
+          (label :class "bind" :halign "end" :text "ctrl + shift + shift + z"))
+        (box :orientation "h" :halign "fill"
+          (label :class "desc" :halign "start" :text "Copy to buffer a")
+          (label :class "bind" :halign "end" :text "f1"))
+        (box :orientation "h" :halign "fill"
+          (label :class "desc" :halign "start" :text "Paste from buffer a")
+          (label :class "bind" :halign "end" :text "f2"))
+        (box :orientation "h" :halign "fill"
+          (label :class "desc" :halign "start" :text "Copy to buffer b")
+          (label :class "bind" :halign "end" :text "f3"))
+        (box :orientation "h" :halign "fill"
+          (label :class "desc" :halign "start" :text "Paste from buffer b")
+          (label :class "bind" :halign "end" :text "f4"))
+        (box :orientation "h" :halign "fill"
+          (label :class "desc" :halign "start" :text "Copy to buffer c")
+          (label :class "bind" :halign "end" :text "f5"))
+        (box :orientation "h" :halign "fill"
+          (label :class "desc" :halign "start" :text "Paste from buffer c")
+          (label :class "bind" :halign "end" :text "f6"))
+        (box :orientation "h" :halign "fill"
+          (label :class "desc" :halign "start" :text "Copy to buffer d")
+          (label :class "bind" :halign "end" :text "f7"))
+        (box :orientation "h" :halign "fill"
+          (label :class "desc" :halign "start" :text "Paste from buffer d")
+          (label :class "bind" :halign "end" :text "f8"))
+      )
+    )
+  )
+)
