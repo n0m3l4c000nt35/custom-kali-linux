@@ -28,6 +28,12 @@ wget -P $HOME/.config/kitty/ https://raw.githubusercontent.com/n0m3l4c000nt35/cu
 wget -P $HOME/.config/rofi/ https://raw.githubusercontent.com/n0m3l4c000nt35/custom-kali-linux/refs/heads/main/files/config.rasi
 wget -P $HOME/.config/rofi/ https://raw.githubusercontent.com/n0m3l4c000nt35/custom-kali-linux/refs/heads/main/files/box-theme.rasi
 wget -P $HOME/.config/picom/ https://raw.githubusercontent.com/n0m3l4c000nt35/custom-kali-linux/refs/heads/main/files/picom.conf
+wget -P $HOME/.config/eww/ https://raw.githubusercontent.com/n0m3l4c000nt35/custom-kali-linux/refs/heads/main/files/eww.yuck
+wget -P $HOME/.config/eww/ https://raw.githubusercontent.com/n0m3l4c000nt35/custom-kali-linux/refs/heads/main/files/cheatsheet.yuck
+wget -P $HOME/.config/eww/ https://raw.githubusercontent.com/n0m3l4c000nt35/custom-kali-linux/refs/heads/main/files/bar.yuck
+wget -P $HOME/.config/eww/ https://raw.githubusercontent.com/n0m3l4c000nt35/custom-kali-linux/refs/heads/main/files/eww.scss
+wget -P $HOME/.config/eww/ https://raw.githubusercontent.com/n0m3l4c000nt35/custom-kali-linux/refs/heads/main/files/cheatsheet.scss
+wget -P $HOME/.config/eww/ https://raw.githubusercontent.com/n0m3l4c000nt35/custom-kali-linux/refs/heads/main/files/bar.scss
 
 wget -qO- https://raw.githubusercontent.com/n0m3l4c000nt35/custom-kali-linux/refs/heads/main/files/.zshrc >> $HOME/.zshrc
 sudo wget https://raw.githubusercontent.com/n0m3l4c000nt35/custom-kali-linux/main/htbash.sh -O /usr/bin/htbash
