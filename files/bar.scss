@@ -1,0 +1,22 @@
+* {
+  all: unset;
+}
+
+window {
+  background-color: transparent;
+}
+
+.barcontent {
+  background-color: transparent;
+}
+
+.top, .bottom {
+  border: 1px solid $border;
+  border-radius: 15px;
+}
+
+.btn {
+  border-radius: unset;
+  padding: .6rem;
+  font-size: 1.5rem;
+}
