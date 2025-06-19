@@ -354,6 +354,32 @@ nano $HOME/.config/polybar/scripts/copy_target.sh
 > [!tip]
 > Antes de instalar `nvim` se recomienda instalar `node` porque hay algunos plugins de `nvim` que dependen de `node` si no, después de instalar `node` hay que volver a ejecutar el comando `MasonInstallAll` dentro de `nvim`
 
+## eww
+
+### eww.yuck
+
+[eww.yuck](/files/eww.yuck)
+
+### cheatsheet.yuck
+
+[cheatsheet.yuck](/files/cheatsheet.yuck)
+
+### bar.yuck
+
+[bar.yuck](/files/bar.yuck)
+
+### eww.scss
+
+[eww.scss](/files/eww.scss)
+
+### cheatsheet.scss
+
+[cheatsheet.scss](/files/cheatsheet.scss)
+
+### bar.scss
+
+[bar.scss](/files/bar.scss)
+
 ## nvim y nvchad
 
 Chequear si `nvim` está instalado
