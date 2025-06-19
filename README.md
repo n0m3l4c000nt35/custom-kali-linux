@@ -62,6 +62,7 @@ Adaptador puente habilitado
 	- [eww.scss](#ewwscss)
 	- [cheatsheet.scss](#cheatsheetscss)
 	- [bar.scss](#barscss)
+ 	- [colors.scss](#colorsscss)
 - [nvim y nvchad](#nvim-y-nvchad)
 	- [Markdown Preview Plugin](#markdown-preview-plugin)
 - [fzf](#fzf)
@@ -379,6 +380,10 @@ nano $HOME/.config/polybar/scripts/copy_target.sh
 ### bar.scss
 
 [bar.scss](/files/bar.scss)
+
+### colors.scss
+
+[colors.scss](/files/colors.scss)
 
 ## nvim y nvchad
 
