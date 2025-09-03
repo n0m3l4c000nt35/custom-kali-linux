@@ -108,6 +108,7 @@ sudo updatedb
 ## Creación de directorios
 
 ```bash
+mkdir $HOME/Images
 mkdir -p $HOME/.config/{bspwm,sxhkd,picom,kitty,polybar,rofi,htb,eww}
 mkdir $HOME/.config/bspwm/scripts
 mkdir $HOME/.config/polybar/scripts
