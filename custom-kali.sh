@@ -3,6 +3,7 @@
 sudo apt install -y virtualbox-guest-x11 linux-headers-$(uname -r) xorg dkms build-essential bspwm kitty feh polybar picom rofi i3lock flameshot xclip firefox-esr ntpsec-ntpdate locate unzip openvpn
 sudo updatedb
 
+mkdir $HOME/Images
 mkdir -p $HOME/.config/{bspwm,sxhkd,kitty,polybar,rofi,htb,picom}
 mkdir $HOME/.config/bspwm/scripts
 mkdir $HOME/.config/polybar/scripts
