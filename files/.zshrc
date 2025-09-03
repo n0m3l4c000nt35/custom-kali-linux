@@ -50,9 +50,9 @@ RESET='\033[0m'
 htb(){
     opt=$1
     case $opt in
-      a) openvpn $HOME/.config/htb/academy-regular.ovpn ;;
-      m) openvpn $HOME/.config/htb/lab_n0m3l4c000nt35.ovpn ;;
-      c) openvpn $HOME/.config/htb/competitive_n0m3l4c000nt35.ovpn ;;
+      a) openvpn $HOME/.config/htb/vpn/academy-regular.ovpn ;;
+      m) openvpn $HOME/.config/htb/vpn/lab_n0m3l4c000nt35.ovpn ;;
+      c) openvpn $HOME/.config/htb/vpn/competitive_n0m3l4c000nt35.ovpn ;;
       *)
         echo
         echo "Usage: htb <a|m|c>"
