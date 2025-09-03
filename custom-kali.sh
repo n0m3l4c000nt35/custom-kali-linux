@@ -35,7 +35,7 @@ wget -P $HOME/.config/eww/ https://raw.githubusercontent.com/n0m3l4c000nt35/cust
 wget -P $HOME/.config/eww/ https://raw.githubusercontent.com/n0m3l4c000nt35/custom-kali-linux/refs/heads/main/files/eww.scss
 wget -P $HOME/.config/eww/ https://raw.githubusercontent.com/n0m3l4c000nt35/custom-kali-linux/refs/heads/main/files/cheatsheet.scss
 wget -P $HOME/.config/eww/ https://raw.githubusercontent.com/n0m3l4c000nt35/custom-kali-linux/refs/heads/main/files/bar.scss
-wget -P $HOME/Images https://github.com/n0m3l4c000nt35/custom-kali-linux/blob/main/files/wallpaper.png
+wget https://raw.githubusercontent.com/n0m3l4c000nt35/custom-kali-linux/main/files/wallpaper.png -O ~/Images/wallpaper.png
 
 wget -qO- https://raw.githubusercontent.com/n0m3l4c000nt35/custom-kali-linux/refs/heads/main/files/.zshrc >> $HOME/.zshrc
 sudo wget https://raw.githubusercontent.com/n0m3l4c000nt35/custom-kali-linux/main/htbash.sh -O /usr/bin/htbash
