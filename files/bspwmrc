@@ -15,5 +15,5 @@ wmname LG3D &
 
 /usr/bin/picom &
 $HOME/.config/polybar/launch.sh &
-/usr/bin/feh --bg-fill $HOME/Images/wallpaper.jpg
+/usr/bin/feh --bg-fill $HOME/Images/wallpaper.png
 /usr/bin/dunst &
