@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sudo apt install -y virtualbox-guest-x11 linux-headers-$(uname -r) xorg dkms build-essential bspwm kitty feh polybar picom rofi i3lock flameshot xclip firefox-esr ntpsec-ntpdate locate unzip openvpn jq curl
+sudo apt install -y virtualbox-guest-x11 linux-headers-$(uname -r) xorg dkms build-essential bspwm kitty feh polybar picom rofi i3lock flameshot xclip firefox-esr ntpsec-ntpdate locate unzip openvpn jq curl moreutils
 sudo updatedb
 
 mkdir $HOME/Images
